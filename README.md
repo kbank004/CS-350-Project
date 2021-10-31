@@ -1,4 +1,4 @@
-# CS-350-Phase-2
+# CS-350-Project
 
 CS350, Old Dominion Univ., Fall 2021
 
