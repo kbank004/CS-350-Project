@@ -32,6 +32,12 @@ application {
     mainClass = 'edu.odu.cs.cs350.DupDetector.DupDetector'
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
+}
+
 tasks.named('test') {
     // Use junit platform for unit tests.
     useJUnitPlatform()
