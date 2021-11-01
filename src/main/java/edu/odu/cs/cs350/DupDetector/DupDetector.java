@@ -25,7 +25,7 @@ public class DupDetector {
         } catch (NumberFormatException e) {
           throw new UnhandledException("Invalid value for nSuggestions!");
         }
-        dupDetector.findFiles(args);
+        dupDetector.findFiles(Arrays.copyOfRange(args, 1, args.length));
         System.out.println(dupDetector.toString());
       } else {
         System.out.println("Usage: java -jar DupDetector.jar nSuggestions [ properties ] path1 [ path2 … ]");
