@@ -1,7 +1,5 @@
 package edu.odu.cs.cs350.DupDetector;
 
-import edu.odu.cs.cs350.DupDetector.UnhandledException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,12 +14,19 @@ public class DupDetector {
   private Path propertiesFilePath = Path.of("");
   private List<Path> filePaths = new ArrayList<Path>();
   private List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp","h"));
+  
   public static void main(String[] args) {
     // If sufficient arguments are specified, then
     try {
       if (args.length >= 2) {
         DupDetector dupDetector = new DupDetector();
-        dupDetector.run(args);
+        try {
+          dupDetector.setMaxSuggestions(Integer.parseInt(args[0]));
+        } catch (NumberFormatException e) {
+          throw new UnhandledException("Invalid value for nSuggestions!");
+        }
+        dupDetector.findFiles(args);
+        System.out.println(dupDetector.toString());
       } else {
         System.out.println("Usage: java -jar DupDetector.jar nSuggestions [ properties ] path1 [ path2 … ]");
       }
@@ -30,24 +35,41 @@ public class DupDetector {
     }
   }
 
-  public void run(String[] args) throws UnhandledException {
+  public DupDetector() {
     // Get CLI args
     // Spit out file names
-    try {
-      nSuggestions = Integer.parseInt(args[0]);
-    } catch (NumberFormatException e) {
-      throw new UnhandledException(e.toString() + " (Invalid value for nSuggestions!)");
-    }
-    
-    readFileArgs(args);
-
-    System.out.println(filePaths);
   }
 
-  public void readFileArgs(String[] args) throws UnhandledException {
-    Path arg1Path = Path.of(args[1]);
+  public void setMaxSuggestions(int n) {
+    nSuggestions = Math.max(1, n);
+  }
+  
+
+  public int getMaxSuggestions() {
+    return nSuggestions;
+
+  }
+
+  public Path getPropertiesFilePath() {
+    return propertiesFilePath;
+  }
+  
+  public List<Path> getFilePaths() {
+    return filePaths;
+  }
+  
+  public void setCppExtensions(List<String> ext) {
+    cppExtensions = ext;
+  }
+  
+  public List<String> getCppExtensions() {
+    return cppExtensions;
+  }
+
+  public void findFiles(String[] paths) throws UnhandledException {
+    Path arg1Path = Path.of(paths[0]);
     // If 2nd arg is an ini, then set propertiesFile its value
-    if (args[1].endsWith(".ini")) {
+    if (paths[0].endsWith(".ini")) {
       propertiesFilePath = arg1Path;
       // Else it is a file or directory, so add to filePaths
     } else {
@@ -55,8 +77,8 @@ public class DupDetector {
     }
 
     // Loop through each remaining arg and add the file paths from each one
-    for (int i = 2; i < args.length; ++i) {
-      filePaths.addAll(getPathsRecursively(Path.of(args[i])));
+    for (int i = 1; i < paths.length; ++i) {
+      filePaths.addAll(getPathsRecursively(Path.of(paths[i])));
     }
   }
 
@@ -90,5 +112,7 @@ public class DupDetector {
     //return ext.contains(str.substring(str.lastIndexOf(".") + 1));
   }
 
-  public DupDetector() {} 
+  public String toString() {
+    return filePaths.toString();
+  }
 }
