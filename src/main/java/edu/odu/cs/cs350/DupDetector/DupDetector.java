@@ -1,6 +1,5 @@
 package edu.odu.cs.cs350.DupDetector;
 
-
 import edu.odu.cs.cs350.DupDetector.UnhandledException;
 
 import java.io.IOException;
@@ -60,23 +59,26 @@ public class DupDetector {
   }
 
   public List<Path> getPathsRecursively(Path filePath) throws UnhandledException {
- 
+    if (!filePath.toFile().exists()) {
+      throw new UnhandledException("File or directory does not exist: " + filePath.toString());
+    }
+
     List<Path> paths = new ArrayList<Path>();
-    if (filePath.toFile().isDirectory()) {
-      try { // Source: https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
+    try { // Source: https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
+      if (filePath.toFile().isDirectory()) {
         // Walk through file tree and collect all files with correct extensions into a list
         try (Stream<Path> stream = Files.walk(filePath)) {
           paths = stream.parallel().filter(Files::isRegularFile)
                         .filter(path -> endsWithExtensions(path.getFileName().toString()))
                         .collect(Collectors.toList());
         }
-      } catch (IOException e) {
-        throw new UnhandledException("File or directory does not exist: " + filePath.toString());
-      }
 
-    } else if (endsWithExtensions(filePath.getFileName().toString())) {
-      // if not directory and has proper extensions, just return filePath itself
-      paths.add(filePath);
+      } else if (endsWithExtensions(filePath.getFileName().toString())) {
+        // if not directory and has proper extensions, just return filePath itself
+        paths.add(filePath);
+      }
+    } catch (IOException e) {
+      throw new UnhandledException("File or directory does not exist: " + filePath.toString());
     }
     return paths;
   }
