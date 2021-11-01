@@ -40,6 +40,8 @@ public class DupDetector {
     }
     
     readFileArgs(args);
+
+    System.out.println(filePaths);
   }
 
   public void readFileArgs(String[] args) throws UnhandledException {
