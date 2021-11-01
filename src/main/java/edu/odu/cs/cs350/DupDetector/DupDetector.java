@@ -26,7 +26,7 @@ public class DupDetector {
         System.out.println("Usage: java -jar DupDetector.jar nSuggestions [ properties ] path1 [ path2 … ]");
       }
     } catch (UnhandledException e) {
-      System.err.println(e.getMessage());
+      System.err.println(e.toString());
     }
   }
 
@@ -36,7 +36,7 @@ public class DupDetector {
     try {
       nSuggestions = Integer.parseInt(args[0]);
     } catch (NumberFormatException e) {
-      throw new UnhandledException("Invalid value for nSuggestion!");
+      throw new UnhandledException(e.toString() + " (Invalid value for nSuggestions!)");
     }
     
     readFileArgs(args);
@@ -78,7 +78,7 @@ public class DupDetector {
         paths.add(filePath);
       }
     } catch (IOException e) {
-      throw new UnhandledException("File or directory does not exist: " + filePath.toString());
+      throw new UnhandledException(e.toString());
     }
     return paths;
   }
