@@ -2,7 +2,7 @@ package edu.odu.cs.cs350.DupDetector;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.hamcrest.MatcherAssert.assertThat; 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.nio.file.Path;
 public class DupDetectorTest {
   @Test
   public void testEndsWithExtensions() {
-    String[] fakeFiles = new String[]{"", "a", "b.", "c.ini"};
+    String[] fakeFiles = new String[] { "", "a", "b.", "c.ini" };
     List<String> realFiles = new ArrayList<String>();
     DupDetector dupDetector = new DupDetector();
     for (String ext : dupDetector.getCppExtensions()) {
@@ -38,7 +38,7 @@ public class DupDetectorTest {
 
     dupDetector.setMaxSuggestions(11);
     assertThat(dupDetector.getMaxSuggestions(), is(11));
-    
+
     dupDetector.setMaxSuggestions(-1);
     assertThat(dupDetector.getMaxSuggestions(), is(1));
   }
@@ -48,7 +48,7 @@ public class DupDetectorTest {
     DupDetector dupDetector = new DupDetector();
     assertThat(dupDetector.getFilePaths(), is(empty()));
 
-    String[] paths = new String[]{"src/test/data/a.h", "src/test/data/a.cpp", "src/test/data/b"};
+    String[] paths = new String[] { "src/test/data/a.h", "src/test/data/a.cpp", "src/test/data/b" };
     try {
       dupDetector.findFiles(paths);
     } catch (UnhandledException e) {
@@ -56,27 +56,20 @@ public class DupDetectorTest {
       assertTrue(false);
     }
 
-    assertThat(dupDetector.getFilePaths(), containsInAnyOrder(
-      Path.of("src/test/data/a.h"), 
-      Path.of("src/test/data/a.cpp"), 
-      Path.of("src/test/data/b/c.h"), 
-      Path.of("src/test/data/b/c.cpp")
-    ));
+    assertThat(dupDetector.getFilePaths(), containsInAnyOrder(Path.of("src/test/data/a.h"),
+        Path.of("src/test/data/a.cpp"), Path.of("src/test/data/b/c.h"), Path.of("src/test/data/b/c.cpp")));
 
     DupDetector dupDetector2 = new DupDetector();
-    String[] paths2 = new String[]{"src/test/data/p.ini", "src/test/data/a.h", "src/test/data/a.cpp", "src/test/data/b/c.h", "src/test/data/b/c.cpp"};
+    String[] paths2 = new String[] { "src/test/data/p.ini", "src/test/data/a.h", "src/test/data/a.cpp",
+        "src/test/data/b/c.h", "src/test/data/b/c.cpp" };
     try {
       dupDetector2.findFiles(paths2);
     } catch (UnhandledException e) {
       System.err.println("Could not find files!");
       assertTrue(false);
     }
-    assertThat(dupDetector.getFilePaths(), containsInAnyOrder(
-      Path.of("src/test/data/a.h"), 
-      Path.of("src/test/data/a.cpp"), 
-      Path.of("src/test/data/b/c.h"), 
-      Path.of("src/test/data/b/c.cpp")
-    ));
+    assertThat(dupDetector.getFilePaths(), containsInAnyOrder(Path.of("src/test/data/a.h"),
+        Path.of("src/test/data/a.cpp"), Path.of("src/test/data/b/c.h"), Path.of("src/test/data/b/c.cpp")));
   }
 
   @Test
@@ -84,7 +77,7 @@ public class DupDetectorTest {
     DupDetector dupDetector = new DupDetector();
     assertThat(dupDetector.getPropertiesFilePath().toFile().getName(), is(""));
 
-    String[] paths = new String[]{"src/test/data/a.h", "src/test/data/a.cpp", "src/test/data/b"};
+    String[] paths = new String[] { "src/test/data/a.h", "src/test/data/a.cpp", "src/test/data/b" };
     try {
       dupDetector.findFiles(paths);
     } catch (UnhandledException e) {
@@ -94,7 +87,8 @@ public class DupDetectorTest {
     assertThat(dupDetector.getPropertiesFilePath().toFile().getName(), is(""));
 
     DupDetector dupDetector2 = new DupDetector();
-    String[] paths2 = new String[]{"src/test/data/p.ini", "src/test/data/a.h", "src/test/data/a.cpp", "src/test/data/b"};
+    String[] paths2 = new String[] { "src/test/data/p.ini", "src/test/data/a.h", "src/test/data/a.cpp",
+        "src/test/data/b" };
     try {
       dupDetector2.findFiles(paths2);
     } catch (UnhandledException e) {
@@ -106,6 +100,6 @@ public class DupDetectorTest {
 
   @Test
   public void testConstructor() {
-    
+
   }
 }

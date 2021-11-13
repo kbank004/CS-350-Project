@@ -13,8 +13,8 @@ public class DupDetector {
   private int nSuggestions = 0;
   private Path propertiesFilePath = Path.of("");
   private List<Path> filePaths = new ArrayList<Path>();
-  private List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp","h"));
-  
+  private List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp", "h"));
+
   public static void main(String[] args) {
     // If sufficient arguments are specified, then
     try {
@@ -43,7 +43,6 @@ public class DupDetector {
   public void setMaxSuggestions(int n) {
     nSuggestions = Math.max(1, n);
   }
-  
 
   public int getMaxSuggestions() {
     return nSuggestions;
@@ -53,15 +52,15 @@ public class DupDetector {
   public Path getPropertiesFilePath() {
     return propertiesFilePath;
   }
-  
+
   public List<Path> getFilePaths() {
     return filePaths;
   }
-  
+
   public void setCppExtensions(List<String> ext) {
     cppExtensions = ext;
   }
-  
+
   public List<String> getCppExtensions() {
     return cppExtensions;
   }
@@ -88,13 +87,14 @@ public class DupDetector {
     }
 
     List<Path> paths = new ArrayList<Path>();
-    try { // Source: https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
+    try { // Source:
+          // https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
       if (filePath.toFile().isDirectory()) {
-        // Walk through file tree and collect all files with correct extensions into a list
+        // Walk through file tree and collect all files with correct extensions into a
+        // list
         try (Stream<Path> stream = Files.walk(filePath)) {
           paths = stream.parallel().filter(Files::isRegularFile)
-                        .filter(path -> endsWithExtensions(path.getFileName().toString()))
-                        .collect(Collectors.toList());
+              .filter(path -> endsWithExtensions(path.getFileName().toString())).collect(Collectors.toList());
         }
 
       } else if (endsWithExtensions(filePath.getFileName().toString())) {
@@ -109,7 +109,7 @@ public class DupDetector {
 
   public boolean endsWithExtensions(String str) {
     return cppExtensions.stream().anyMatch(e -> str.endsWith(e));
-    //return ext.contains(str.substring(str.lastIndexOf(".") + 1));
+    // return ext.contains(str.substring(str.lastIndexOf(".") + 1));
   }
 
   public String toString() {
