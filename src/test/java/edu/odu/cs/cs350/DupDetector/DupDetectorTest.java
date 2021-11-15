@@ -7,48 +7,88 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.nio.file.Path;
 
 public class DupDetectorTest {
+  private static final Path dataPath = Path.of("src/test/data");
+
   @Test
-  public void testMaxSuggestions(){
-    Path p1 = Path.of("./");
-    ArrayList<Path> fList = new ArrayList<Path>();
-    fList.add(p1);
-        DupDetector dup = new DupDetector(50, fList);
-        assertThat(dup.getMaxSuggestions(), is(50));
-
+  public void testMaxSuggestions() {
+    try {
+      List<Path> paths = new ArrayList<Path>(Arrays.asList(Path.of(dataPath + "")));
+      DupDetector dup = new DupDetector(50, paths);
+      assertThat("dup.getMaxSuggestions() expected 50, saw " + dup.getMaxSuggestions(), dup.getMaxSuggestions(), is(50));
+    } catch (Exception e) {
+      fail("Test threw unexpected exception! " + e);
     }
-
-    @Test
-    public void testPropertiesFile(){
-      ArrayList<Path> paths = new ArrayList<Path>();
-      paths.add(Path.of("./properties.ini")); 
-
-      DupDetector dup = new DupDetector(1, paths);
-      assertThat(dup.getPropertiesPath().toString(), is(paths.get(0).toString()));
-
-      paths.remove(0);
-      paths.add(Path.of("/home/me/prop.ini"));
-      paths.add(Path.of("C:\\Users\\Me\\test.c"));
-      DupDetector dup1 = new DupDetector(1, paths);
-      assertThat(dup1.getPropertiesPath(), is(paths.get(0)));
-    }
-
-    @Test
-    public void testFilePaths(){
-      ArrayList<Path> paths = new ArrayList<Path>();
-      paths.add(Path.of("/home/me/mario.c"));
-      paths.add(Path.of("/var/www/resources/mario.c"));
-      paths.add(Path.of("C:\\Users\\me\\source\\unhelpfulprogram.cpp"));
-      DupDetector dup = new DupDetector(1, paths);
-      assertThat(dup.getFilePaths(), is(paths));
-    }
-
-    // Todo
-    @Test
-    public void testCppExtensions() {    
-    }
-    
-
   }
+
+  @Test
+  public void testPropertiesFile() {
+    try {
+      List<Path> paths = new ArrayList<Path>(Arrays.asList(Path.of(dataPath + "")));
+      DupDetector dup = new DupDetector(1, paths);
+      List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp", "h"));
+      assertThat("dup.getCppExtensions() expected " + cppExtensions + ", saw " + dup.getCppExtensions(), dup.getCppExtensions(), is(cppExtensions));
+      assertThat("dup.getMaxSubstitutions() expected 10, saw " + dup.getMaxSubstitutions(), dup.getMaxSubstitutions(), is(10));
+      assertThat("dup.getMinSequenceLength() expected 8, saw " + dup.getMinSequenceLength(), dup.getMinSequenceLength(), is(8));
+
+      paths.clear();
+      paths.add(Path.of(dataPath + "/p.ini"));
+      paths.add(Path.of(dataPath + "/a.h"));
+      paths.add(Path.of(dataPath + "/a.cpp"));
+      paths.add(Path.of(dataPath + "/b"));
+      DupDetector dup1 = new DupDetector(1, paths);
+      cppExtensions = new ArrayList<String>(Arrays.asList("C", "cpp", "h", "hpp", "H"));
+      assertThat("dup.getCppExtensions() expected " + cppExtensions + ", saw " + dup1.getCppExtensions(), dup1.getCppExtensions(), is(cppExtensions));
+      assertThat("dup.getMaxSubstitutions() expected 20, saw " + dup1.getMaxSubstitutions(), dup1.getMaxSubstitutions(), is(20));
+      assertThat("dup.getMinSequenceLength() expected 10, saw " + dup1.getMinSequenceLength(), dup1.getMinSequenceLength(), is(10));
+    } catch (Exception e) {
+      fail("Test threw unexpected exception! " + e);
+    }
+  }
+
+  @Test
+  public void testFilePaths() {
+    try {
+      List<Path> paths = new ArrayList<Path>() {{
+        add(Path.of(dataPath + "/a.h"));
+        add(Path.of(dataPath + "/a.cpp"));
+        add(Path.of(dataPath + "/b"));
+      }};
+      DupDetector dup = new DupDetector(1, paths);
+      Path[] expectedPaths = {
+        Path.of(dataPath + "/a.h"),
+        Path.of(dataPath + "/a.cpp"),
+        Path.of(dataPath + "/b/c.h"),
+        Path.of(dataPath + "/b/c.cpp"),
+      };
+      assertThat("dup.getFilePaths() expected " + expectedPaths + ", saw " + dup.getFilePaths(), dup.getFilePaths(), containsInAnyOrder(expectedPaths));
+    } catch (Exception e) {
+      fail("Test threw unexpected exception! " + e);
+    }
+  }
+
+  @Test
+  public void testSystem() {
+    try {
+      String[] args = {"5", dataPath + "/a.h", dataPath + "/a.cpp", dataPath + "/b"};
+      int nSuggestions = Integer.parseInt(args[0]);
+      List<Path> filePaths = DupDetector.toPaths(Arrays.copyOfRange(args, 1, args.length));
+      
+      DupDetector dup = new DupDetector(nSuggestions, filePaths);
+      //Path[] expectedPaths = {
+      //  Path.of(dataPath + "/a.h"),
+      //  Path.of(dataPath + "/a.cpp"),
+      //  Path.of(dataPath + "/b/c.h"),
+      //  Path.of(dataPath + "/b/c.cpp"),
+      //};
+      
+      //String separator = System.getProperty("file.separator");
+      assertThat("dup.toString() expected " + dup.getFilePaths().toString() + ", saw " + dup.toString(), dup.toString(), is(dup.getFilePaths().toString()));
+    } catch (Exception e) {
+      fail("Test threw unexpected exception! " + e);
+    }
+  }
+}
