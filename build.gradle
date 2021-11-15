@@ -12,6 +12,11 @@ plugins {
   id "org.xbib.gradle.plugin.git" version "2.0.0"
 }
 
+java {
+  sourceCompatibility = JavaVersion.toVersion(11)
+  targetCompatibility = JavaVersion.toVersion(11)
+}
+
 repositories {
   // Use JCenter for resolving dependencies.
   jcenter()
@@ -26,15 +31,15 @@ dependencies {
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
+application {
+  // Define the main class for the application.
+  mainClass = 'edu.odu.cs.cs350.DupDetector.DupDetector'
+}
+
 jar {
   manifest {
     attributes 'Main-Class': application.mainClass
   }
-}
-
-application {
-  // Define the main class for the application.
-  mainClass = 'edu.odu.cs.cs350.DupDetector.DupDetector'
 }
 
 test {
