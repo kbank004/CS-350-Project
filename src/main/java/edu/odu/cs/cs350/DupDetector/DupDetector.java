@@ -61,9 +61,9 @@ public class DupDetector {
 
     tryParsePropertyFile(paths);
     if (properties.isPresent()) { // If parsed property file, skip first path in list for processing (it was the properties file)
-      findFiles(paths.subList(1, paths.size()));
+      searchPaths(paths.subList(1, paths.size()));
     } else {
-      findFiles(paths);
+      searchPaths(paths);
     }
   }
 
@@ -108,8 +108,8 @@ public class DupDetector {
     return Integer.parseInt(getProperty(Property.MIN_SEQUENCE_LENGTH));
   }
 
-  public List<File> getFileList() {
-    return filesList;
+  public List<File> getFiles() {
+    return files;
   }
 
   public void tryParsePropertyFile(List<Path> paths) {
@@ -144,11 +144,12 @@ public class DupDetector {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    List<File> fList = new ArrayList<File>();
-    for (File f : fList) {
-      fList.add(e)
+
+    List<File> fileList = new ArrayList<File>();
+    for (Path path : paths) {
+      fileList.add(new File(path, 0));
     }
-    return paths;
+    return fileList;
   }
 
   public boolean endsWithExtensions(String str) {
@@ -157,8 +158,8 @@ public class DupDetector {
 
   public void Output() {
     System.out.println("Files scanned:\n");;
-    for (Path f : filesList) {
-      System.out.println("    " + fPath.toString() + "\n");
+    for (File file : files) {
+      System.out.println("    " + file.toString() + "\n");
     }
   }
 }
