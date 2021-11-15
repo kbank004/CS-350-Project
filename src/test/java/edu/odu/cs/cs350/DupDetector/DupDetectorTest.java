@@ -86,7 +86,7 @@ public class DupDetectorTest {
       //};
       
       //String separator = System.getProperty("file.separator");
-      assertThat("dup.toString() expected " + dup.getFilePaths().toString() + ", saw " + dup.toString(), dup.toString(), is(dup.getFilePaths().toString()));
+      assertThat("dup.toString() expected " + dup.getFilePaths().toString() + ", saw " + dup.getOutput(), dup.getOutput(), is(dup.getFilePaths().toString()));
     } catch (Exception e) {
       fail("Test threw unexpected exception! " + e);
     }
