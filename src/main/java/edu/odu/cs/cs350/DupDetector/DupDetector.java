@@ -10,106 +10,118 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DupDetector {
-  private int nSuggestions = 0;
-  private Path propertiesFilePath = Path.of("");
-  private List<Path> filePaths = new ArrayList<Path>();
-  private List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp", "h"));
-
+  // --- 
   public static void main(String[] args) {
-    // If sufficient arguments are specified, then
+    if (args.length < 2) {
+      System.out.println("Usage: java -jar DupDetector.jar nSuggestions [properties filepath] path1 [path2 …]");
+      System.exit(-1);
+    }
+
     try {
-      if (args.length >= 2) {
-        DupDetector dupDetector = new DupDetector();
-        try {
-          dupDetector.setMaxSuggestions(Integer.parseInt(args[0]));
-        } catch (NumberFormatException e) {
-          throw new UnhandledException("Invalid value for nSuggestions!");
-        }
-        dupDetector.findFiles(Arrays.copyOfRange(args, 1, args.length));
-        System.out.println(dupDetector.toString());
-      } else {
-        System.out.println("Usage: java -jar DupDetector.jar nSuggestions [ properties ] path1 [ path2 … ]");
-      }
-    } catch (UnhandledException e) {
-      System.err.println(e.toString());
+      // Process input
+      int nSuggestions = Integer.parseInt(args[0]);
+      List<Path> filePaths = toPaths(Arrays.copyOfRange(args, 1, args.length));//findFiles(Arrays.copyOfRange(args, 1, args.length));
+      
+      DupDetector dupDetector = new DupDetector(nSuggestions, filePaths);
+      System.out.println(dupDetector.toString());
+  
+      System.exit(0);
+    } catch (Exception e) {
+      System.err.println(e);
+
+      System.exit(-1);
     }
   }
 
-  public DupDetector() {
-    // Get CLI args
-    // Spit out file names
+  public static List<Path> toPaths(String[] paths) {
+    List<Path> files = new ArrayList<Path>();
+    for (String pathStr : paths) {
+      files.add(Path.of(pathStr));
+    }
+    return files;
   }
 
-  public void setMaxSuggestions(int n) {
-    nSuggestions = Math.max(1, n);
+  private int maxSuggestions = 0;
+  private Path propertiesPath = Path.of("");
+  private List<Path> filePaths = new ArrayList<Path>();
+  private List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp", "h"));
+
+  public DupDetector(int nSuggestions, List<Path> paths) throws Exception {
+    maxSuggestions = Math.max(1, nSuggestions);
+    
+    if (tryParsePropertyFile(paths)) { // If parsed property file, skip first path in list for processing (it was the properties file)
+      findFiles(paths.subList(1, paths.size()));
+    } else {
+      findFiles(paths);
+    }
   }
 
   public int getMaxSuggestions() {
-    return nSuggestions;
-
-  }
-
-  public Path getPropertiesFilePath() {
-    return propertiesFilePath;
-  }
-
-  public List<Path> getFilePaths() {
-    return filePaths;
-  }
-
-  public void setCppExtensions(List<String> ext) {
-    cppExtensions = ext;
+    return maxSuggestions;
   }
 
   public List<String> getCppExtensions() {
     return cppExtensions;
   }
 
-  public void findFiles(String[] paths) throws UnhandledException {
-    Path arg1Path = Path.of(paths[0]);
-    // If 2nd arg is an ini, then set propertiesFile its value
-    if (paths[0].endsWith(".ini")) {
-      propertiesFilePath = arg1Path;
-      // Else it is a file or directory, so add to filePaths
-    } else {
-      filePaths.addAll(getPathsRecursively(arg1Path));
-    }
+  public Path getPropertiesPath() {
+    return propertiesPath;
+  }
 
-    // Loop through each remaining arg and add the file paths from each one
-    for (int i = 1; i < paths.length; ++i) {
-      filePaths.addAll(getPathsRecursively(Path.of(paths[i])));
+  public List<Path> getFilePaths() {
+    return filePaths;
+  }
+
+  public boolean tryParsePropertyFile(List<Path> paths) throws Exception {
+    Path propertiesFilePath = paths.get(0);
+    if (propertiesFilePath.toString().endsWith(".ini")) {
+      propertiesPath = propertiesFilePath;
+      //cppExtensions = ;
+      return true;
+    }
+    return false;
+  }
+
+  public void findFiles(List<Path> paths) throws Exception {
+    // Loop through each arg and add the file paths from each one
+    for (Path path : paths) {
+      filePaths.addAll(getPathsRecursively(path));
     }
   }
 
-  public List<Path> getPathsRecursively(Path filePath) throws UnhandledException {
+  public List<Path> getPathsRecursively(Path filePath) throws Exception {
     if (!filePath.toFile().exists()) {
-      throw new UnhandledException("File or directory does not exist: " + filePath.toString());
+      throw new Exception("File or directory does not exist: " + filePath.toString());
     }
 
     List<Path> paths = new ArrayList<Path>();
     try { // Source:
           // https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
-      if (filePath.toFile().isDirectory()) {
-        // Walk through file tree and collect all files with correct extensions into a
-        // list
-        try (Stream<Path> stream = Files.walk(filePath)) {
-          paths = stream.parallel().filter(Files::isRegularFile)
-              .filter(path -> endsWithExtensions(path.getFileName().toString())).collect(Collectors.toList());
-        }
+      // if (filePath.toFile().isDirectory()) {
+      //   // Walk through file tree and collect all files with correct extensions into a
+      //   // list
+      //   try (Stream<Path> stream = Files.walk(filePath)) {
+      //     paths = stream.parallel().filter(Files::isRegularFile)
+      //         .filter(path -> endsWithExtensions(path.getFileName().toString())).collect(Collectors.toList());
+      //   }
 
-      } else if (endsWithExtensions(filePath.getFileName().toString())) {
-        // if not directory and has proper extensions, just return filePath itself
-        paths.add(filePath);
+      // } else if (endsWithExtensions(filePath.getFileName().toString())) {
+      //   // if not directory and has proper extensions, just return filePath itself
+      //   paths.add(filePath);
+      // }
+      
+      try (Stream<Path> stream = Files.walk(filePath)) {
+        paths = stream.parallel().filter(Files::isRegularFile)
+          .filter(path -> endsWithExtensions(path.getFileName().toString())).collect(Collectors.toList());
       }
     } catch (IOException e) {
-      throw new UnhandledException(e.toString());
+      throw new Exception(e.toString());
     }
     return paths;
   }
 
   public boolean endsWithExtensions(String str) {
     return cppExtensions.stream().anyMatch(e -> str.endsWith(e));
-    // return ext.contains(str.substring(str.lastIndexOf(".") + 1));
   }
 
   public String toString() {
