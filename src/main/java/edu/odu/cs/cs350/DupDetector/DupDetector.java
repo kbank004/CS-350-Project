@@ -21,18 +21,23 @@ public class DupDetector {
 
     // Process input
     int nSuggestions = Integer.parseInt(args[0]);
-    List<Path> filePaths = toPaths(Arrays.copyOfRange(args, 1, args.length));//findFiles(Arrays.copyOfRange(args, 1, args.length));
+    // Creates an ArrayList of Files given the file paths
+    List<File> filesList = toPaths(Arrays.copyOfRange(args, 1, args.length));
+   
+  
+  
     
-    DupDetector dupDetector = new DupDetector(nSuggestions, filePaths);
+    DupDetector dupDetector = new DupDetector(nSuggestions, filesList);
     System.out.println(dupDetector.toString());
 
     System.exit(0);
   }
 
-  public static List<Path> toPaths(String[] paths) {
-    List<Path> files = new ArrayList<Path>();
+  public static List<File> toPaths(String[] paths) {
+    ArrayList<File> files = new ArrayList<File>();
     for (String pathStr : paths) {
-      files.add(Path.of(pathStr));
+      File f = new File(Path.of(pathStr), 0);
+      files.add(f);
     }
     return files;
   }
@@ -40,7 +45,7 @@ public class DupDetector {
   private final int maxSuggestions;
   private List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp", "h"));
   private Optional<Path> propertiesPath = Optional.empty();
-  private List<Path> filePaths = new ArrayList<Path>();
+  private List<File> filesList = new ArrayList<File>();
 
   public DupDetector(int nSuggestions, List<Path> paths) {
     maxSuggestions = Math.max(1, nSuggestions);
@@ -71,8 +76,8 @@ public class DupDetector {
     return propertiesPath.get();
   }
 
-  public List<Path> getFilePaths() {
-    return filePaths;
+  public List<File> getFileList() {
+    return filesList;
   }
 
   public void tryParsePropertyFile(List<Path> paths) {
@@ -83,14 +88,14 @@ public class DupDetector {
     }
   }
 
-  public void findFiles(List<Path> paths) throws Exception {
+  public void searchPaths(List<Path> paths) throws Exception {
     // Loop through each arg and add the file paths from each one
     for (Path path : paths) {
-      filePaths.addAll(getPathsRecursively(path));
+      filesList.addAll(getFilesRecursively(path));
     }
   }
 
-  public List<Path> getPathsRecursively(Path filePath) throws Exception {
+  public List<File> getFilesRecursively(Path filePath) throws Exception {
     if (!filePath.toFile().exists()) {
       throw new Exception("File or directory does not exist: " + filePath.toString());
     }
@@ -104,6 +109,10 @@ public class DupDetector {
     } catch (IOException e) {
       throw new Exception(e.toString());
     }
+    List<File> fList = new ArrayList<File>();
+    for (File f : fList) {
+      fList.add(e)
+    }
     return paths;
   }
 
@@ -111,7 +120,10 @@ public class DupDetector {
     return cppExtensions.stream().anyMatch(e -> str.endsWith(e));
   }
 
-  public String toString() {
-    return filePaths.toString();
+  public void Output() {
+    System.out.println("Files scanned:\n");;
+    for (Path f : filesList) {
+      System.out.println("    " + fPath.toString() + "\n");
+    }
   }
 }
