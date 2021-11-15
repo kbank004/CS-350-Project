@@ -38,19 +38,19 @@ public class DupDetector {
     }
   }
 
-  public static List<Path> toPaths(String[] paths) {
-    List<Path> files = new ArrayList<Path>();
+  public static List<Path> toPaths(String[] paths) { // Is there a shorthand for this?
+    ArrayList<Path> filePaths = new ArrayList<Path>();
     for (String pathStr : paths) {
-      files.add(Path.of(pathStr));
+      filePaths.add(Path.of(pathStr));
     }
-    return files;
+    return filePaths;
   }
 
   // --------------------- DupDetector --------------------- //
 
   private final int maxSuggestions;
   private Optional<Properties> properties = Optional.empty();
-  private List<Path> filePaths = new ArrayList<Path>();
+  private List<File> files = new ArrayList<File>();
 
   private final String defaultCppExtensions = "cpp,h";
   private final int defaultMaxSubstitutions = 10;
@@ -108,8 +108,8 @@ public class DupDetector {
     return Integer.parseInt(getProperty(Property.MIN_SEQUENCE_LENGTH));
   }
 
-  public List<Path> getFilePaths() {
-    return filePaths;
+  public List<File> getFileList() {
+    return filesList;
   }
 
   public void tryParsePropertyFile(List<Path> paths) {
@@ -124,14 +124,14 @@ public class DupDetector {
     }
   }
 
-  public void findFiles(List<Path> paths) throws FileNotFoundException {
+  public void searchPaths(List<Path> paths) throws FileNotFoundException {
     // Loop through each arg and add the file paths from each one
     for (Path path : paths) {
-      filePaths.addAll(getPathsRecursively(path));
+      files.addAll(getFilesRecursively(path));
     }
   }
 
-  public List<Path> getPathsRecursively(Path filePath) throws FileNotFoundException {
+  public List<File> getFilesRecursively(Path filePath) throws FileNotFoundException {
     if (!filePath.toFile().exists()) {
       throw new FileNotFoundException("File or directory does not exist: " + filePath);
     }
@@ -144,6 +144,10 @@ public class DupDetector {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    List<File> fList = new ArrayList<File>();
+    for (File f : fList) {
+      fList.add(e)
+    }
     return paths;
   }
 
@@ -151,7 +155,10 @@ public class DupDetector {
     return getCppExtensions().stream().anyMatch(e -> str.endsWith(e));
   }
 
-  public String toString() {
-    return filePaths.toString();
+  public void Output() {
+    System.out.println("Files scanned:\n");;
+    for (Path f : filesList) {
+      System.out.println("    " + fPath.toString() + "\n");
+    }
   }
 }
