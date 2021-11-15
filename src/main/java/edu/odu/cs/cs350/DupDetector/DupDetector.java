@@ -17,7 +17,9 @@ import java.util.stream.Stream;
 
 public class DupDetector {
   // --------------------- Main --------------------- //
+  
   public static void main(String[] args) {
+    // Print help message if not enough args
     if (args.length < 2) {
       System.out.println("Usage: java -jar DupDetector.jar nSuggestions [properties filepath] path1 [path2 …]");
       System.exit(-1);
@@ -28,9 +30,10 @@ public class DupDetector {
       int nSuggestions = Integer.parseInt(args[0]);
       List<Path> filePaths = toPaths(Arrays.copyOfRange(args, 1, args.length));
       
+      // Run DupDetector
       DupDetector dupDetector = new DupDetector(nSuggestions, filePaths);
       System.out.println(dupDetector.getOutput());
-
+      
       System.exit(0);
     } catch (Exception e) {
       System.err.println(e);
