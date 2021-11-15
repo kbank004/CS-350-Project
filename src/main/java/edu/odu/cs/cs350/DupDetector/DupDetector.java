@@ -38,12 +38,12 @@ public class DupDetector {
     }
   }
 
-  public static List<Path> toPaths(String[] paths) { // Is there a shorthand for this?
-    ArrayList<Path> filePaths = new ArrayList<Path>();
-    for (String pathStr : paths) {
-      filePaths.add(Path.of(pathStr));
+  public static List<Path> toPaths(String[] argsArray) { // Is there a shorthand for this?
+    ArrayList<Path> paths = new ArrayList<Path>();
+    for (String pathStr : argsArray) {
+      paths.add(Path.of(pathStr));
     }
-    return filePaths;
+    return paths;
   }
 
   // --------------------- DupDetector --------------------- //
@@ -131,13 +131,13 @@ public class DupDetector {
     }
   }
 
-  public List<File> getFilesRecursively(Path filePath) throws FileNotFoundException {
-    if (!filePath.toFile().exists()) {
-      throw new FileNotFoundException("File or directory does not exist: " + filePath);
+  public List<File> getFilesRecursively(Path thePath) throws FileNotFoundException {
+    if (!thePath.toFile().exists()) {
+      throw new FileNotFoundException("File or directory does not exist: " + thePath.toString());
     }
 
     List<Path> paths = new ArrayList<Path>();
-    try (Stream<Path> stream = Files.walk(filePath)) { // Source: https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
+    try (Stream<Path> stream = Files.walk(thePath)) { // Source: https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
       paths = stream.parallel().filter(Files::isRegularFile)
                                .filter(path -> endsWithExtensions(path.getFileName().toString()))
                                .collect(Collectors.toList());
@@ -145,11 +145,11 @@ public class DupDetector {
       e.printStackTrace();
     }
 
-    List<File> fileList = new ArrayList<File>();
-    for (Path path : paths) {
-      fileList.add(new File(path, 0));
+    List<File> theFiles = new ArrayList<File>();
+    for (Path p : paths) {
+      theFiles.add(new File(p, 0));
     }
-    return fileList;
+    return theFiles;
   }
 
   public boolean endsWithExtensions(String str) {
@@ -161,5 +161,11 @@ public class DupDetector {
     for (File file : files) {
       System.out.println("    " + file.toString() + "\n");
     }
+  }
+
+  // chad
+  public List<Path> getFilePaths(){
+    return files.stream().map(File::getFilePath).collect(Collectors.toList());
+
   }
 }
