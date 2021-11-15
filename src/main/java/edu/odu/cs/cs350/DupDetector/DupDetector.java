@@ -28,7 +28,7 @@ public class DupDetector {
       List<Path> filePaths = toPaths(Arrays.copyOfRange(args, 1, args.length));
       
       DupDetector dupDetector = new DupDetector(nSuggestions, filePaths);
-      System.out.println(dupDetector.toString());
+      System.out.println(dupDetector.getOutput());
 
       System.exit(0);
     } catch (Exception e) {
@@ -38,12 +38,8 @@ public class DupDetector {
     }
   }
 
-  public static List<Path> toPaths(String[] paths) { // Is there a shorthand for this?
-    ArrayList<Path> filePaths = new ArrayList<Path>();
-    for (String pathStr : paths) {
-      filePaths.add(Path.of(pathStr));
-    }
-    return filePaths;
+  public static List<Path> toPaths(String[] argsArray) { // Is there a shorthand for this?
+    return Arrays.stream(argsArray).map(arg -> Path.of(arg)).collect(Collectors.toList());
   }
 
   // --------------------- DupDetector --------------------- //
@@ -112,6 +108,18 @@ public class DupDetector {
     return files;
   }
 
+  public List<Path> getFilePaths() {
+    return files.stream().map(File::getFilePath).collect(Collectors.toList());
+  }
+
+  public String getOutput() {
+    StringBuffer buffer = new StringBuffer("Files scanned:\n");
+    for (File file : files) {
+      buffer.append("    " + file.toString() + "\n");
+    }
+    return buffer.toString();
+  }
+
   public void tryParsePropertyFile(List<Path> paths) {
     Path propertiesFilePath = paths.get(0);
     if (propertiesFilePath.toString().endsWith(".ini")) {
@@ -131,35 +139,24 @@ public class DupDetector {
     }
   }
 
-  public List<File> getFilesRecursively(Path filePath) throws FileNotFoundException {
-    if (!filePath.toFile().exists()) {
-      throw new FileNotFoundException("File or directory does not exist: " + filePath);
+  public List<File> getFilesRecursively(Path path) throws FileNotFoundException {
+    if (!path.toFile().exists()) {
+      throw new FileNotFoundException("File or directory does not exist: " + path);
     }
 
     List<Path> paths = new ArrayList<Path>();
-    try (Stream<Path> stream = Files.walk(filePath)) { // Source: https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
+    try (Stream<Path> stream = Files.walk(path)) { // Source: https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
       paths = stream.parallel().filter(Files::isRegularFile)
-                               .filter(path -> endsWithExtensions(path.getFileName().toString()))
+                               .filter(p -> endsWithExtensions(p.getFileName().toString()))
                                .collect(Collectors.toList());
     } catch (IOException e) {
       e.printStackTrace();
     }
 
-    List<File> fileList = new ArrayList<File>();
-    for (Path path : paths) {
-      fileList.add(new File(path, 0));
-    }
-    return fileList;
+    return paths.stream().map(p -> new File(p, 0)).collect(Collectors.toList());
   }
 
   public boolean endsWithExtensions(String str) {
     return getCppExtensions().stream().anyMatch(e -> str.endsWith(e));
-  }
-
-  public void Output() {
-    System.out.println("Files scanned:\n");;
-    for (File file : files) {
-      System.out.println("    " + file.toString() + "\n");
-    }
   }
 }
