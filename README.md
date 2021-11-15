@@ -6,3 +6,4 @@ Team Blue
 
 * [Stories](https://trello.com/b/xxVlr0wZ/cs-350-board)
 * [Design](https://docs.google.com/document/d/1I2jV0N-Tk8rieWrMca09r3Cp5-NEhowWREILKKeF5Eg/edit#)
+* [Reports](https://kbank004.github.io/CS-350-Project)
