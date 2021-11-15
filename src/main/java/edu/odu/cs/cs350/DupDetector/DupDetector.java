@@ -36,10 +36,10 @@ public class DupDetector {
     return files;
   }
 
-  private int maxSuggestions = 0;
+  private final int maxSuggestions;
+  private List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp", "h"));
   private Path propertiesPath = Path.of("");
   private List<Path> filePaths = new ArrayList<Path>();
-  private List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp", "h"));
 
   public DupDetector(int nSuggestions, List<Path> paths) {
     maxSuggestions = Math.max(1, nSuggestions);
