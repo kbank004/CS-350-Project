@@ -82,15 +82,14 @@ public class DupDetectorTest {
       List<Path> filePaths = DupDetector.toPaths(Arrays.copyOfRange(args, 1, args.length));
       
       DupDetector dup = new DupDetector(nSuggestions, filePaths);
-      //Path[] expectedPaths = {
-      //  Path.of(dataPath + "/a.h"),
-      //  Path.of(dataPath + "/a.cpp"),
-      //  Path.of(dataPath + "/b/c.h"),
-      //  Path.of(dataPath + "/b/c.cpp"),
-      //};
       
-      //String separator = System.getProperty("file.separator");
-      assertThat("dup.toString() expected " + dup.getFilePaths().toString() + ", saw " + dup.getOutput(), dup.getOutput(), is(dup.getFilePaths().toString()));
+      StringBuffer expectedOutpuBuffer = new StringBuffer("Files scanned:\n");
+      expectedOutpuBuffer.append("    " + getDataPath("a.cpp").toAbsolutePath().toString() + "0\n");
+      expectedOutpuBuffer.append("    " + getDataPath("a.h").toAbsolutePath().toString() + "0\n");
+      expectedOutpuBuffer.append("    " + getDataPath("b/c.cpp").toAbsolutePath().toString() + "0\n");
+      expectedOutpuBuffer.append("    " + getDataPath("b/c.cpp").toAbsolutePath().toString() + "0\n");
+
+      assertThat("dup.toString() expected " + expectedOutpuBuffer.toString() + ", saw " + dup.getOutput(), dup.getOutput(), is(expectedOutpuBuffer.toString()));
     } catch (Exception e) {
       fail("Test threw unexpected exception! " + e);
     }
