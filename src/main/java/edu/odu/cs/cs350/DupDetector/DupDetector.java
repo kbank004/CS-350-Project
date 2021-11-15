@@ -95,21 +95,7 @@ public class DupDetector {
     }
 
     List<Path> paths = new ArrayList<Path>();
-    try { // Source:
-          // https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
-      // if (filePath.toFile().isDirectory()) {
-      //   // Walk through file tree and collect all files with correct extensions into a
-      //   // list
-      //   try (Stream<Path> stream = Files.walk(filePath)) {
-      //     paths = stream.parallel().filter(Files::isRegularFile)
-      //         .filter(path -> endsWithExtensions(path.getFileName().toString())).collect(Collectors.toList());
-      //   }
-
-      // } else if (endsWithExtensions(filePath.getFileName().toString())) {
-      //   // if not directory and has proper extensions, just return filePath itself
-      //   paths.add(filePath);
-      // }
-      
+    try { // Source: https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
       try (Stream<Path> stream = Files.walk(filePath)) {
         paths = stream.parallel().filter(Files::isRegularFile)
           .filter(path -> endsWithExtensions(path.getFileName().toString())).collect(Collectors.toList());
