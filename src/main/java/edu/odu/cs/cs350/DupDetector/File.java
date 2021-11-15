@@ -24,6 +24,6 @@ public class File {
   }
 
   public String toString() {
-    return filePath.toString() + ", " + Integer.toString(numTokens);
+    return filePath.toAbsolutePath().toString() + ", " + Integer.toString(numTokens);
   }
 }
