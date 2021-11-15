@@ -13,13 +13,13 @@ plugins {
 }
 
 java {
-  sourceCompatibility = JavaVersion.toVersion(11)
-  targetCompatibility = JavaVersion.toVersion(11)
+  sourceCompatibility = JavaVersion.toVersion(16)
+  targetCompatibility = JavaVersion.toVersion(16)
 }
 
 repositories {
   // Use JCenter for resolving dependencies.
-  jcenter()
+  mavenCentral()
 }
 
 dependencies {
