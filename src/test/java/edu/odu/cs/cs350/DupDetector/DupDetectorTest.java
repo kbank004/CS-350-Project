@@ -10,96 +10,45 @@ import java.util.ArrayList;
 import java.nio.file.Path;
 
 public class DupDetectorTest {
-  // @Test
-  // public void testEndsWithExtensions() {
-  //   String[] fakeFiles = new String[] { "", "a", "b.", "c.ini" };
-  //   List<String> realFiles = new ArrayList<String>();
-  //   DupDetector dupDetector = new DupDetector();
-  //   for (String ext : dupDetector.getCppExtensions()) {
-  //     realFiles.add("file." + ext);
-  //   }
-  //   for (String file : fakeFiles) {
-  //     assertFalse(dupDetector.endsWithExtensions(file));
-  //   }
-  //   for (String file : realFiles) {
-  //     assertTrue(dupDetector.endsWithExtensions(file));
-  //   }
-  // }
+  @Test
+  public void testMaxSuggestions(){
+    Path p1 = Path.of("./");
+    ArrayList<Path> fList = new ArrayList<Path>();
+    fList.add(p1);
+        DupDetector dup = new DupDetector(50, fList);
+        assertThat(dup.getMaxSuggestions(), is(50));
 
-  // @Test
-  // public void testMaxSuggestions() {
-  //   DupDetector dupDetector = new DupDetector();
+    }
 
-  //   dupDetector.setMaxSuggestions(0);
-  //   assertThat(dupDetector.getMaxSuggestions(), is(1));
+    @Test
+    public void testPropertiesFile(){
+      ArrayList<Path> paths = new ArrayList<Path>();
+      paths.add(Path.of("./properties.ini")); 
 
-  //   dupDetector.setMaxSuggestions(1);
-  //   assertThat(dupDetector.getMaxSuggestions(), is(1));
+      DupDetector dup = new DupDetector(1, paths);
+      assertThat(dup.getPropertiesPath().toString(), is(paths.get(0).toString()));
 
-  //   dupDetector.setMaxSuggestions(11);
-  //   assertThat(dupDetector.getMaxSuggestions(), is(11));
+      paths.remove(0);
+      paths.add(Path.of("/home/me/prop.ini"));
+      paths.add(Path.of("C:\\Users\\Me\\test.c"));
+      DupDetector dup1 = new DupDetector(1, paths);
+      assertThat(dup1.getPropertiesPath(), is(paths.get(0)));
+    }
 
-  //   dupDetector.setMaxSuggestions(-1);
-  //   assertThat(dupDetector.getMaxSuggestions(), is(1));
-  // }
+    @Test
+    public void testFilePaths(){
+      ArrayList<Path> paths = new ArrayList<Path>();
+      paths.add(Path.of("/home/me/mario.c"));
+      paths.add(Path.of("/var/www/resources/mario.c"));
+      paths.add(Path.of("C:\\Users\\me\\source\\unhelpfulprogram.cpp"));
+      DupDetector dup = new DupDetector(1, paths);
+      assertThat(dup.getFilePaths(), is(paths));
+    }
 
-  // @Test
-  // public void testFindFiles() {
-  //   DupDetector dupDetector = new DupDetector();
-  //   assertThat(dupDetector.getFilePaths(), is(empty()));
+    // Todo
+    @Test
+    public void testCppExtensions() {    
+    }
+    
 
-  //   String[] paths = new String[] { "src/test/data/a.h", "src/test/data/a.cpp", "src/test/data/b" };
-  //   try {
-  //     dupDetector.findFiles(paths);
-  //   } catch (Exception e) {
-  //     System.err.println("Could not find files!");
-  //     assertTrue(false);
-  //   }
-
-  //   assertThat(dupDetector.getFilePaths(), containsInAnyOrder(Path.of("src/test/data/a.h"),
-  //       Path.of("src/test/data/a.cpp"), Path.of("src/test/data/b/c.h"), Path.of("src/test/data/b/c.cpp")));
-
-  //   DupDetector dupDetector2 = new DupDetector();
-  //   String[] paths2 = new String[] { "src/test/data/p.ini", "src/test/data/a.h", "src/test/data/a.cpp",
-  //       "src/test/data/b/c.h", "src/test/data/b/c.cpp" };
-  //   try {
-  //     dupDetector2.findFiles(paths2);
-  //   } catch (Exception e) {
-  //     System.err.println("Could not find files!");
-  //     assertTrue(false);
-  //   }
-  //   assertThat(dupDetector.getFilePaths(), containsInAnyOrder(Path.of("src/test/data/a.h"),
-  //       Path.of("src/test/data/a.cpp"), Path.of("src/test/data/b/c.h"), Path.of("src/test/data/b/c.cpp")));
-  // }
-
-  // @Test
-  // public void testPropertiesFile() {
-  //   DupDetector dupDetector = new DupDetector();
-  //   assertThat(dupDetector.getPropertiesFilePath().toFile().getName(), is(""));
-
-  //   String[] paths = new String[] { "src/test/data/a.h", "src/test/data/a.cpp", "src/test/data/b" };
-  //   try {
-  //     dupDetector.findFiles(paths);
-  //   } catch (Exception e) {
-  //     System.err.println("Could not find files!");
-  //     assertTrue(false);
-  //   }
-  //   assertThat(dupDetector.getPropertiesFilePath().toFile().getName(), is(""));
-
-  //   DupDetector dupDetector2 = new DupDetector();
-  //   String[] paths2 = new String[] { "src/test/data/p.ini", "src/test/data/a.h", "src/test/data/a.cpp",
-  //       "src/test/data/b" };
-  //   try {
-  //     dupDetector2.findFiles(paths2);
-  //   } catch (Exception e) {
-  //     System.err.println("Could not find files!");
-  //     assertTrue(false);
-  //   }
-  //   assertThat(dupDetector2.getPropertiesFilePath().toFile().getName(), is("p.ini"));
-  // }
-
-  // @Test
-  // public void testConstructor() {
-
-  // }
-}
+  }
