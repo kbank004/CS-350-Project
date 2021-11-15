@@ -2,7 +2,7 @@ package edu.odu.cs.cs350.DupDetector;
 
 import java.nio.file.Path;
 
-public class File {
+public class File implements Comparable<File> {
   private Path filePath;
   private int numTokens;
 
@@ -25,5 +25,9 @@ public class File {
 
   public String toString() {
     return filePath.toAbsolutePath().toString() + ", " + Integer.toString(numTokens);
+  }
+
+  public int compareTo(File f) {
+    return filePath.compareTo(f.filePath);
   }
 }

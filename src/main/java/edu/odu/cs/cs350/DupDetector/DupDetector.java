@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -137,6 +138,7 @@ public class DupDetector {
     for (Path path : paths) {
       files.addAll(getFilesRecursively(path));
     }
+    Collections.sort(files); // Sort alphabetically
   }
 
   public List<File> getFilesRecursively(Path path) throws FileNotFoundException {
