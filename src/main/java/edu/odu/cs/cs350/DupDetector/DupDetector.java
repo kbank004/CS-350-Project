@@ -1,6 +1,7 @@
 package edu.odu.cs.cs350.DupDetector;
 
 import java.io.IOException;
+import java.util.Properties;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -17,20 +18,14 @@ public class DupDetector {
       System.exit(-1);
     }
 
-    try {
-      // Process input
-      int nSuggestions = Integer.parseInt(args[0]);
-      List<Path> filePaths = toPaths(Arrays.copyOfRange(args, 1, args.length));//findFiles(Arrays.copyOfRange(args, 1, args.length));
-      
-      DupDetector dupDetector = new DupDetector(nSuggestions, filePaths);
-      System.out.println(dupDetector.toString());
-  
-      System.exit(0);
-    } catch (Exception e) {
-      System.err.println(e);
+    // Process input
+    int nSuggestions = Integer.parseInt(args[0]);
+    List<Path> filePaths = toPaths(Arrays.copyOfRange(args, 1, args.length));//findFiles(Arrays.copyOfRange(args, 1, args.length));
+    
+    DupDetector dupDetector = new DupDetector(nSuggestions, filePaths);
+    System.out.println(dupDetector.toString());
 
-      System.exit(-1);
-    }
+    System.exit(0);
   }
 
   public static List<Path> toPaths(String[] paths) {
@@ -46,13 +41,19 @@ public class DupDetector {
   private List<Path> filePaths = new ArrayList<Path>();
   private List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp", "h"));
 
-  public DupDetector(int nSuggestions, List<Path> paths) throws Exception {
+  public DupDetector(int nSuggestions, List<Path> paths) {
     maxSuggestions = Math.max(1, nSuggestions);
-    
-    if (tryParsePropertyFile(paths)) { // If parsed property file, skip first path in list for processing (it was the properties file)
-      findFiles(paths.subList(1, paths.size()));
-    } else {
-      findFiles(paths);
+
+    try {
+      if (tryParsePropertyFile(paths)) { // If parsed property file, skip first path in list for processing (it was the properties file)
+        findFiles(paths.subList(1, paths.size()));
+      } else {
+        findFiles(paths);
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+
+      System.exit(-1);
     }
   }
 
