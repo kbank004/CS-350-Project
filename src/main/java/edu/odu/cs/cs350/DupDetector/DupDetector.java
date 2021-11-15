@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,14 +39,15 @@ public class DupDetector {
 
   private final int maxSuggestions;
   private List<String> cppExtensions = new ArrayList<String>(Arrays.asList("cpp", "h"));
-  private Path propertiesPath = Path.of("");
+  private Optional<Path> propertiesPath = Optional.empty();
   private List<Path> filePaths = new ArrayList<Path>();
 
   public DupDetector(int nSuggestions, List<Path> paths) {
     maxSuggestions = Math.max(1, nSuggestions);
 
     try {
-      if (tryParsePropertyFile(paths)) { // If parsed property file, skip first path in list for processing (it was the properties file)
+      tryParsePropertyFile(paths);
+      if (propertiesPath.isPresent()) { // If parsed property file, skip first path in list for processing (it was the properties file)
         findFiles(paths.subList(1, paths.size()));
       } else {
         findFiles(paths);
@@ -66,21 +68,19 @@ public class DupDetector {
   }
 
   public Path getPropertiesPath() {
-    return propertiesPath;
+    return propertiesPath.get();
   }
 
   public List<Path> getFilePaths() {
     return filePaths;
   }
 
-  public boolean tryParsePropertyFile(List<Path> paths) throws Exception {
+  public void tryParsePropertyFile(List<Path> paths) {
     Path propertiesFilePath = paths.get(0);
     if (propertiesFilePath.toString().endsWith(".ini")) {
-      propertiesPath = propertiesFilePath;
+      propertiesPath = Optional.of(propertiesFilePath);
       //cppExtensions = ;
-      return true;
     }
-    return false;
   }
 
   public void findFiles(List<Path> paths) throws Exception {
