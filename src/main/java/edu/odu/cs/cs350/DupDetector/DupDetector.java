@@ -69,10 +69,11 @@ public class DupDetector {
   private final int defaultMaxSubstitutions = 10;
   private final int defaultMinSequenceLength = 8;
 
-  /*
+  /**
   * Constructor
-  * @param [int] nSuggestions Maximum number of suggestions
-  * @param [List<Path>] paths List of Paths to read (including properties file path, if included) 
+  * @param nSuggestions Maximum number of suggestions
+  * @param paths List of Paths to read (including properties file path, if included) 
+  * @throws FileNotFoundException throws exception if one of the given paths is invalid
   */
   public DupDetector(int nSuggestions, List<Path> paths) throws FileNotFoundException {
     maxSuggestions = Math.max(1, nSuggestions);
@@ -87,7 +88,7 @@ public class DupDetector {
 
   /**
    * Get maximum number of suggested refactorings to be printed
-   * @return {int} max num of suggestions
+   * @return max num of suggestions
    */
   public int getMaxSuggestions() {
     return maxSuggestions;
@@ -120,7 +121,7 @@ public class DupDetector {
 
   /**
   * Returns a list of acceptable file extensions
-  * @return {List<String>} list of accepted extensions
+  * @return list of accepted extensions
   */
   public List<String> getCppExtensions() {
     return Arrays.asList(getProperty(Property.CPP_EXTENSIONS).split(",", 0));
@@ -128,15 +129,15 @@ public class DupDetector {
 
   /**
   * Returns the maximum number of substitutions to be printed
-  * @return {int} max num of substitutions
+  * @return max num of substitutions
   */
   public int getMaxSubstitutions() {
     return Integer.parseInt(getProperty(Property.MAX_SUBSTITUTIONS));
   }
 
   /**
-  * Returns the minimum allowed length of a token for it to be printed
-  * @return {int} min length of token
+  * Returns the minimum allowed length of a token sequence for it to be printed
+  * @return min length of token sequence
   */
   public int getMinSequenceLength() {
     return Integer.parseInt(getProperty(Property.MIN_SEQUENCE_LENGTH));
@@ -144,7 +145,7 @@ public class DupDetector {
 
   /**
   * Returns a List of Files (to eventually be read and parsed)
-  * @return {List<File>} list of files 
+  * @return list of files 
   */
   public List<File> getFiles() {
     return files;
@@ -152,7 +153,7 @@ public class DupDetector {
 
   /**
   * Returns a list of File Paths
-  * @return {List<Path>} list of File Paths
+  * @return list of File Paths
   */
   public List<Path> getFilePaths() {
     return files.stream().map(File::getFilePath).collect(Collectors.toList());
@@ -160,7 +161,7 @@ public class DupDetector {
 
   /**
   * Returns a String containing DupDetector's output
-  * @return {String} string of output
+  * @return string of output
   */
   public String getOutput() {
     StringBuffer buffer = new StringBuffer("Files scanned:\n");
