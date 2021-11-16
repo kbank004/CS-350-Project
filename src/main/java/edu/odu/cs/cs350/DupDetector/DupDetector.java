@@ -21,12 +21,12 @@ public class DupDetector {
   /**
    * Main program takes at least two command-line parameters.
    * 
-   * Params: nSuggestions [properties filepath] path1 [path2...]
+   * nSuggestions - Maximum number of suggested refactorings to be printed
+   * [propertiesFilePath] - Path to a properties file with extension .ini, containing properties of format propertyName = propertyValue
+   * path1 - Path to file or directory containing C++ source code
+   * [path2...] - Additional paths to files or directories containing C++ source code
    * 
-   * @param nSuggestions - Maximum number of suggested refactorings to be printed
-   * @param [propertiesFilepath] - Path to a properties file with extension .ini, containing properties of format propertyName = propertyValue
-   * @param path1 - Path to file or directory containing C++ source code
-   * @param [path2...] - Additional paths to files or directories containing C++ source code
+   * @param args nSuggestions [propertiesFilePath] path1 [path2...]
    */
   public static void main(String[] args) {
     // Print help message if not enough args
