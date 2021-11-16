@@ -2,7 +2,7 @@ package edu.odu.cs.cs350.DupDetector;
 
 /**
  * Enum representing the different available properties in the properties file
- * @author lugo
+ * @author Lugo
  */
 public enum Property {
   /**

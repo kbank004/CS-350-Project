@@ -18,8 +18,8 @@ import java.util.stream.Stream;
 /**
  * A program for examining C++ code and making recommendations for near-duplicate code blocks that can be refactored to reduce the overall size and complexity of the C++ program
  * https://www.cs.odu.edu/~zeil/cs350/latest/Protected/refactoring/index.html
- * @author lugo
- * @author banks
+ * @author Lugo
+ * @author Banks
  */
 public class DupDetector {
   // --------------------- Main --------------------- //
