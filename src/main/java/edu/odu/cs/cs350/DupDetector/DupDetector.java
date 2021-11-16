@@ -69,6 +69,11 @@ public class DupDetector {
   private final int defaultMaxSubstitutions = 10;
   private final int defaultMinSequenceLength = 8;
 
+  /*
+  * Constructor
+  * @param [int] nSuggestions Maximum number of suggestions
+  * @param [List<Path>] paths List of Paths to read (including properties file path, if included) 
+  */
   public DupDetector(int nSuggestions, List<Path> paths) throws FileNotFoundException {
     maxSuggestions = Math.max(1, nSuggestions);
 
