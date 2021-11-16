@@ -114,7 +114,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getCppExtensions()">getCppExtensions</a></span>()</code></div>
 <div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
-<div class="block">Returns a list of acceptable file extensions</div>
+<div class="block">Returns a list of acceptable file extensions.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getFilePaths()">getFilePaths</a></span>()</code></div>
@@ -129,7 +129,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getMaxSubstitutions()">getMaxSubstitutions</a></span>()</code></div>
 <div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
-<div class="block">Returns the maximum number of substitutions to be printed</div>
+<div class="block">Returns the maximum number of substitutions to be printed.</div>
 </div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getMaxSuggestions()">getMaxSuggestions</a></span>()</code></div>
@@ -139,7 +139,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getMinSequenceLength()">getMinSequenceLength</a></span>()</code></div>
 <div class="col-last odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
-<div class="block">Returns the minimum allowed length of a token sequence for it to be printed</div>
+<div class="block">Returns the minimum allowed length of a token sequence for it to be printed.</div>
 </div>
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getOutput()">getOutput</a></span>()</code></div>
@@ -241,7 +241,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getCppExtensions()">
 <h3>getCppExtensions</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getCppExtensions</span>()</div>
-<div class="block">Returns a list of acceptable file extensions</div>
+<div class="block">Returns a list of acceptable file extensions. Default property value: cpp,h</div>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>list of accepted extensions</dd>
@@ -249,24 +249,24 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getMaxSubstitutions()">
-<h3>getMaxSubstitutions</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getMaxSubstitutions</span>()</div>
-<div class="block">Returns the maximum number of substitutions to be printed</div>
+<section class="detail" id="getMinSequenceLength()">
+<h3>getMinSequenceLength</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getMinSequenceLength</span>()</div>
+<div class="block">Returns the minimum allowed length of a token sequence for it to be printed. Default property value: 8</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>max num of substitutions</dd>
+<dd>min length of token sequence</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="getMinSequenceLength()">
-<h3>getMinSequenceLength</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getMinSequenceLength</span>()</div>
-<div class="block">Returns the minimum allowed length of a token sequence for it to be printed</div>
+<section class="detail" id="getMaxSubstitutions()">
+<h3>getMaxSubstitutions</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getMaxSubstitutions</span>()</div>
+<div class="block">Returns the maximum number of substitutions to be printed. Default property value: 10</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>min length of token sequence</dd>
+<dd>max num of substitutions</dd>
 </dl>
 </section>
 </li>
