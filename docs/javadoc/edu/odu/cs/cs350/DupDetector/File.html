@@ -118,7 +118,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base
 <div class="col-first even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#compareTo(edu.odu.cs.cs350.DupDetector.File)">compareTo</a></span>&#8203;(<a href="File.html" title="class in edu.odu.cs.cs350.DupDetector">File</a>&nbsp;f)</code></div>
 <div class="col-last even-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table">
-<div class="block">Compares this file with another file</div>
+<div class="block">Lexigraphically compares this file with another one</div>
 </div>
 <div class="col-first odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
 <div class="col-second odd-row-color method-summary-table-tab2 method-summary-table-tab4 method-summary-table"><code><span class="member-name-link"><a href="#getFilePath()">getFilePath</a></span>()</code></div>
@@ -165,8 +165,8 @@ implements <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base
 <div class="block">Constructor</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>p</code> - </dd>
-<dd><code>tokenCount</code> - </dd>
+<dd><code>p</code> - Path of this tile</dd>
+<dd><code>tokenCount</code> - Number of tokens in this file</dd>
 </dl>
 </section>
 </li>
@@ -185,7 +185,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base
 <div class="block">Set the number of tokens in this file</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>n</code> - </dd>
+<dd><code>n</code> - number of tokens</dd>
 </dl>
 </section>
 </li>
@@ -196,6 +196,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base
 <div class="block">Return the number of tokens in the file</div>
 <dl class="notes">
 <dt>Returns:</dt>
+<dd>number of tokens</dd>
 </dl>
 </section>
 </li>
@@ -206,6 +207,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base
 <div class="block">Return the Path for the file</div>
 <dl class="notes">
 <dt>Returns:</dt>
+<dd>path of file</dd>
 </dl>
 </section>
 </li>
@@ -224,7 +226,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base
 <section class="detail" id="compareTo(edu.odu.cs.cs350.DupDetector.File)">
 <h3>compareTo</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">compareTo</span>&#8203;<span class="parameters">(<a href="File.html" title="class in edu.odu.cs.cs350.DupDetector">File</a>&nbsp;f)</span></div>
-<div class="block">Compares this file with another file</div>
+<div class="block">Lexigraphically compares this file with another one</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Comparable.html#compareTo(T)" title="class or interface in java.lang" class="external-link">compareTo</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/lang/Comparable.html" title="class or interface in java.lang" class="external-link">Comparable</a>&lt;<a href="File.html" title="class in edu.odu.cs.cs350.DupDetector">File</a>&gt;</code></dd>
