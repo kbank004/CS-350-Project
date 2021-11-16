@@ -2,6 +2,10 @@ package edu.odu.cs.cs350.DupDetector;
 
 import java.nio.file.Path;
 
+/**
+ * Represents a single file with a path and a number of tokens contained inside it
+ * @author banks
+ */
 public class File implements Comparable<File> {
   private Path filePath;
   private int numTokens;

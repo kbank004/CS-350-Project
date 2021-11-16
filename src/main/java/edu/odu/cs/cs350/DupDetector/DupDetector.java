@@ -15,6 +15,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * A program for examining C++ code and making recommendations for near-duplicate code blocks that can be refactored to reduce the overall size and complexity of the C++ program
+ * https://www.cs.odu.edu/~zeil/cs350/latest/Protected/refactoring/index.html
+ * @author lugo
+ * @author banks
+ */
 public class DupDetector {
   // --------------------- Main --------------------- //
 
@@ -52,6 +58,11 @@ public class DupDetector {
     }
   }
 
+  /**
+   * Convert String array of paths into List of Path objects
+   * @param argsArray String array of paths
+   * @return list of paths
+   */
   public static List<Path> toPaths(String[] argsArray) { // Is there a shorthand for this?
     return Arrays.stream(argsArray).map(arg -> Path.of(arg)).collect(Collectors.toList());
   }
@@ -63,8 +74,8 @@ public class DupDetector {
   private List<File> files = new ArrayList<File>();
 
   private final String defaultCppExtensions = "cpp,h";
-  private final int defaultMaxSubstitutions = 10;
   private final int defaultMinSequenceLength = 8;
+  private final int defaultMaxSubstitutions = 10;
 
   /**
   * Constructor
@@ -99,17 +110,17 @@ public class DupDetector {
         } else {
           return defaultCppExtensions;
         }
-      case MAX_SUBSTITUTIONS:
-        if (properties.isPresent()) {
-          return properties.get().getProperty("MaxSubstitutions", Integer.toString(defaultMaxSubstitutions));
-        } else {
-          return Integer.toString(defaultMaxSubstitutions);
-        }
       case MIN_SEQUENCE_LENGTH:
         if (properties.isPresent()) {
           return properties.get().getProperty("MinSequenceLength", Integer.toString(defaultMinSequenceLength));
         } else {
           return Integer.toString(defaultMinSequenceLength);
+        }
+      case MAX_SUBSTITUTIONS:
+        if (properties.isPresent()) {
+          return properties.get().getProperty("MaxSubstitutions", Integer.toString(defaultMaxSubstitutions));
+        } else {
+          return Integer.toString(defaultMaxSubstitutions);
         }
       default:
         return null;
@@ -117,7 +128,7 @@ public class DupDetector {
   }
 
   /**
-  * Returns a list of acceptable file extensions
+  * Returns a list of acceptable file extensions. Default property value: cpp,h
   * @return list of accepted extensions
   */
   public List<String> getCppExtensions() {
@@ -125,19 +136,19 @@ public class DupDetector {
   }
 
   /**
-  * Returns the maximum number of substitutions to be printed
-  * @return max num of substitutions
-  */
-  public int getMaxSubstitutions() {
-    return Integer.parseInt(getProperty(Property.MAX_SUBSTITUTIONS));
-  }
-
-  /**
-  * Returns the minimum allowed length of a token sequence for it to be printed
+  * Returns the minimum allowed length of a token sequence for it to be printed. Default property value: 8
   * @return min length of token sequence
   */
   public int getMinSequenceLength() {
     return Integer.parseInt(getProperty(Property.MIN_SEQUENCE_LENGTH));
+  }
+
+  /**
+  * Returns the maximum number of substitutions to be printed. Default property value: 10
+  * @return max num of substitutions
+  */
+  public int getMaxSubstitutions() {
+    return Integer.parseInt(getProperty(Property.MAX_SUBSTITUTIONS));
   }
 
   /**
