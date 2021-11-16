@@ -11,8 +11,8 @@ public class File implements Comparable<File> {
 
 /**
  * Constructor
- * @param p
- * @param tokenCount
+ * @param p Path of this tile
+ * @param tokenCount Number of tokens in this file
  */
   public File(Path p, int tokenCount) {
     filePath = p;
@@ -21,7 +21,7 @@ public class File implements Comparable<File> {
 
   /**
    * Set the number of tokens in this file
-   * @param n
+   * @param n number of tokens
    */
   public void setNumTokens(int n) {
     numTokens = n;
@@ -29,7 +29,7 @@ public class File implements Comparable<File> {
 
   /**
    * Return the number of tokens in the file
-   * @return
+   * @return number of tokens
    */
   public int getNumTokens() {
     return numTokens;
@@ -37,7 +37,7 @@ public class File implements Comparable<File> {
 
   /**
    * Return the Path for the file
-   * @return
+   * @return path of file
    */
   public Path getFilePath() {
     return filePath;
@@ -51,7 +51,7 @@ public class File implements Comparable<File> {
   }
 
   /**
-   * Compares this file with another file
+   *  Lexigraphically compares this file with another one
    * @param f File to compare to
    */
   public int compareTo(File f) {
