@@ -67,11 +67,15 @@ public class DupDetector {
     }
   }
 
+  /**
+   * Get maximum number of suggested refactorings to be printed
+   * @return {int} max num of suggestions
+   */
   public int getMaxSuggestions() {
     return maxSuggestions;
   }
 
-  public String getProperty(Property property) {
+  private String getProperty(Property property) {
     switch (property) {
       case CPP_EXTENSIONS:
         if (properties.isPresent()) {
@@ -96,26 +100,50 @@ public class DupDetector {
     }
   }
 
+  /**
+  * Returns a list of acceptable file extensions
+  * @return {List<String>} list of accepted extensions
+  */
   public List<String> getCppExtensions() {
     return Arrays.asList(getProperty(Property.CPP_EXTENSIONS).split(",", 0));
   }
 
+  /**
+  * Returns the maximum number of substitutions to be printed
+  * @return {int} max num of substitutions
+  */
   public int getMaxSubstitutions() {
     return Integer.parseInt(getProperty(Property.MAX_SUBSTITUTIONS));
   }
 
+  /**
+  * Returns the minimum allowed length of a token for it to be printed
+  * @return {int} min length of token
+  */
   public int getMinSequenceLength() {
     return Integer.parseInt(getProperty(Property.MIN_SEQUENCE_LENGTH));
   }
 
+  /**
+  * Returns a List of Files (to eventually be read and parsed)
+  * @return {List<File>} list of files 
+  */
   public List<File> getFiles() {
     return files;
   }
 
+  /**
+  * Returns a list of File Paths
+  * @return {List<Path>} list of File Paths
+  */
   public List<Path> getFilePaths() {
     return files.stream().map(File::getFilePath).collect(Collectors.toList());
   }
 
+  /**
+  * Returns a String containing DupDetector's output
+  * @return {String} string of output
+  */
   public String getOutput() {
     StringBuffer buffer = new StringBuffer("Files scanned:\n");
     for (File file : files) {
@@ -124,7 +152,7 @@ public class DupDetector {
     return buffer.toString();
   }
 
-  public void tryParsePropertyFile(List<Path> paths) {
+  private void tryParsePropertyFile(List<Path> paths) {
     Path propertiesFilePath = paths.get(0);
     if (propertiesFilePath.toString().endsWith(".ini")) {
       try (InputStream stream = new FileInputStream(propertiesFilePath.toString())) {
@@ -136,7 +164,7 @@ public class DupDetector {
     }
   }
 
-  public void searchPaths(List<Path> paths) throws FileNotFoundException {
+  private void searchPaths(List<Path> paths) throws FileNotFoundException {
     // Loop through each arg and add the file paths from each one
     for (Path path : paths) {
       files.addAll(getFilesRecursively(path));
@@ -144,7 +172,7 @@ public class DupDetector {
     Collections.sort(files); // Sort alphabetically
   }
 
-  public List<File> getFilesRecursively(Path path) throws FileNotFoundException {
+  private List<File> getFilesRecursively(Path path) throws FileNotFoundException {
     if (!path.toFile().exists()) {
       throw new FileNotFoundException("File or directory does not exist: " + path);
     }
@@ -161,7 +189,8 @@ public class DupDetector {
     return paths.stream().map(p -> new File(p, 0)).collect(Collectors.toList());
   }
 
-  public boolean endsWithExtensions(String str) {
+
+  private boolean endsWithExtensions(String str) {
     return getCppExtensions().stream().anyMatch(e -> str.endsWith(e));
   }
 }
