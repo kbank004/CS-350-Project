@@ -2,7 +2,8 @@ package edu.odu.cs.cs350.DupDetector;
 
 import java.nio.file.Path;
 /**
- * Class used for storing information about a file relevant to DupDetector
+ * Represents a single file with a path and a number of tokens contained inside it
+ * @author Banks
  */
 public class File implements Comparable<File> {
   private Path filePath;
