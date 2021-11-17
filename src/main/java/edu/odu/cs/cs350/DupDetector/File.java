@@ -44,7 +44,7 @@ public class File implements Comparable<File> {
   }
 
   /**
-   * Output the filepath and the number of tokens int he file
+   * Output the filepath and the number of tokens in the file
    */
   public String toString() {
     return filePath.toAbsolutePath().toString() + ", " + Integer.toString(numTokens);
