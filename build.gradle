@@ -71,7 +71,38 @@ task deployReports (dependsOn: ['copyReports']) {
   }
 }
 
+task deployReportsFromGithub (dependsOn: ['copyReportsFromGithub']) {
+  group = "Reporting"
+  description  'Copies reports to the gh-pages branch in preparation for a future push to GitHub'
+  doLast {
+    def pagesDir = "$buildDir/gh-pages"
+    def grgit = git.open {
+      dir = pagesDir + "/.git"
+    }
+    grgit.add(update: false, patterns: ['reports/', 'docs/'])
+    grgit.add(update: true, patterns: ['reports/', 'docs/'])
+    grgit.commit {
+      message = "Updating web pages"
+    }
+    grgit.push() // not sure why this refuses to push automatically, but having to manually push is starting to piss me off :)
+    grgit.close()
+  }
+}
+
 task copyReports (dependsOn: ['clonePages']) {
+  doLast {
+    copy {
+      from "$buildDir/reports"
+      into "$buildDir/gh-pages/reports"
+    }
+    copy {
+      from "$buildDir/docs"
+      into "$buildDir/gh-pages/docs"
+    }
+  }
+}
+
+task copyReportsFromGithub (dependsOn: ['clonePagesFromGithub']) {
   doLast {
     copy {
       from "$buildDir/reports"
@@ -98,7 +129,23 @@ task clonePages(dependsOn: ['reports', 'deletePage']) {
     grgit.checkout {
       branch = 'gh-pages'
     }
-    grgit.close()
+  }
+}
+
+task clonePagesFromGithub(dependsOn: ['reports', 'deletePage']) {
+  doLast {
+    mkdir 'build/gh-pages'
+    def thisRepo = rootProject.projectDir.toString()
+    def pagesDir = "$buildDir/gh-pages"
+    def grgit = git.clone {
+      dir = pagesDir
+      uri = 'https://github.com/kbank004/CS-350-Project'
+      bare = false
+      refToCheckout = 'gh-pages'
+    }
+    grgit.checkout {
+      branch = 'gh-pages'
+    }
   }
 }
 
