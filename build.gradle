@@ -6,10 +6,16 @@
  * User Manual available at https://docs.gradle.org/6.7/userguide/building_java_projects.html
  */
 
+buildscript {
+  dependencies {
+    classpath "com.github.fracpete:rsync4j-all:3.1.2-15"
+  }
+}
+
 plugins {
   // Apply the application plugin to add support for building a CLI application in Java.
   id 'application'
-  id "org.xbib.gradle.plugin.git" version "2.0.0"
+  // id "org.xbib.gradle.plugin.git" version "2.0.0"
 }
 
 java {
@@ -42,54 +48,20 @@ jar {
   }
 }
 
+run {
+  def dataDir = "src/test/data"
+  args = ["5", "$dataDir/p.ini", "$dataDir/a.cpp", "$dataDir/a.h", "$dataDir/b"]
+}
+
 test {
   ignoreFailures = true
   // Use junit platform for unit tests.
   useJUnitPlatform()
 }
 
-run {
-  def dataDir = "src/test/data"
-  args = ["5", "$dataDir/p.ini", "$dataDir/a.cpp", "$dataDir/a.h", "$dataDir/b"]
-}
+task reports(dependsOn: ['test', 'javadoc'])
 
-task deployReports (dependsOn: ['copyReports']) {
-  group = "Reporting"
-  description  'Copies reports to the gh-pages branch in preparation for a future push to GitHub'
-  doLast {
-    def pagesDir = "$buildDir/gh-pages"
-    def grgit = git.open {
-      dir = pagesDir + "/.git"
-    }
-    grgit.add(update: false, patterns: ['reports/', 'docs/'])
-    grgit.add(update: true, patterns: ['reports/', 'docs/'])
-    grgit.commit {
-      message = "Updating web pages"
-    }
-    grgit.push() // not sure why this refuses to push automatically, but having to manually push is starting to piss me off :)
-    grgit.close()
-  }
-}
-
-task deployReportsFromGithub (dependsOn: ['copyReportsFromGithub']) {
-  group = "Reporting"
-  description  'Copies reports to the gh-pages branch in preparation for a future push to GitHub'
-  doLast {
-    def pagesDir = "$buildDir/gh-pages"
-    def grgit = git.open {
-      dir = pagesDir + "/.git"
-    }
-    grgit.add(update: false, patterns: ['reports/', 'docs/'])
-    grgit.add(update: true, patterns: ['reports/', 'docs/'])
-    grgit.commit {
-      message = "Updating web pages"
-    }
-    grgit.push() // not sure why this refuses to push automatically, but having to manually push is starting to piss me off :)
-    grgit.close()
-  }
-}
-
-task copyReports (dependsOn: ['clonePages']) {
+task copyReports (dependsOn: ['reports']) {
   doLast {
     copy {
       from "$buildDir/reports"
@@ -102,56 +74,75 @@ task copyReports (dependsOn: ['clonePages']) {
   }
 }
 
-task copyReportsFromGithub (dependsOn: ['clonePagesFromGithub']) {
+import com.github.fracpete.rsync4j.RSync;
+import com.github.fracpete.processoutput4j.output.ConsoleOutputProcessOutput;
+
+task deploy (dependsOn: "copyReports") {
   doLast {
-    copy {
-      from "$buildDir/reports"
-      into "$buildDir/gh-pages/reports"
-    }
-    copy {
-      from "$buildDir/docs"
-      into "$buildDir/gh-pages/docs"
-    }
+    def sourceDir = "$buildDir/gh-pages/";
+    def destURL = "git@github.com:kbank004/CS-350-Project.git#gh-pages";
+    RSync rsync = new RSync()
+                  .source(sourceDir)
+                  .destination(destURL)
+                  .recursive(true)
+                  .archive(true)
+                  .delete(true)
+                  .verbose(true)
+                  .rsh("ssh -o IdentitiesOnly=yes");
+    ConsoleOutputProcessOutput output = new ConsoleOutputProcessOutput();
+    output.monitor(rsync.builder());
   }
 }
 
-task clonePages(dependsOn: ['reports', 'deletePage']) {
-  doLast {
-    mkdir 'build/gh-pages'
-    def thisRepo = rootProject.projectDir.toString()
-    def pagesDir = "$buildDir/gh-pages"
-    def grgit = git.clone {
-      dir = pagesDir
-      uri = 'file://' + thisRepo
-      bare = false
-      refToCheckout = 'gh-pages'
-    }
-    grgit.checkout {
-      branch = 'gh-pages'
-    }
-  }
-}
+// task deployReports (dependsOn: ['copyReports']) {
+//   group = "Reporting"
+//   description  'Copies reports to the gh-pages branch in preparation for a future push to GitHub'
+//   doLast {
+//     def pagesDir = "$buildDir/gh-pages"
+//     def grgit = git.open {
+//       dir = pagesDir + "/.git"
+//     }
+//     grgit.add(update: false, patterns: ['reports/', 'docs/'])
+//     grgit.add(update: true, patterns: ['reports/', 'docs/'])
+//     grgit.commit {
+//       message = "Updating web pages"
+//     }
+//     grgit.push() // not sure why this refuses to push automatically, but having to manually push is starting to piss me off :)
+//     grgit.close()
+//   }
+// }
 
-task clonePagesFromGithub(dependsOn: ['reports', 'deletePage']) {
-  doLast {
-    mkdir 'build/gh-pages'
-    def thisRepo = rootProject.projectDir.toString()
-    def pagesDir = "$buildDir/gh-pages"
-    def grgit = git.clone {
-      dir = pagesDir
-      uri = 'https://github.com/kbank004/CS-350-Project'
-      bare = false
-      refToCheckout = 'gh-pages'
-    }
-    grgit.checkout {
-      branch = 'gh-pages'
-    }
-  }
-}
+// task copyReports (dependsOn: ['clonePages']) {
+//   doLast {
+//     copy {
+//       from "$buildDir/reports"
+//       into "$buildDir/gh-pages/reports"
+//     }
+//     copy {
+//       from "$buildDir/docs"
+//       into "$buildDir/gh-pages/docs"
+//     }
+//   }
+// }
 
-task deletePage(type: Delete) {
-  def pagesDir = "$buildDir/gh-pages"
-  delete files(pagesDir)
-}
+// task clonePages(dependsOn: ['reports', 'deletePage']) {
+//   doLast {
+//     mkdir 'build/gh-pages'
+//     def thisRepo = rootProject.projectDir.toString()
+//     def pagesDir = "$buildDir/gh-pages"
+//     def grgit = git.clone {
+//       dir = pagesDir
+//       uri = 'file://' + thisRepo
+//       bare = false
+//       refToCheckout = 'gh-pages'
+//     }
+//     grgit.checkout {
+//       branch = 'gh-pages'
+//     }
+//   }
+// }
 
-task reports (dependsOn: ['test', 'javadoc']) { }
+// task deletePage(type: Delete) {
+//   def pagesDir = "$buildDir/gh-pages"
+//   delete files(pagesDir)
+// }
