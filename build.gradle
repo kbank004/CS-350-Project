@@ -100,62 +100,62 @@ task copyReports (dependsOn: ['reports']) {
 //   }
 // }
 
-import com.github.fracpete.rsync4j.RSync;
-import com.github.fracpete.processoutput4j.output.ConsoleOutputProcessOutput;
+// import com.github.fracpete.rsync4j.RSync;
+// import com.github.fracpete.processoutput4j.output.ConsoleOutputProcessOutput;
 
-task deploy (dependsOn: "copyReports") {
+// task deploy (dependsOn: "copyReports") {
+//   doLast {
+//     def sourceDir = "$buildDir/gh-pages/";
+//     def destURL = "git@github.com:kbank004/CS-350-Project.git";
+//     RSync rsync = new RSync()
+//                   .source(sourceDir)
+//                   .destination(destURL)
+//                   .recursive(true)
+//                   .archive(true)
+//                   .delete(true)
+//                   .verbose(true)
+//                   .rsh("ssh -o IdentitiesOnly=yes");
+//     ConsoleOutputProcessOutput output = new ConsoleOutputProcessOutput();
+//     output.monitor(rsync.builder());
+//   }
+// }
+
+task clonePages(dependsOn: ['reports', 'deletePages']) {
   doLast {
-    def sourceDir = "$buildDir/gh-pages/";
-    def destURL = "git@github.com:kbank004/CS-350-Project.git";
-    RSync rsync = new RSync()
-                  .source(sourceDir)
-                  .destination(destURL)
-                  .recursive(true)
-                  .archive(true)
-                  .delete(true)
-                  .verbose(true)
-                  .rsh("ssh -o IdentitiesOnly=yes");
-    ConsoleOutputProcessOutput output = new ConsoleOutputProcessOutput();
-    output.monitor(rsync.builder());
+    mkdir "$buildDir/gh-pages"
+    def thisRepo = rootProject.projectDir.toString()
+    def pagesDir = "$buildDir/gh-pages"
+    def grgit = git.clone {
+      dir = pagesDir
+      uri = 'file:' + thisRepo
+      bare = false
+      refToCheckout = 'gh-pages'
+    }
+    grgit.checkout {
+      branch = 'gh-pages'
+    }
   }
 }
 
-// task clonePages(dependsOn: ['reports', 'deletePages']) {
-//   doLast {
-//     mkdir "$buildDir/gh-pages"
-//     def thisRepo = rootProject.projectDir.toString()
-//     def pagesDir = "$buildDir/gh-pages"
-//     def grgit = git.clone {
-//       dir = pagesDir
-//       uri = 'file:' + thisRepo
-//       bare = false
-//       refToCheckout = 'gh-pages'
-//     }
-//     grgit.checkout {
-//       branch = 'gh-pages'
-//     }
-//   }
-// }
+task deletePages(type: Delete) {
+  def pagesDir = "$buildDir/gh-pages"
+  delete files(pagesDir)
+}
 
-// task deletePages(type: Delete) {
-//   def pagesDir = "$buildDir/gh-pages"
-//   delete files(pagesDir)
-// }
-
-// task deploy (dependsOn: ['copyReports']) {
-//   group = "Reporting"
-//   description  'Copies reports to the gh-pages branch in preparation for a future push to GitHub'
-//   doLast {
-//     def pagesDir = "$buildDir/gh-pages"
-//     def grgit = git.open {
-//       dir = pagesDir + "/.git"
-//     }
-//     grgit.add(update: false, patterns: ['reports/', 'docs/'])
-//     grgit.add(update: true, patterns: ['reports/', 'docs/'])
-//     grgit.commit {
-//       message = "Updating web pages"
-//     }
-//     grgit.push() // not sure why this refuses to push automatically, but having to manually push is starting to piss me off :)
-//     grgit.close()
-//   }
-// }
+task deploy (dependsOn: ['copyReports']) {
+  group = "Reporting"
+  description  'Copies reports to the gh-pages branch in preparation for a future push to GitHub'
+  doLast {
+    def pagesDir = "$buildDir/gh-pages"
+    def grgit = git.open {
+      dir = pagesDir + "/.git"
+    }
+    grgit.add(update: false, patterns: ['reports/', 'docs/'])
+    grgit.add(update: true, patterns: ['reports/', 'docs/'])
+    grgit.commit {
+      message = "Updating web pages"
+    }
+    grgit.push() // not sure why this refuses to push automatically, but having to manually push is starting to piss me off :)
+    grgit.close()
+  }
+}
