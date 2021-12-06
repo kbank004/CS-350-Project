@@ -26,7 +26,7 @@ public class TokenStream implements Iterable<Token> {
     GeneratedScanner scanner = new GeneratedScanner(input);
     try {
       Token token = scanner.yylex();
-      while (token != null && token.getKind() != TokenKinds.EOF) {
+      while (token != null && token.getKind() != TokenType.EOF) {
           tokens.add (token);
           token = scanner.yylex();
       }

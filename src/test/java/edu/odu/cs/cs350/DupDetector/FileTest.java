@@ -4,26 +4,68 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+//import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class FileTest {
-  @Test
-  public final void testGetToken() {
-    File f = new File(Path.of("/"), 20);
-    assertThat(f.getNumTokens(), is(20));
+  private static final Path dataPath = Path.of("src/test/data");
+  private static final List<Token> expectedTokens = new ArrayList<Token>(Arrays.asList(
+    new Token(TokenType.KEYWORD, 3, 1, "int"),
+    new Token(TokenType.IDENTIFIER, 3, 5, "main"),
+    new Token(TokenType.SYMBOL, 3, 9, "("),
+    new Token(TokenType.SYMBOL, 3, 10, ")"),
+    new Token(TokenType.SYMBOL, 3, 12, "{"),
+    new Token(TokenType.IDENTIFIER, 4, 3, "std"),
+    new Token(TokenType.SYMBOL, 4, 6, "::"),
+    new Token(TokenType.IDENTIFIER, 4, 8, "cout"),
+    new Token(TokenType.SYMBOL, 4, 13, "<<"),
+    new Token(TokenType.STRING_LIT, 4, 16, "\"hello, world!\\n\""),
+    new Token(TokenType.SYMBOL, 4, 33, ";"),
+    new Token(TokenType.KEYWORD, 5, 3, "return"),
+    new Token(TokenType.INTEGER_LIT, 5, 10, "0"),
+    new Token(TokenType.SYMBOL, 5, 11, ";"),
+    new Token(TokenType.SYMBOL, 6, 1, "}")
+  ));
+
+  private final Path getDataPath(String path) {
+    return dataPath.resolve(path);
   }
 
   @Test
-  public final void testSetToken() {
-    File f = new File(Path.of("/"), 21);
-    f.setNumTokens(4444);
-    assertThat(f.getNumTokens(), is(4444));
+  public final void testGetNumTokens() {
+    File f = new File(getDataPath("a.cpp"));
+    assertThat(f.getNumTokens(), is(expectedTokens.size()));
+  }
+
+  @Test
+  public final void testGetTokens() {
+    File f = new File(getDataPath("a.cpp"));
+    var tokens = f.getTokens();
+    for (int i = 0; i < tokens.size(); ++i) {
+      // System.out.println( 
+      //   (tokens.get(i).compareTo(expectedTokens.get(i)) == 0 ? "match" : "no match") + " || " +
+      //   tokens.get(i) + " " + tokens.get(i).getLineNumber() + ", " + tokens.get(i).getColumnNumber() + " || " +
+      //   expectedTokens.get(i) + " " + expectedTokens.get(i).getLineNumber() + ", " + expectedTokens.get(i).getColumnNumber()
+      //   );
+      //assertThat(tokens.get(i), is(expectedTokens.get(i)));
+      assertThat(tokens.get(i).getKind(), is(expectedTokens.get(i).getKind()));
+      assertThat(tokens.get(i).getLexeme(), is(expectedTokens.get(i).getLexeme()));
+      assertThat(tokens.get(i).getLineNumber(), is(expectedTokens.get(i).getLineNumber()));
+      assertThat(tokens.get(i).getColumnNumber(), is(expectedTokens.get(i).getColumnNumber()));
+    }
+    // I COULD NOT FOR THE LIFE OF ME GET THESE TO COMPARE NORMALLY. IT KEPT FAILING BECAUSE THEY ARE DIFFERENT OBJECTS IN DIFF CLASSES???
+    //assertIterableEquals(tokens, expectedTokens);
+    //assertThat(tokens, is(expectedTokens));
   }
 
   @Test
   public final void testGetFilePath() {
     Path dogPath = Path.of("/home/bob/Pictures/dog.jpg");
-    File f = new File(dogPath, 1);
+    File f = new File(dogPath);
     assertThat(f.getFilePath(), is(dogPath));
   }
 
@@ -31,17 +73,17 @@ public class FileTest {
   public final void testToString() {
     Path p = Path.of("src/test/data/a.cpp");
 
-    File f = new File(p, 125);
-    assertThat(f.toString(), is(p.toAbsolutePath() + ", 125"));
+    File f = new File(p);
+    assertThat(f.toString(), is(p.toAbsolutePath() + ", 15"));
   }
 
   @Test
   public final void testCompareTo() {
-    File p1 = new File(Path.of("/home/abby/billiards"), 1);
-    File p2 = new File(Path.of("/home/abby/coconut"), 1);
-    File p3 = new File(Path.of("/home/chris/alligator"), 1);
-    File p4 = new File(Path.of("/home/chris/bounce"), 1);
-    File p5 = new File(Path.of("/var/www/html"), 1);
+    File p1 = new File("/home/abby/billiards");
+    File p2 = new File("/home/abby/coconut");
+    File p3 = new File("/home/chris/alligator");
+    File p4 = new File("/home/chris/bounce");
+    File p5 = new File("/var/www/html");
     assertTrue(p1.compareTo(p2) < 0);
     assertTrue(p1.compareTo(p5) < 0);
     assertTrue(p2.compareTo(p3) < 0);

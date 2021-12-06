@@ -81,7 +81,7 @@ public class DupDetectorTest {
       DupDetector dup = new DupDetector(nSuggestions, filePaths);
 
       StringBuffer expectedOutpuBuffer = new StringBuffer("Files scanned:\n");
-      expectedOutpuBuffer.append("    " + getDataPath("a.cpp").toAbsolutePath().toString() + ", 0\n");
+      expectedOutpuBuffer.append("    " + getDataPath("a.cpp").toAbsolutePath().toString() + ", 15\n");
       expectedOutpuBuffer.append("    " + getDataPath("b/c.cpp").toAbsolutePath().toString() + ", 0\n");
       expectedOutpuBuffer.append("    " + getDataPath("b/c.h").toAbsolutePath().toString() + ", 0\n");
 

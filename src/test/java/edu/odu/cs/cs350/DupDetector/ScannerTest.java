@@ -24,7 +24,10 @@ public class ScannerTest {
 
   @Test
   public final void testScanner() {
-    String inputString = "123\tident1 \nKEYWORD     42\n";
+    String inputString = """
+    123\tident1
+    int     42.0
+    """;
     Reader input = new StringReader(inputString);
     TokenStream tokenstream = new TokenStream(input);
     ArrayList<Token> tokens = new ArrayList<Token>();
@@ -34,26 +37,27 @@ public class ScannerTest {
     assertEquals (4, tokens.size());
     
     Token t = tokens.get(0);
-    assertEquals (TokenKinds.INTEGER_LITERAL, t.getKind());
+    assertEquals (TokenType.INTEGER_LIT, t.getKind());
     assertEquals ("123", t.getLexeme());
     assertEquals (1, t.getLineNumber());
     assertEquals (1, t.getColumnNumber());
     
     t = tokens.get(1);
-    assertEquals (TokenKinds.IDENTIFIER, t.getKind());
+    assertEquals (TokenType.IDENTIFIER, t.getKind());
     assertEquals ("ident1", t.getLexeme());
     assertEquals (1, t.getLineNumber());
     assertEquals (5, t.getColumnNumber());
     
     t = tokens.get(2);
-    assertEquals (TokenKinds.KEYWORD, t.getKind());
+    assertEquals (TokenType.KEYWORD, t.getKind());
+    assertEquals ("int", t.getLexeme());
     assertEquals (2, t.getLineNumber());
     assertEquals (1, t.getColumnNumber());
     
     t = tokens.get(3);
-    assertEquals (TokenKinds.INTEGER_LITERAL, t.getKind());
-    assertEquals ("42", t.getLexeme());
+    assertEquals (TokenType.FLOAT_LIT, t.getKind());
+    assertEquals ("42.0", t.getLexeme());
     assertEquals (2, t.getLineNumber());
-    assertEquals (13, t.getColumnNumber());
+    assertEquals (9, t.getColumnNumber());
   }
 }

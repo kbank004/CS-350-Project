@@ -1,60 +1,63 @@
 package edu.odu.cs.cs350.DupDetector;
 
+import java.util.Comparator;
+
 /**
  * Token class, stores the token type, the lexeme (the actual character string)
  * ant the location (column and line numbers).
+ * 
+ * Edited by Gabriel Lugo
+ * 
  * @author Zeil
- *
  */
-public class Token {
+public class Token implements Comparable<Token> {
 
   /**
    * What kind of token is this?
    */
-  private TokenKinds kind;
+  private TokenType type_;
 
   /**
    * For variables & literals, the original lexical string.
    */
-  private String lexeme;
+  private String lexeme_;
   
   /**
    * Where did we find this within the file?
    */
-  private int lineNumber;
+  private int lineNumber_;
   
   /**
    * Where did we find this within the file?
    */
-  private int columnNumber;
+  private int columnNumber_;
   
 
   /**
    * Create a basic token with no explicit lexeme.
-   * @param theKind the kind of token
+   * @param type the kind of token
    * @param line line number where token was found
    * @param column column number where token begins
    */
-  public Token(final TokenKinds theKind, final int line, final int column) {
-    kind = theKind;
-    lexeme = "";
-    lineNumber = line;
-    columnNumber = column;
+  public Token(final TokenType type, final int line, final int column) {
+    type_ = type;
+    lexeme_ = "";
+    lineNumber_ = line;
+    columnNumber_ = column;
   }
 
   /**
    * Create a token.
-   * @param theKind what kind of token
+   * @param type what kind of token
    * @param line line number where token was found
    * @param column column number where token begins
    * @param theLexeme the original lexeme
    */
-  public Token(final TokenKinds theKind, final int line, final int column,
-    final String theLexeme) {
-    kind = theKind;
-    lexeme = theLexeme;
-    lineNumber = line;
-    columnNumber = column;
+  public Token(final TokenType type, final int line, final int column, final String lexeme) {
+    type_ = type;
+    lexeme_ = lexeme;
+    lineNumber_ = line;
+    columnNumber_ = column;
   }
 
   /**
@@ -63,9 +66,9 @@ public class Token {
   @Override
   public final String toString() {
     if (getLexeme().length() > 0) {
-      return getKind() + ":" + getLexeme();
+      return getKind() + ":" + getLexeme() + "(" + getLineNumber() + "," + getColumnNumber() + ")";
     } else {
-      return getKind().toString();
+      return getKind().toString() + "(" + getLineNumber() + getColumnNumber() + ")";
     }
   }
 
@@ -73,8 +76,8 @@ public class Token {
    * What kind of token is this?
    * @return the kind
    */
-  public final TokenKinds getKind() {
-    return kind;
+  public final TokenType getKind() {
+    return type_;
   }
 
 
@@ -83,14 +86,14 @@ public class Token {
    * @return the lexeme
    */
   public final String getLexeme() {
-    return lexeme;
+    return lexeme_;
   }
 
   /**
    * @return the lineNumber
    */
   public int getLineNumber() {
-    return lineNumber;
+    return lineNumber_;
   }
 
 
@@ -98,6 +101,14 @@ public class Token {
    * @return the columnNumber
    */
   public int getColumnNumber() {
-    return columnNumber;
+    return columnNumber_;
+  }
+
+  public int compareTo(Token t) {
+    return Comparator.comparing(Token::getKind)
+                     .thenComparing(Token::getLexeme)
+                     //.thenComparing(Token::getLineNumber)
+                     //.thenComparing(Token::getColumnNumber)
+                     .compare(this, t);
   }
 }

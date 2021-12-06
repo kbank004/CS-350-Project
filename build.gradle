@@ -79,7 +79,7 @@ test {
 
 run {
   def dataDir = "src/test/data"
-  args = ["5", "$dataDir/p.ini", "$dataDir/a.cpp", "$dataDir/a.h", "$dataDir/b"]
+  args = ["5", "$dataDir/p.ini", "$dataDir/a.cpp", "$dataDir/b"]
 }
 
 task deployReports (dependsOn: ['copyReports']) {

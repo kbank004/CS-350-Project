@@ -37,7 +37,7 @@ public class DupDetector {
   public static void main(String[] args) {
     // Print help message if not enough args
     if (args.length < 2) {
-      System.out.println("Usage: java -jar DupDetector.jar nSuggestions [properties filepath] path1 [path2 …]");
+      System.err.println("Usage: java -jar DupDetector.jar nSuggestions [properties filepath] path1 [path2 …]");
       System.exit(-1);
     }
 
@@ -208,14 +208,14 @@ public class DupDetector {
     try (Stream<Path> stream = Files.walk(path)) { // Source: https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309
       paths = stream.parallel().filter(Files::isRegularFile)
                                .filter(p -> endsWithExtensions(p.getFileName().toString()))
+                               //.peek(p -> System.out.println(p))
                                .collect(Collectors.toList());
     } catch (IOException e) {
-      e.printStackTrace();
+      System.err.println(e);
     }
 
-    return paths.stream().map(p -> new File(p, 0)).collect(Collectors.toList());
+    return paths.stream().map(p -> new File(p)).collect(Collectors.toList());
   }
-
 
   private boolean endsWithExtensions(String str) {
     return getCppExtensions().stream().anyMatch(e -> str.endsWith(e));
