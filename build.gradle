@@ -12,7 +12,6 @@ plugins {
   id "org.xbib.gradle.plugin.git" version "2.0.0"
   id "org.xbib.gradle.plugin.jflex" version "1.5.0"
   id "org.hidetake.ssh" version "2.10.1"
-  
 }
 
 java {
@@ -21,7 +20,7 @@ java {
 }
 
 repositories {
-  // Use JCenter for resolving dependencies.
+  // Use maven for resolving dependencies.
   jcenter()
   mavenCentral()
   ivy {
@@ -30,17 +29,29 @@ repositories {
 }
 
 dependencies {
-  implementation 'edu.odu.cs.cs350:sourcedSuffixTrees:1.4'
-  implementation 'com.googlecode.concurrent-trees:concurrent-trees:2.6.1'
-  implementation 'edu.odu.cs.zeil:JarNeedsHeap:1.0'
   // Use JUnit Jupiter API for testing.
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
   testImplementation 'org.hamcrest:hamcrest-library:2.2'
-
   // Use JUnit Jupiter Engine for testing.
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+  
+  implementation 'edu.odu.cs.cs350:sourcedSuffixTrees:1.4'
+  implementation 'com.googlecode.concurrent-trees:concurrent-trees:2.6.1'
+
+  //implementation 'edu.odu.cs.zeil:JarNeedsHeap:1.0'
+  testCompileOnly 'edu.odu.cs.zeil:JarNeedsHeap:1.0'
 }
 
+sourceSets {
+  main {
+     jflex {
+       srcDir "src/main/jflex"
+     }
+     java {
+       srcDir "$buildDir/my-generated-sources/jflex"
+     }
+  }
+}
 
 application {
   // Define the main class for the application.
@@ -49,7 +60,14 @@ application {
 
 jar {
   manifest {
-    attributes 'Main-Class': application.mainClass
+    attributes 'Implementation-Title': 'DupDetector',
+      'Implementation-Version': '1.0',
+      'Main-Class': application.mainClass
+  }
+  from {
+    configurations.runtimeClasspath.collect {
+      it.isDirectory() ? it : zipTree(it)
+    }
   }
 }
 

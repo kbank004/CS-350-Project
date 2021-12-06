@@ -8,27 +8,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FileTest {
   @Test
-  public void testGetToken() {
+  public final void testGetToken() {
     File f = new File(Path.of("/"), 20);
     assertThat(f.getNumTokens(), is(20));
   }
 
   @Test
-  public void testSetToken() {
+  public final void testSetToken() {
     File f = new File(Path.of("/"), 21);
     f.setNumTokens(4444);
     assertThat(f.getNumTokens(), is(4444));
   }
 
   @Test
-  public void testGetFilePath() {
+  public final void testGetFilePath() {
     Path dogPath = Path.of("/home/bob/Pictures/dog.jpg");
     File f = new File(dogPath, 1);
     assertThat(f.getFilePath(), is(dogPath));
   }
 
   @Test
-  public void testToString() {
+  public final void testToString() {
     Path p = Path.of("src/test/data/a.cpp");
 
     File f = new File(p, 125);
@@ -36,7 +36,7 @@ public class FileTest {
   }
 
   @Test
-  public void testCompareTo() {
+  public final void testCompareTo() {
     File p1 = new File(Path.of("/home/abby/billiards"), 1);
     File p2 = new File(Path.of("/home/abby/coconut"), 1);
     File p3 = new File(Path.of("/home/chris/alligator"), 1);
@@ -48,7 +48,5 @@ public class FileTest {
     assertTrue(p3.compareTo(p2) > 0);
     assertTrue(p4.compareTo(p2) > 0);
     assertTrue(p3.compareTo(p3) == 0);
-
   }
-
 }

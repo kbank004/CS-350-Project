@@ -13,12 +13,12 @@ import java.nio.file.Path;
 public class DupDetectorTest {
   private static final Path dataPath = Path.of("src/test/data");
 
-  private static Path getDataPath(String path) {
+  private final Path getDataPath(String path) {
     return dataPath.resolve(path);
   }
 
   @Test
-  public void testMaxSuggestions() {
+  public final void testMaxSuggestions() {
     try {
       List<Path> paths = new ArrayList<Path>(Arrays.asList(getDataPath("")));
       DupDetector dup = new DupDetector(50, paths);
@@ -29,7 +29,7 @@ public class DupDetectorTest {
   }
 
   @Test
-  public void testPropertiesFile() {
+  public final void testPropertiesFile() {
     try {
       List<Path> paths = new ArrayList<Path>(Arrays.asList(getDataPath("")));
       DupDetector dup = new DupDetector(1, paths);
@@ -40,7 +40,6 @@ public class DupDetectorTest {
 
       paths.clear();
       paths.add(getDataPath("p.ini"));
-      paths.add(getDataPath("a.h"));
       paths.add(getDataPath("a.cpp"));
       paths.add(getDataPath("b"));
       DupDetector dup1 = new DupDetector(1, paths);
@@ -54,16 +53,14 @@ public class DupDetectorTest {
   }
 
   @Test
-  public void testFilePaths() {
+  public final void testFilePaths() {
     try {
       List<Path> paths = new ArrayList<Path>() {{
-        add(getDataPath("a.h"));
         add(getDataPath("a.cpp"));
         add(getDataPath("b"));
       }};
       DupDetector dup = new DupDetector(1, paths);
       Path[] expectedPaths = {
-        getDataPath("a.h"),
         getDataPath("a.cpp"),
         getDataPath("b/c.h"),
         getDataPath("b/c.cpp"),
@@ -75,9 +72,9 @@ public class DupDetectorTest {
   }
 
   @Test
-  public void testSystem() {
+  public final void testSystem() {
     try {
-      String[] args = {"5", getDataPath("a.h").toString(), getDataPath("a.cpp").toString(), getDataPath("b").toString()};
+      String[] args = {"5", getDataPath("a.cpp").toString(), getDataPath("b").toString()};
       int nSuggestions = Integer.parseInt(args[0]);
       List<Path> filePaths = DupDetector.toPaths(Arrays.copyOfRange(args, 1, args.length));
       
@@ -85,7 +82,6 @@ public class DupDetectorTest {
 
       StringBuffer expectedOutpuBuffer = new StringBuffer("Files scanned:\n");
       expectedOutpuBuffer.append("    " + getDataPath("a.cpp").toAbsolutePath().toString() + ", 0\n");
-      expectedOutpuBuffer.append("    " + getDataPath("a.h").toAbsolutePath().toString() + ", 0\n");
       expectedOutpuBuffer.append("    " + getDataPath("b/c.cpp").toAbsolutePath().toString() + ", 0\n");
       expectedOutpuBuffer.append("    " + getDataPath("b/c.h").toAbsolutePath().toString() + ", 0\n");
 

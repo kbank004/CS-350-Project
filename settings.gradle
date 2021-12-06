@@ -7,4 +7,15 @@
  * in the user manual at https://docs.gradle.org/6.7/userguide/multi_project_builds.html
  */
 
+pluginManagement {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+    ivy { // for report_accumulator
+      url 'https://www.cs.odu.edu/~zeil/ivyrepo'
+    }
+  }
+}
+
 rootProject.name = 'DupDetector'
