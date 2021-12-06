@@ -87,6 +87,7 @@ jar {
 
 testSets { iTest }
 
+iTest.mustRunAfter test
 check.dependsOn iTest
 
 tasks.withType(Test) {
@@ -102,7 +103,6 @@ test {
 
 iTest {
   ignoreFailures = true
-  mustRunAfter test
 }
 
 run {
