@@ -8,7 +8,8 @@ import java.util.List;
 
 
 /**
- * @author zeil
+ * @author Zeil
+ * @author Lugo
  *
  */
 public class TokenStream implements Iterable<Token> {

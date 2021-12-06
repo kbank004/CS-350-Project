@@ -6,9 +6,10 @@ import java.util.Comparator;
  * Token class, stores the token type, the lexeme (the actual character string)
  * ant the location (column and line numbers).
  * 
- * Edited by Gabriel Lugo
  * 
  * @author Zeil
+ * @author Lugo
+ * 
  */
 public class Token implements Comparable<Token> {
 
@@ -51,7 +52,7 @@ public class Token implements Comparable<Token> {
    * @param type what kind of token
    * @param line line number where token was found
    * @param column column number where token begins
-   * @param theLexeme the original lexeme
+   * @param lexeme the original lexeme
    */
   public Token(final TokenType type, final int line, final int column, final String lexeme) {
     type_ = type;

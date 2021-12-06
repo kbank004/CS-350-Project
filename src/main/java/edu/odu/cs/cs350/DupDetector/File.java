@@ -9,6 +9,8 @@ import java.util.ArrayList;
 /**
  * Represents a single file with a path and a number of tokens contained inside it
  * @author Banks
+ * @author Lugo
+ * 
  */
 public class File implements Comparable<File> {
   private Path filePath;
@@ -16,8 +18,7 @@ public class File implements Comparable<File> {
 
   /**
    * Constructor
-   * @param path Path of this tile
-   * @param tokenCount Number of tokens in this file
+   * @param path Path of this file
    */
   public File(Path path) {
     filePath = path;
@@ -26,8 +27,7 @@ public class File implements Comparable<File> {
 
   /**
    * Constructor
-   * @param path Path of this tile
-   * @param tokenCount Number of tokens in this file
+   * @param path Path of this file
    */
   public File(String path) {
     filePath = Path.of(path);
