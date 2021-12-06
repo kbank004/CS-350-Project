@@ -8,15 +8,32 @@
 
 plugins {
   // Apply the application plugin to add support for building a CLI application in Java.
-  id 'application'
+  id "java"
+  id "application"
   id "org.xbib.gradle.plugin.git" version "2.0.0"
   id "org.xbib.gradle.plugin.jflex" version "1.5.0"
   id "org.hidetake.ssh" version "2.10.1"
+  //id "checkstyle"
+  id "pmd"
+  id "jacoco"
+
+  //id "com.github.spotbugs" version "4.6.0"
 }
 
 java {
   sourceCompatibility = JavaVersion.toVersion(16)
   targetCompatibility = JavaVersion.toVersion(16)
+}
+
+sourceSets {
+  main {
+    jflex {
+      srcDir "src/main/jflex"
+    }
+    java {
+      srcDir "$buildDir/my-generated-sources/jflex"
+    }
+  }
 }
 
 repositories {
@@ -42,16 +59,40 @@ dependencies {
   testCompileOnly 'edu.odu.cs.zeil:JarNeedsHeap:1.0'
 }
 
-sourceSets {
-  main {
-     jflex {
-       srcDir "src/main/jflex"
-     }
-     java {
-       srcDir "$buildDir/my-generated-sources/jflex"
-     }
-  }
+pmd {
+  ignoreFailures = true
+  consoleOutput = false
+  ruleSets = ["$projectDir/config/pmd/ruleset.xml"]
 }
+
+pmdTest.enabled = false
+
+check.dependsOn jacocoTestReport
+
+// checkstyle {
+//   ignoreFailures = true
+//   showViolations = false
+// }
+
+// tasks.withType(Checkstyle) {
+//   reports {
+//     html.destination project.file("build/reports/checkstyle/main.html")
+//   }
+// }
+
+// checkstyleTest.enabled = false
+
+// spotbugsMain {
+//   ignoreFailures = true
+//   effort = 'max'
+//   reportLevel = 'medium'
+//   reports {
+//     xml.enabled = false
+//     html.enabled = true
+//   }
+// }
+
+// spotbugsTest.enabled = false
 
 application {
   // Define the main class for the application.

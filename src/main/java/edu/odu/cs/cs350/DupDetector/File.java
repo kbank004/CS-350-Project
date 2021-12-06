@@ -1,7 +1,6 @@
 package edu.odu.cs.cs350.DupDetector;
 
 import java.io.Reader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
