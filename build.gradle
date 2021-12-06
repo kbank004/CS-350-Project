@@ -10,6 +10,8 @@ plugins {
   // Apply the application plugin to add support for building a CLI application in Java.
   id 'application'
   id "org.xbib.gradle.plugin.git" version "2.0.0"
+  id "org.xbib.gradle.plugin.jflex" version "1.5.0"
+  
 }
 
 java {
@@ -20,9 +22,15 @@ java {
 repositories {
   // Use JCenter for resolving dependencies.
   mavenCentral()
+  ivy {
+    url 'https://www.cs.odu.edu/~zeil/ivyrepo'
+  }
 }
 
 dependencies {
+  implementation 'edu.odu.cs.cs350:sourcedSuffixTrees:1.4'
+  implementation 'com.googlecode.concurrent-trees:concurrent-trees:2.6.0'
+  implementation 'edu.odu.cs.zeil:JarNeedsHeap:1.0'
   // Use JUnit Jupiter API for testing.
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
   testImplementation 'org.hamcrest:hamcrest-library:2.2'
@@ -30,6 +38,8 @@ dependencies {
   // Use JUnit Jupiter Engine for testing.
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
+
+apply plugin: "org.xbib.gradle.plugin.jflex"
 
 application {
   // Define the main class for the application.
@@ -71,38 +81,7 @@ task deployReports (dependsOn: ['copyReports']) {
   }
 }
 
-task deployReportsFromGithub (dependsOn: ['copyReportsFromGithub']) {
-  group = "Reporting"
-  description  'Copies reports to the gh-pages branch in preparation for a future push to GitHub'
-  doLast {
-    def pagesDir = "$buildDir/gh-pages"
-    def grgit = git.open {
-      dir = pagesDir + "/.git"
-    }
-    grgit.add(update: false, patterns: ['reports/', 'docs/'])
-    grgit.add(update: true, patterns: ['reports/', 'docs/'])
-    grgit.commit {
-      message = "Updating web pages"
-    }
-    grgit.push() // not sure why this refuses to push automatically, but having to manually push is starting to piss me off :)
-    grgit.close()
-  }
-}
-
 task copyReports (dependsOn: ['clonePages']) {
-  doLast {
-    copy {
-      from "$buildDir/reports"
-      into "$buildDir/gh-pages/reports"
-    }
-    copy {
-      from "$buildDir/docs"
-      into "$buildDir/gh-pages/docs"
-    }
-  }
-}
-
-task copyReportsFromGithub (dependsOn: ['clonePagesFromGithub']) {
   doLast {
     copy {
       from "$buildDir/reports"
@@ -129,23 +108,7 @@ task clonePages(dependsOn: ['reports', 'deletePage']) {
     grgit.checkout {
       branch = 'gh-pages'
     }
-  }
-}
-
-task clonePagesFromGithub(dependsOn: ['reports', 'deletePage']) {
-  doLast {
-    mkdir 'build/gh-pages'
-    def thisRepo = rootProject.projectDir.toString()
-    def pagesDir = "$buildDir/gh-pages"
-    def grgit = git.clone {
-      dir = pagesDir
-      uri = 'https://github.com/kbank004/CS-350-Project'
-      bare = false
-      refToCheckout = 'gh-pages'
-    }
-    grgit.checkout {
-      branch = 'gh-pages'
-    }
+    grgit.close()
   }
 }
 
