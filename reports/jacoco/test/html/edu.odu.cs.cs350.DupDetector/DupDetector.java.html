@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DupDetector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">DupDetector</a> &gt; <a href="index.source.html" class="el_package">edu.odu.cs.cs350.DupDetector</a> &gt; <span class="el_source">DupDetector.java</span></div><h1>DupDetector.java</h1><pre class="source lang-java linenums">package edu.odu.cs.cs350.DupDetector;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+/**
+ * A program for examining C++ code and making recommendations for near-duplicate code blocks that can be refactored to reduce the overall size and complexity of the C++ program
+ * https://www.cs.odu.edu/~zeil/cs350/latest/Protected/refactoring/index.html
+ * @author Lugo
+ * @author Banks
+ */
+public class DupDetector {
+  // --------------------- Main --------------------- //
+
+  /**
+   * Main program takes at least two command-line parameters.
+   * 
+   * nSuggestions - Maximum number of suggested refactorings to be printed
+   * [propertiesFilePath] - Path to a properties file with extension .ini, containing properties of format propertyName = propertyValue
+   * path1 - Path to file or directory containing C++ source code
+   * [path2...] - Additional paths to files or directories containing C++ source code
+   * 
+   * @param args nSuggestions [propertiesFilePath] path1 [path2...]
+   */
+  public static void main(String[] args) {
+    // Print help message if not enough args
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    if (args.length &lt; 2) {</span>
+<span class="nc" id="L40">      System.err.println(&quot;Usage: java -jar DupDetector.jar nSuggestions [properties filepath] path1 [path2 …]&quot;);</span>
+<span class="nc" id="L41">      System.exit(-1);</span>
+    }
+
+    try {
+      // Process input
+<span class="nc" id="L46">      int nSuggestions = Integer.parseInt(args[0]);</span>
+<span class="nc" id="L47">      List&lt;Path&gt; filePaths = toPaths(Arrays.copyOfRange(args, 1, args.length));</span>
+      
+      // Run DupDetector
+<span class="nc" id="L50">      DupDetector dupDetector = new DupDetector(nSuggestions, filePaths);</span>
+<span class="nc" id="L51">      System.out.println(dupDetector.getOutput());</span>
+      
+<span class="nc" id="L53">      System.exit(0);</span>
+<span class="nc" id="L54">    } catch (Exception e) {</span>
+<span class="nc" id="L55">      System.err.println(e);</span>
+
+<span class="nc" id="L57">      System.exit(-1);</span>
+<span class="nc" id="L58">    }</span>
+<span class="nc" id="L59">  }</span>
+
+  /**
+   * Convert String array of paths into List of Path objects
+   * @param argsArray String array of paths
+   * @return list of paths
+   */
+  public static List&lt;Path&gt; toPaths(String[] argsArray) { // Is there a shorthand for this?
+<span class="fc" id="L67">    return Arrays.stream(argsArray).map(arg -&gt; Path.of(arg)).collect(Collectors.toList());</span>
+  }
+
+  // --------------------- DupDetector --------------------- //
+
+  private final int maxSuggestions;
+<span class="fc" id="L73">  private Optional&lt;Properties&gt; properties = Optional.empty();</span>
+<span class="fc" id="L74">  private List&lt;File&gt; files = new ArrayList&lt;File&gt;();</span>
+
+<span class="fc" id="L76">  private final String defaultCppExtensions = &quot;cpp,h&quot;;</span>
+<span class="fc" id="L77">  private final int defaultMinSequenceLength = 8;</span>
+<span class="fc" id="L78">  private final int defaultMaxSubstitutions = 10;</span>
+
+  /**
+  * Constructor
+  * @param nSuggestions Maximum number of suggestions
+  * @param paths List of Paths to read (including properties file path, if included) 
+  * @throws FileNotFoundException throws exception if one of the given paths is invalid
+  */
+<span class="fc" id="L86">  public DupDetector(int nSuggestions, List&lt;Path&gt; paths) throws FileNotFoundException {</span>
+<span class="fc" id="L87">    maxSuggestions = Math.max(1, nSuggestions);</span>
+
+<span class="fc" id="L89">    tryParsePropertyFile(paths);</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">    if (properties.isPresent()) { // If parsed property file, skip first path in list for processing (it was the properties file)</span>
+<span class="fc" id="L91">      searchPaths(paths.subList(1, paths.size()));</span>
+    } else {
+<span class="fc" id="L93">      searchPaths(paths);</span>
+    }
+<span class="fc" id="L95">  }</span>
+
+  /**
+   * Get maximum number of suggested refactorings to be printed
+   * @return max num of suggestions
+   */
+  public int getMaxSuggestions() {
+<span class="fc" id="L102">    return maxSuggestions;</span>
+  }
+
+  private String getProperty(Property property) {
+<span class="pc bpc" id="L106" title="1 of 4 branches missed.">    switch (property) {</span>
+      case CPP_EXTENSIONS:
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (properties.isPresent()) {</span>
+<span class="fc" id="L109">          return properties.get().getProperty(&quot;CppExtensions&quot;, defaultCppExtensions);</span>
+        } else {
+<span class="fc" id="L111">          return defaultCppExtensions;</span>
+        }
+      case MIN_SEQUENCE_LENGTH:
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (properties.isPresent()) {</span>
+<span class="fc" id="L115">          return properties.get().getProperty(&quot;MinSequenceLength&quot;, Integer.toString(defaultMinSequenceLength));</span>
+        } else {
+<span class="fc" id="L117">          return Integer.toString(defaultMinSequenceLength);</span>
+        }
+      case MAX_SUBSTITUTIONS:
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (properties.isPresent()) {</span>
+<span class="fc" id="L121">          return properties.get().getProperty(&quot;MaxSubstitutions&quot;, Integer.toString(defaultMaxSubstitutions));</span>
+        } else {
+<span class="fc" id="L123">          return Integer.toString(defaultMaxSubstitutions);</span>
+        }
+      default:
+<span class="nc" id="L126">        return null;</span>
+    }
+  }
+
+  /**
+  * Returns a list of acceptable file extensions. Default property value: cpp,h
+  * @return list of accepted extensions
+  */
+  public List&lt;String&gt; getCppExtensions() {
+<span class="fc" id="L135">    return Arrays.asList(getProperty(Property.CPP_EXTENSIONS).split(&quot;,&quot;, 0));</span>
+  }
+
+  /**
+  * Returns the minimum allowed length of a token sequence for it to be printed. Default property value: 8
+  * @return min length of token sequence
+  */
+  public int getMinSequenceLength() {
+<span class="fc" id="L143">    return Integer.parseInt(getProperty(Property.MIN_SEQUENCE_LENGTH));</span>
+  }
+
+  /**
+  * Returns the maximum number of substitutions to be printed. Default property value: 10
+  * @return max num of substitutions
+  */
+  public int getMaxSubstitutions() {
+<span class="fc" id="L151">    return Integer.parseInt(getProperty(Property.MAX_SUBSTITUTIONS));</span>
+  }
+
+  /**
+  * Returns a List of Files (to eventually be read and parsed)
+  * @return list of files 
+  */
+  public List&lt;File&gt; getFiles() {
+<span class="nc" id="L159">    return files;</span>
+  }
+
+  /**
+  * Returns a list of File Paths
+  * @return list of File Paths
+  */
+  public List&lt;Path&gt; getFilePaths() {
+<span class="fc" id="L167">    return files.stream().map(File::getFilePath).collect(Collectors.toList());</span>
+  }
+
+  /**
+  * Returns a String containing DupDetector's output
+  * @return string of output
+  */
+  public String getOutput() {
+<span class="fc" id="L175">    StringBuffer buffer = new StringBuffer(&quot;Files scanned:\n&quot;);</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">    for (File file : files) {</span>
+<span class="fc" id="L177">      buffer.append(&quot;    &quot; + file.toString() + &quot;\n&quot;);</span>
+<span class="fc" id="L178">    }</span>
+<span class="fc" id="L179">    return buffer.toString();</span>
+  }
+
+  private void tryParsePropertyFile(List&lt;Path&gt; paths) {
+<span class="fc" id="L183">    Path propertiesFilePath = paths.get(0);</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">    if (propertiesFilePath.toString().endsWith(&quot;.ini&quot;)) {</span>
+<span class="fc" id="L185">      try (InputStream stream = new FileInputStream(propertiesFilePath.toString())) {</span>
+<span class="fc" id="L186">        properties = Optional.of(new Properties());</span>
+<span class="fc" id="L187">        properties.get().load(stream);</span>
+<span class="nc" id="L188">      } catch (IOException e) {</span>
+<span class="nc" id="L189">        e.printStackTrace();</span>
+<span class="fc" id="L190">      }</span>
+    }
+<span class="fc" id="L192">  }</span>
+
+  private void searchPaths(List&lt;Path&gt; paths) throws FileNotFoundException {
+    // Loop through each arg and add the file paths from each one
+<span class="fc bfc" id="L196" title="All 2 branches covered.">    for (Path path : paths) {</span>
+<span class="fc" id="L197">      files.addAll(getFilesRecursively(path));</span>
+<span class="fc" id="L198">    }</span>
+<span class="fc" id="L199">    Collections.sort(files); // Sort alphabetically</span>
+<span class="fc" id="L200">  }</span>
+
+  private List&lt;File&gt; getFilesRecursively(Path path) throws FileNotFoundException {
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">    if (!path.toFile().exists()) {</span>
+<span class="nc" id="L204">      throw new FileNotFoundException(&quot;File or directory does not exist: &quot; + path);</span>
+    }
+
+<span class="fc" id="L207">    List&lt;Path&gt; paths = new ArrayList&lt;Path&gt;();</span>
+<span class="fc" id="L208">    try (Stream&lt;Path&gt; stream = Files.walk(path)) { // Source: https://stackoverflow.com/questions/2056221/recursively-list-files-in-java/69489309#69489309</span>
+<span class="fc" id="L209">      paths = stream.parallel().filter(Files::isRegularFile)</span>
+<span class="fc" id="L210">                               .filter(p -&gt; endsWithExtensions(p.getFileName().toString()))</span>
+                               //.peek(p -&gt; System.out.println(p))
+<span class="fc" id="L212">                               .collect(Collectors.toList());</span>
+<span class="nc" id="L213">    } catch (IOException e) {</span>
+<span class="nc" id="L214">      System.err.println(e);</span>
+<span class="fc" id="L215">    }</span>
+
+<span class="fc" id="L217">    return paths.stream().map(p -&gt; new File(p)).collect(Collectors.toList());</span>
+  }
+
+  private boolean endsWithExtensions(String str) {
+<span class="fc" id="L221">    return getCppExtensions().stream().anyMatch(e -&gt; str.endsWith(e));</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

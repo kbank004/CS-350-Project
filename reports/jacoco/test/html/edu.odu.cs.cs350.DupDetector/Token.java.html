@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Token.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">DupDetector</a> &gt; <a href="index.source.html" class="el_package">edu.odu.cs.cs350.DupDetector</a> &gt; <span class="el_source">Token.java</span></div><h1>Token.java</h1><pre class="source lang-java linenums">package edu.odu.cs.cs350.DupDetector;
+
+import java.util.Comparator;
+
+/**
+ * Token class, stores the token type, the lexeme (the actual character string)
+ * ant the location (column and line numbers).
+ * 
+ * Edited by Gabriel Lugo
+ * 
+ * @author Zeil
+ */
+public class Token implements Comparable&lt;Token&gt; {
+
+  /**
+   * What kind of token is this?
+   */
+  private TokenType type_;
+
+  /**
+   * For variables &amp; literals, the original lexical string.
+   */
+  private String lexeme_;
+  
+  /**
+   * Where did we find this within the file?
+   */
+  private int lineNumber_;
+  
+  /**
+   * Where did we find this within the file?
+   */
+  private int columnNumber_;
+  
+
+  /**
+   * Create a basic token with no explicit lexeme.
+   * @param type the kind of token
+   * @param line line number where token was found
+   * @param column column number where token begins
+   */
+<span class="fc" id="L42">  public Token(final TokenType type, final int line, final int column) {</span>
+<span class="fc" id="L43">    type_ = type;</span>
+<span class="fc" id="L44">    lexeme_ = &quot;&quot;;</span>
+<span class="fc" id="L45">    lineNumber_ = line;</span>
+<span class="fc" id="L46">    columnNumber_ = column;</span>
+<span class="fc" id="L47">  }</span>
+
+  /**
+   * Create a token.
+   * @param type what kind of token
+   * @param line line number where token was found
+   * @param column column number where token begins
+   * @param theLexeme the original lexeme
+   */
+<span class="fc" id="L56">  public Token(final TokenType type, final int line, final int column, final String lexeme) {</span>
+<span class="fc" id="L57">    type_ = type;</span>
+<span class="fc" id="L58">    lexeme_ = lexeme;</span>
+<span class="fc" id="L59">    lineNumber_ = line;</span>
+<span class="fc" id="L60">    columnNumber_ = column;</span>
+<span class="fc" id="L61">  }</span>
+
+  /**
+   * Representation of the token for debugging purposes.
+   */
+  @Override
+  public final String toString() {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">    if (getLexeme().length() &gt; 0) {</span>
+<span class="nc" id="L69">      return getKind() + &quot;:&quot; + getLexeme() + &quot;(&quot; + getLineNumber() + &quot;,&quot; + getColumnNumber() + &quot;)&quot;;</span>
+    } else {
+<span class="nc" id="L71">      return getKind().toString() + &quot;(&quot; + getLineNumber() + getColumnNumber() + &quot;)&quot;;</span>
+    }
+  }
+
+  /**
+   * What kind of token is this?
+   * @return the kind
+   */
+  public final TokenType getKind() {
+<span class="fc" id="L80">    return type_;</span>
+  }
+
+
+  /**
+   * What is the character string (lexeme) associated with this token?
+   * @return the lexeme
+   */
+  public final String getLexeme() {
+<span class="fc" id="L89">    return lexeme_;</span>
+  }
+
+  /**
+   * @return the lineNumber
+   */
+  public int getLineNumber() {
+<span class="fc" id="L96">    return lineNumber_;</span>
+  }
+
+
+  /**
+   * @return the columnNumber
+   */
+  public int getColumnNumber() {
+<span class="fc" id="L104">    return columnNumber_;</span>
+  }
+
+  public int compareTo(Token t) {
+<span class="nc" id="L108">    return Comparator.comparing(Token::getKind)</span>
+<span class="nc" id="L109">                     .thenComparing(Token::getLexeme)</span>
+                     //.thenComparing(Token::getLineNumber)
+                     //.thenComparing(Token::getColumnNumber)
+<span class="nc" id="L112">                     .compare(this, t);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
