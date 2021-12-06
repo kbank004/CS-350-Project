@@ -6,9 +6,10 @@ import java.util.Comparator;
  * Token class, stores the token type, the lexeme (the actual character string)
  * ant the location (column and line numbers).
  * 
- * Edited by Gabriel Lugo
  * 
  * @author Zeil
+ * @author Lugo
+ * 
  */
 public class Token implements Comparable&lt;Token&gt; {
 
@@ -39,36 +40,36 @@ public class Token implements Comparable&lt;Token&gt; {
    * @param line line number where token was found
    * @param column column number where token begins
    */
-<span class="fc" id="L42">  public Token(final TokenType type, final int line, final int column) {</span>
-<span class="fc" id="L43">    type_ = type;</span>
-<span class="fc" id="L44">    lexeme_ = &quot;&quot;;</span>
-<span class="fc" id="L45">    lineNumber_ = line;</span>
-<span class="fc" id="L46">    columnNumber_ = column;</span>
-<span class="fc" id="L47">  }</span>
+<span class="fc" id="L43">  public Token(final TokenType type, final int line, final int column) {</span>
+<span class="fc" id="L44">    type_ = type;</span>
+<span class="fc" id="L45">    lexeme_ = &quot;&quot;;</span>
+<span class="fc" id="L46">    lineNumber_ = line;</span>
+<span class="fc" id="L47">    columnNumber_ = column;</span>
+<span class="fc" id="L48">  }</span>
 
   /**
    * Create a token.
    * @param type what kind of token
    * @param line line number where token was found
    * @param column column number where token begins
-   * @param theLexeme the original lexeme
+   * @param lexeme the original lexeme
    */
-<span class="fc" id="L56">  public Token(final TokenType type, final int line, final int column, final String lexeme) {</span>
-<span class="fc" id="L57">    type_ = type;</span>
-<span class="fc" id="L58">    lexeme_ = lexeme;</span>
-<span class="fc" id="L59">    lineNumber_ = line;</span>
-<span class="fc" id="L60">    columnNumber_ = column;</span>
-<span class="fc" id="L61">  }</span>
+<span class="fc" id="L57">  public Token(final TokenType type, final int line, final int column, final String lexeme) {</span>
+<span class="fc" id="L58">    type_ = type;</span>
+<span class="fc" id="L59">    lexeme_ = lexeme;</span>
+<span class="fc" id="L60">    lineNumber_ = line;</span>
+<span class="fc" id="L61">    columnNumber_ = column;</span>
+<span class="fc" id="L62">  }</span>
 
   /**
    * Representation of the token for debugging purposes.
    */
   @Override
   public final String toString() {
-<span class="nc bnc" id="L68" title="All 2 branches missed.">    if (getLexeme().length() &gt; 0) {</span>
-<span class="nc" id="L69">      return getKind() + &quot;:&quot; + getLexeme() + &quot;(&quot; + getLineNumber() + &quot;,&quot; + getColumnNumber() + &quot;)&quot;;</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">    if (getLexeme().length() &gt; 0) {</span>
+<span class="nc" id="L70">      return getKind() + &quot;:&quot; + getLexeme() + &quot;(&quot; + getLineNumber() + &quot;,&quot; + getColumnNumber() + &quot;)&quot;;</span>
     } else {
-<span class="nc" id="L71">      return getKind().toString() + &quot;(&quot; + getLineNumber() + getColumnNumber() + &quot;)&quot;;</span>
+<span class="nc" id="L72">      return getKind().toString() + &quot;(&quot; + getLineNumber() + getColumnNumber() + &quot;)&quot;;</span>
     }
   }
 
@@ -77,7 +78,7 @@ public class Token implements Comparable&lt;Token&gt; {
    * @return the kind
    */
   public final TokenType getKind() {
-<span class="fc" id="L80">    return type_;</span>
+<span class="fc" id="L81">    return type_;</span>
   }
 
 
@@ -86,14 +87,14 @@ public class Token implements Comparable&lt;Token&gt; {
    * @return the lexeme
    */
   public final String getLexeme() {
-<span class="fc" id="L89">    return lexeme_;</span>
+<span class="fc" id="L90">    return lexeme_;</span>
   }
 
   /**
    * @return the lineNumber
    */
   public int getLineNumber() {
-<span class="fc" id="L96">    return lineNumber_;</span>
+<span class="fc" id="L97">    return lineNumber_;</span>
   }
 
 
@@ -101,15 +102,15 @@ public class Token implements Comparable&lt;Token&gt; {
    * @return the columnNumber
    */
   public int getColumnNumber() {
-<span class="fc" id="L104">    return columnNumber_;</span>
+<span class="fc" id="L105">    return columnNumber_;</span>
   }
 
   public int compareTo(Token t) {
-<span class="nc" id="L108">    return Comparator.comparing(Token::getKind)</span>
-<span class="nc" id="L109">                     .thenComparing(Token::getLexeme)</span>
+<span class="nc" id="L109">    return Comparator.comparing(Token::getKind)</span>
+<span class="nc" id="L110">                     .thenComparing(Token::getLexeme)</span>
                      //.thenComparing(Token::getLineNumber)
                      //.thenComparing(Token::getColumnNumber)
-<span class="nc" id="L112">                     .compare(this, t);</span>
+<span class="nc" id="L113">                     .compare(this, t);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

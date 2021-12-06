@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.36.0" timestamp="2021-12-06T03:24:45.868">
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.36.0" timestamp="2021-12-06T04:43:00.502">
 <file name="C:\Users\galex\OneDrive\Dev\School\CS-350-Project\src\main\java\edu\odu\cs\cs350\DupDetector\DupDetector.java">
 <violation beginline="1" endline="1" begincolumn="9" endcolumn="36" rule="PackageCase" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="DupDetector" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#packagecase" priority="3">
 Package name contains upper case characters
@@ -225,22 +225,22 @@ Potential violation of Law of Demeter (method chain calls)
 <violation beginline="1" endline="1" begincolumn="9" endcolumn="36" rule="PackageCase" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="File" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#packagecase" priority="3">
 Package name contains upper case characters
 </violation>
-<violation beginline="13" endline="87" begincolumn="8" endcolumn="1" rule="ShortClassName" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="File" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#shortclassname" priority="4">
+<violation beginline="15" endline="87" begincolumn="8" endcolumn="1" rule="ShortClassName" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="File" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#shortclassname" priority="4">
 Avoid short class names like File
 </violation>
-<violation beginline="14" endline="14" begincolumn="11" endcolumn="24" rule="CommentRequired" ruleset="Documentation" package="edu.odu.cs.cs350.DupDetector" class="File" variable="VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_documentation.html#commentrequired" priority="3">
+<violation beginline="16" endline="16" begincolumn="11" endcolumn="24" rule="CommentRequired" ruleset="Documentation" package="edu.odu.cs.cs350.DupDetector" class="File" variable="VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_documentation.html#commentrequired" priority="3">
 Field comments are required
 </violation>
-<violation beginline="14" endline="14" begincolumn="16" endcolumn="23" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="File" variable="filePath" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
+<violation beginline="16" endline="16" begincolumn="16" endcolumn="23" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="File" variable="filePath" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
 Private field 'filePath' could be made final; it is only initialized in the declaration or constructor.
 </violation>
-<violation beginline="15" endline="15" begincolumn="11" endcolumn="54" rule="CommentRequired" ruleset="Documentation" package="edu.odu.cs.cs350.DupDetector" class="File" variable="VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_documentation.html#commentrequired" priority="3">
+<violation beginline="17" endline="17" begincolumn="11" endcolumn="54" rule="CommentRequired" ruleset="Documentation" package="edu.odu.cs.cs350.DupDetector" class="File" variable="VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_documentation.html#commentrequired" priority="3">
 Field comments are required
 </violation>
-<violation beginline="15" endline="15" begincolumn="23" endcolumn="28" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="File" variable="tokens" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
+<violation beginline="17" endline="17" begincolumn="23" endcolumn="28" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="File" variable="tokens" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
 Private field 'tokens' could be made final; it is only initialized in the declaration or constructor.
 </violation>
-<violation beginline="22" endline="22" begincolumn="15" endcolumn="23" rule="MethodArgumentCouldBeFinal" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="File" method="File" variable="path" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#methodargumentcouldbefinal" priority="3">
+<violation beginline="23" endline="23" begincolumn="15" endcolumn="23" rule="MethodArgumentCouldBeFinal" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="File" method="File" variable="path" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#methodargumentcouldbefinal" priority="3">
 Parameter 'path' is not assigned and could be declared final
 </violation>
 <violation beginline="32" endline="32" begincolumn="15" endcolumn="25" rule="MethodArgumentCouldBeFinal" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="File" method="File" variable="path" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#methodargumentcouldbefinal" priority="3">
@@ -282,52 +282,52 @@ Package name contains upper case characters
 <violation beginline="1" endline="1" begincolumn="9" endcolumn="36" rule="PackageCase" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#packagecase" priority="3">
 Package name contains upper case characters
 </violation>
-<violation beginline="18" endline="18" begincolumn="21" endcolumn="25" rule="VariableNamingConventions" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="type_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#variablenamingconventions" priority="1">
+<violation beginline="19" endline="19" begincolumn="21" endcolumn="25" rule="VariableNamingConventions" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="type_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#variablenamingconventions" priority="1">
 Only variables that are final should contain underscores (except for underscores in standard prefix/suffix), 'type_' is not final.
 </violation>
-<violation beginline="18" endline="18" begincolumn="21" endcolumn="25" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="type_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
+<violation beginline="19" endline="19" begincolumn="21" endcolumn="25" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="type_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
 Private field 'type_' could be made final; it is only initialized in the declaration or constructor.
 </violation>
-<violation beginline="23" endline="23" begincolumn="18" endcolumn="24" rule="VariableNamingConventions" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="lexeme_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#variablenamingconventions" priority="1">
+<violation beginline="24" endline="24" begincolumn="18" endcolumn="24" rule="VariableNamingConventions" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="lexeme_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#variablenamingconventions" priority="1">
 Only variables that are final should contain underscores (except for underscores in standard prefix/suffix), 'lexeme_' is not final.
 </violation>
-<violation beginline="23" endline="23" begincolumn="18" endcolumn="24" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="lexeme_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
+<violation beginline="24" endline="24" begincolumn="18" endcolumn="24" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="lexeme_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
 Private field 'lexeme_' could be made final; it is only initialized in the declaration or constructor.
 </violation>
-<violation beginline="28" endline="28" begincolumn="15" endcolumn="25" rule="VariableNamingConventions" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="lineNumber_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#variablenamingconventions" priority="1">
+<violation beginline="29" endline="29" begincolumn="15" endcolumn="25" rule="VariableNamingConventions" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="lineNumber_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#variablenamingconventions" priority="1">
 Only variables that are final should contain underscores (except for underscores in standard prefix/suffix), 'lineNumber_' is not final.
 </violation>
-<violation beginline="28" endline="28" begincolumn="15" endcolumn="25" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="lineNumber_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
+<violation beginline="29" endline="29" begincolumn="15" endcolumn="25" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="lineNumber_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
 Private field 'lineNumber_' could be made final; it is only initialized in the declaration or constructor.
 </violation>
-<violation beginline="33" endline="33" begincolumn="15" endcolumn="27" rule="VariableNamingConventions" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="columnNumber_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#variablenamingconventions" priority="1">
+<violation beginline="34" endline="34" begincolumn="15" endcolumn="27" rule="VariableNamingConventions" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="columnNumber_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#variablenamingconventions" priority="1">
 Only variables that are final should contain underscores (except for underscores in standard prefix/suffix), 'columnNumber_' is not final.
 </violation>
-<violation beginline="33" endline="33" begincolumn="15" endcolumn="27" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="columnNumber_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
+<violation beginline="34" endline="34" begincolumn="15" endcolumn="27" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" variable="columnNumber_" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
 Private field 'columnNumber_' could be made final; it is only initialized in the declaration or constructor.
 </violation>
-<violation beginline="68" endline="68" begincolumn="9" endcolumn="28" rule="LawOfDemeter" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" method="toString" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#lawofdemeter" priority="3">
+<violation beginline="69" endline="69" begincolumn="9" endcolumn="28" rule="LawOfDemeter" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" method="toString" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#lawofdemeter" priority="3">
 Potential violation of Law of Demeter (method chain calls)
 </violation>
-<violation beginline="69" endline="69" begincolumn="7" endcolumn="99" rule="OnlyOneReturn" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" method="toString" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#onlyonereturn" priority="3">
+<violation beginline="70" endline="70" begincolumn="7" endcolumn="99" rule="OnlyOneReturn" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" method="toString" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#onlyonereturn" priority="3">
 A method should have only one exit point, and that should be the last statement in the method
 </violation>
-<violation beginline="71" endline="71" begincolumn="14" endcolumn="33" rule="LawOfDemeter" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" method="toString" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#lawofdemeter" priority="3">
+<violation beginline="72" endline="72" begincolumn="14" endcolumn="33" rule="LawOfDemeter" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" method="toString" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#lawofdemeter" priority="3">
 Potential violation of Law of Demeter (method chain calls)
 </violation>
-<violation beginline="107" endline="107" begincolumn="30" endcolumn="30" rule="ShortVariable" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" method="compareTo" variable="t" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#shortvariable" priority="3">
+<violation beginline="108" endline="108" begincolumn="30" endcolumn="30" rule="ShortVariable" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" method="compareTo" variable="t" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#shortvariable" priority="3">
 Avoid variables with short names like t
 </violation>
-<violation beginline="107" endline="107" begincolumn="24" endcolumn="30" rule="MethodArgumentCouldBeFinal" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" method="compareTo" variable="t" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#methodargumentcouldbefinal" priority="3">
+<violation beginline="108" endline="108" begincolumn="24" endcolumn="30" rule="MethodArgumentCouldBeFinal" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="Token" method="compareTo" variable="t" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#methodargumentcouldbefinal" priority="3">
 Parameter 't' is not assigned and could be declared final
 </violation>
-<violation beginline="107" endline="113" begincolumn="10" endcolumn="3" rule="CommentRequired" ruleset="Documentation" package="edu.odu.cs.cs350.DupDetector" class="Token" method="compareTo" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_documentation.html#commentrequired" priority="3">
+<violation beginline="108" endline="114" begincolumn="10" endcolumn="3" rule="CommentRequired" ruleset="Documentation" package="edu.odu.cs.cs350.DupDetector" class="Token" method="compareTo" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_documentation.html#commentrequired" priority="3">
 Public method and constructor comments are required
 </violation>
-<violation beginline="108" endline="112" begincolumn="12" endcolumn="38" rule="LawOfDemeter" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" method="compareTo" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#lawofdemeter" priority="3">
+<violation beginline="109" endline="113" begincolumn="12" endcolumn="38" rule="LawOfDemeter" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" method="compareTo" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#lawofdemeter" priority="3">
 Potential violation of Law of Demeter (method chain calls)
 </violation>
-<violation beginline="108" endline="112" begincolumn="12" endcolumn="38" rule="LawOfDemeter" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" method="compareTo" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#lawofdemeter" priority="3">
+<violation beginline="109" endline="113" begincolumn="12" endcolumn="38" rule="LawOfDemeter" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="Token" method="compareTo" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#lawofdemeter" priority="3">
 Potential violation of Law of Demeter (method chain calls)
 </violation>
 </file>
@@ -335,13 +335,13 @@ Potential violation of Law of Demeter (method chain calls)
 <violation beginline="1" endline="1" begincolumn="9" endcolumn="36" rule="PackageCase" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="TokenStream" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#packagecase" priority="3">
 Package name contains upper case characters
 </violation>
-<violation beginline="18" endline="18" begincolumn="23" endcolumn="28" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="TokenStream" variable="tokens" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
+<violation beginline="19" endline="19" begincolumn="23" endcolumn="28" rule="ImmutableField" ruleset="Design" package="edu.odu.cs.cs350.DupDetector" class="TokenStream" variable="tokens" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_design.html#immutablefield" priority="3">
 Private field 'tokens' could be made final; it is only initialized in the declaration or constructor.
 </violation>
-<violation beginline="26" endline="26" begincolumn="5" endcolumn="58" rule="LocalVariableCouldBeFinal" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="TokenStream" method="TokenStream" variable="VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#localvariablecouldbefinal" priority="3">
+<violation beginline="27" endline="27" begincolumn="5" endcolumn="58" rule="LocalVariableCouldBeFinal" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="TokenStream" method="TokenStream" variable="VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#localvariablecouldbefinal" priority="3">
 Local variable 'scanner' could be declared final
 </violation>
-<violation beginline="33" endline="35" begincolumn="7" endcolumn="5" rule="EmptyCatchBlock" ruleset="Error Prone" package="edu.odu.cs.cs350.DupDetector" class="TokenStream" method="TokenStream" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_errorprone.html#emptycatchblock" priority="3">
+<violation beginline="34" endline="36" begincolumn="7" endcolumn="5" rule="EmptyCatchBlock" ruleset="Error Prone" package="edu.odu.cs.cs350.DupDetector" class="TokenStream" method="TokenStream" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_errorprone.html#emptycatchblock" priority="3">
 Avoid empty catch blocks
 </violation>
 </file>
@@ -349,7 +349,7 @@ Avoid empty catch blocks
 <violation beginline="1" endline="1" begincolumn="9" endcolumn="36" rule="PackageCase" ruleset="Code Style" package="edu.odu.cs.cs350.DupDetector" class="TokenType" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_codestyle.html#packagecase" priority="3">
 Package name contains upper case characters
 </violation>
-<violation beginline="24" endline="24" begincolumn="2" endcolumn="2" rule="EmptyStatementNotInLoop" ruleset="Error Prone" package="edu.odu.cs.cs350.DupDetector" class="TokenType" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_errorprone.html#emptystatementnotinloop" priority="3">
+<violation beginline="25" endline="25" begincolumn="2" endcolumn="2" rule="EmptyStatementNotInLoop" ruleset="Error Prone" package="edu.odu.cs.cs350.DupDetector" class="TokenType" externalInfoUrl="https://pmd.github.io/pmd-6.36.0/pmd_rules_java_errorprone.html#emptystatementnotinloop" priority="3">
 An empty statement (semicolon) not part of a loop
 </violation>
 </file>

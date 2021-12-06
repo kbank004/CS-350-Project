@@ -9,25 +9,25 @@ import java.util.ArrayList;
 /**
  * Represents a single file with a path and a number of tokens contained inside it
  * @author Banks
+ * @author Lugo
+ * 
  */
 public class File implements Comparable&lt;File&gt; {
   private Path filePath;
-<span class="fc" id="L15">  private List&lt;Token&gt; tokens = new ArrayList&lt;Token&gt;();</span>
+<span class="fc" id="L17">  private List&lt;Token&gt; tokens = new ArrayList&lt;Token&gt;();</span>
 
   /**
    * Constructor
-   * @param path Path of this tile
-   * @param tokenCount Number of tokens in this file
+   * @param path Path of this file
    */
-<span class="fc" id="L22">  public File(Path path) {</span>
-<span class="fc" id="L23">    filePath = path;</span>
-<span class="fc" id="L24">    scan();</span>
-<span class="fc" id="L25">  }</span>
+<span class="fc" id="L23">  public File(Path path) {</span>
+<span class="fc" id="L24">    filePath = path;</span>
+<span class="fc" id="L25">    scan();</span>
+<span class="fc" id="L26">  }</span>
 
   /**
    * Constructor
-   * @param path Path of this tile
-   * @param tokenCount Number of tokens in this file
+   * @param path Path of this file
    */
 <span class="fc" id="L32">  public File(String path) {</span>
 <span class="fc" id="L33">    filePath = Path.of(path);</span>
