@@ -1,0 +1,237 @@
+html, body {
+  /* remove padding & margin so containers fill entire webpage */
+  margin: 0;
+  padding: 0;
+  height: 100%;
+
+  display: flex; /* defines flexbox */
+  flex-direction: column; /* top to bottom */
+  justify-content: space-between; /* first item at start, last at end */
+
+  font: 20px/1.25 Tahoma, Verdana, sans-serif;
+  background-color: #2E3440;
+  color: #ECEFF4;
+}
+
+input, textarea {
+  text-align: center;
+  font: 25px/1.25 Tahoma, Verdana, sans-serif;
+  text-decoration: none;
+  background: #3B4252 none;
+  color: #ECEFF4;
+  border: none;
+  border-radius: 0px;
+}
+
+button {
+  text-align: center;
+  padding: 5px 10px;
+  font: 1.5vw/1.25 Tahoma, Verdana, sans-serif;
+  text-decoration: none;
+  font-weight: bold;
+  background: #81A1C1 none;
+  color: #ECEFF4;
+  border: none;
+  border-radius: 0px;
+}
+
+button:hover {
+  background: #88C0D0 none;
+}
+
+h1, h2, p {
+  color: #ECEFF4;
+}
+
+/* Global */
+#odu-seal {
+  padding: 0px 0px 20px 0px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.content {
+  padding: 20px;
+  /*#EBCB8B;*/
+}
+
+.image-container {
+  width: 80%;
+  overflow: hidden;
+  margin: 0px auto 0px auto;  /* top right bottom left */
+
+  background-color: #D8DEE9;
+  color: #2E3440;
+}
+
+#homepage {
+  display: flex; /* defines flexbox */
+  flex-direction: column; /* top to bottom */
+  justify-content: space-between; /* first item at start, last at end */
+}
+
+.sticky-top {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+.sticky-top + .content {
+  padding-top: 90px;
+}
+
+#home-button { /* Home button for website */
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  float: left;
+  display: inline-block;
+
+  font-size: xxx-large;
+  font-weight: bold;
+  background-color: #D08770;
+  color: #ECEFF4;
+}
+
+#home-button:hover {
+  background-color: #D69B71;
+}
+
+.nav-button:hover { /* Text boxes */
+  color: #D08770;
+}
+
+header {
+  background-color: #3B4252;
+}
+
+header ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* SiteHeader */
+header a {
+  text-decoration: none;
+
+  color: #E5E9F0;
+}
+
+header li {
+  padding: 0px 20px 0px 20px; /* top right bottom left */
+  float: left;
+  display: inline;
+}
+
+header nav {
+  float: right;
+
+  margin-top: 30px;
+}
+
+/* Main */
+main {
+  flex-grow: 1;
+  background-color: /*#EBCB8B;*/ #2E3440;
+}
+
+/* SiteFooter */
+footer {
+  position: sticky;
+  background-color: #3B4252;
+}
+
+.footer-container {
+  display: flex; /* defines flexbox */
+  flex-direction: column; /* top to bottom */
+  justify-content: center; /* first item at start, last at end */
+}
+
+/* Section */
+/*section {
+  padding: 20px 20px 20px 20px; !* top right bottom left *!
+  background-color: #3B4252;
+}*/
+
+
+.main-title {
+  width: 80%;
+  height: 20%;
+  display: inline-block;
+  font-size: 30px;
+  margin: 0px auto 0px auto;  /* top right bottom left */
+  background-color: #D8DEE9;
+  color: #2E3440;
+}
+
+/* Rects */
+.button-group {
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  gap: 10px;
+  justify-items: center;
+  align-content: space-evenly;
+}
+
+.button { /* Text boxes */
+  width: 90%;
+  text-align: center;
+  text-decoration: none;
+
+  background-color: #81A1C1;
+  color: #ECEFF4;
+}
+
+.button:hover {
+  background-color: #88C0D0;
+}
+
+.button .label {
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button .caption {
+  height: 30%;
+  width: 100%;
+  background-color: #D8DEE9;
+  color: #2E3440;
+}
+
+.graph-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-items: center;
+  align-content: space-evenly;
+}
+
+.graph { /* Text boxes */
+  width: 90%;
+  text-align: center;
+  text-decoration: none;
+
+  background-color: #81A1C1;
+  color: #ECEFF4;
+}
+
+.graph .label {
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.graph .caption {
+  height: 30%;
+  width: 100%;
+  background-color: #D8DEE9;
+  color: #2E3440;
+}
