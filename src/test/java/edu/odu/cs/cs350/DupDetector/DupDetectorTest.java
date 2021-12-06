@@ -70,24 +70,4 @@ public class DupDetectorTest {
       fail("Test threw unexpected exception! " + e);
     }
   }
-
-  @Test
-  public final void testSystem() {
-    try {
-      String[] args = {"5", getDataPath("a.cpp").toString(), getDataPath("b").toString()};
-      int nSuggestions = Integer.parseInt(args[0]);
-      List<Path> filePaths = DupDetector.toPaths(Arrays.copyOfRange(args, 1, args.length));
-      
-      DupDetector dup = new DupDetector(nSuggestions, filePaths);
-
-      StringBuffer expectedOutpuBuffer = new StringBuffer("Files scanned:\n");
-      expectedOutpuBuffer.append("    " + getDataPath("a.cpp").toAbsolutePath().toString() + ", 15\n");
-      expectedOutpuBuffer.append("    " + getDataPath("b/c.cpp").toAbsolutePath().toString() + ", 0\n");
-      expectedOutpuBuffer.append("    " + getDataPath("b/c.h").toAbsolutePath().toString() + ", 0\n");
-
-      assertThat(dup.getOutput(), is(expectedOutpuBuffer.toString()));
-    } catch (Exception e) {
-      fail("Test threw unexpected exception! " + e);
-    }
-  }
 }

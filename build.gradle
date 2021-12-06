@@ -13,11 +13,10 @@ plugins {
   id "org.xbib.gradle.plugin.git" version "2.0.0"
   id "org.xbib.gradle.plugin.jflex" version "1.5.0"
   id "org.hidetake.ssh" version "2.10.1"
-  //id "checkstyle"
+  id "org.unbroken-dome.test-sets" version "4.0.0"
+  id 'edu.odu.cs.report_accumulator' version '1.4' 
   id "pmd"
   id "jacoco"
-
-  //id "com.github.spotbugs" version "4.6.0"
 }
 
 java {
@@ -37,8 +36,7 @@ sourceSets {
 }
 
 repositories {
-  // Use maven for resolving dependencies.
-  jcenter()
+  gradlePluginPortal()
   mavenCentral()
   ivy {
     url 'https://www.cs.odu.edu/~zeil/ivyrepo'
@@ -69,31 +67,6 @@ pmdTest.enabled = false
 
 check.dependsOn jacocoTestReport
 
-// checkstyle {
-//   ignoreFailures = true
-//   showViolations = false
-// }
-
-// tasks.withType(Checkstyle) {
-//   reports {
-//     html.destination project.file("build/reports/checkstyle/main.html")
-//   }
-// }
-
-// checkstyleTest.enabled = false
-
-// spotbugsMain {
-//   ignoreFailures = true
-//   effort = 'max'
-//   reportLevel = 'medium'
-//   reports {
-//     xml.enabled = false
-//     html.enabled = true
-//   }
-// }
-
-// spotbugsTest.enabled = false
-
 application {
   // Define the main class for the application.
   mainClass = 'edu.odu.cs.cs350.DupDetector.DupDetector'
@@ -112,10 +85,24 @@ jar {
   }
 }
 
+testSets { iTest }
+
+iTest.mustRunAfter test
+check.dependsOn iTest
+
+tasks.withType(Test) {
+  useJUnitPlatform()
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
+}
+
 test {
   ignoreFailures = true
-  // Use junit platform for unit tests.
-  useJUnitPlatform()
+}
+
+iTest {
+  ignoreFailures = true
 }
 
 run {
@@ -141,12 +128,12 @@ task deployReports (dependsOn: ['copyReports']) {
   }
 }
 
-task copyReports (dependsOn: ['clonePages']) {
+task copyReports (dependsOn: ['clonePages', 'reportStats']) {
   doLast {
-    copy {
-      from "$buildDir/reports"
-      into "$buildDir/gh-pages/reports"
-    }
+    // copy {
+    //   from "$buildDir/reports"
+    //   into "$buildDir/gh-pages/reports"
+    // }
     copy {
       from "$buildDir/docs"
       into "$buildDir/gh-pages/docs"
@@ -178,3 +165,10 @@ task deletePage(type: Delete) {
 }
 
 task reports (dependsOn: ['test', 'javadoc']) { }
+
+reportStats {
+  reportsURL = 'https://kbank004.github.io/CS-350-Project/'
+  htmlSourceDir = file('build/reports')  // default value
+  reportsDir = file("build/gh-pages/reports") // default value
+  buildID = "12345"                  // defaults to current date, but can be any run identifier
+}
