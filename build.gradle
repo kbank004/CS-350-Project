@@ -106,8 +106,15 @@ iTest {
 }
 
 run {
+  // def dataDir = "src/test/data"
+  //args = ["5", "$dataDir/p.ini", "$dataDir/a.cpp", "$dataDir/b"]
+}
+
+task runWithJar(type: Exec, dependsOn: ['build', 'jar']) {
+  group = "application"
+  description = "Run jar with test args"
   def dataDir = "src/test/data"
-  args = ["5", "$dataDir/p.ini", "$dataDir/a.cpp", "$dataDir/b"]
+  commandLine "java", "-jar", jar.archiveFile.get(), "5", "$dataDir/p.ini", "$dataDir/a.cpp", "$dataDir/b"
 }
 
 task deployReports (dependsOn: ['copyReports']) {
