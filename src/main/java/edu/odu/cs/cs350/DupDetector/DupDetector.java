@@ -102,7 +102,7 @@ public class DupDetector {
     return maxSuggestions;
   }
 
-  private final String getProperty(Property property) {
+  private String getProperty(final Property property) {
     switch (property) {
       case CPP_EXTENSIONS:
         if (properties.isPresent()) {

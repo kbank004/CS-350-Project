@@ -105,6 +105,9 @@ public class Token implements Comparable<Token> {
     return columnNumber_;
   }
 
+  /**
+   * Added comparison methods to allow for proper comparing of tokens and enable comparing token streams
+   */
   public int compareTo(Token t) {
     return Comparator.comparing(Token::getKind)
                      .thenComparing(Token::getLexeme)
@@ -113,6 +116,9 @@ public class Token implements Comparable<Token> {
                      .compare(this, t);
   }
 
+  /**
+   * Added comparison methods to allow for proper comparing of tokens and enable comparing token streams
+   */
   @Override // https://www.artima.com/articles/how-to-write-an-equality-method-in-java
   public boolean equals(Object other) {
     if (other instanceof Token) {
@@ -121,8 +127,11 @@ public class Token implements Comparable<Token> {
     return false;
   }
 
+  /**
+   * Added comparison methods to allow for proper comparing of tokens and enable comparing token streams
+   */
   @Override
   public int hashCode() {
-    return (41 * (41 + getKind().hashCode()) + getLexeme().hashCode());
+    return 41 * (41 + getKind().hashCode()) + getLexeme().hashCode();
   }
 }

@@ -22,4 +22,4 @@ public enum TokenType {
   // PREPROCESSOR, // ignore
   // WHITE_SPACE, // ignore
   EOF
-};
+}

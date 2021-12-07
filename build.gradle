@@ -54,7 +54,6 @@ dependencies {
   implementation 'com.googlecode.concurrent-trees:concurrent-trees:2.6.1'
 
   //implementation 'edu.odu.cs.zeil:JarNeedsHeap:1.0'
-  testCompileOnly 'edu.odu.cs.zeil:JarNeedsHeap:1.0'
 }
 
 pmd {
@@ -85,10 +84,10 @@ jar {
   }
 }
 
-testSets { iTest }
+testSets { itest }
 
-iTest.mustRunAfter test
-check.dependsOn iTest
+itest.mustRunAfter test
+check.dependsOn itest
 
 tasks.withType(Test) {
   useJUnitPlatform()
@@ -101,7 +100,7 @@ test {
   ignoreFailures = true
 }
 
-iTest {
+itest {
   ignoreFailures = true
 }
 

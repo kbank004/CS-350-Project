@@ -6,14 +6,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.nio.file.Path;
 
 public class IntegrationTest {
   private static final Path dataPath = Path.of("src/test/data");
 
-  private final Path getDataPath(String path) {
+  private Path getDataPath(final String path) {
     return dataPath.resolve(path);
   }
   

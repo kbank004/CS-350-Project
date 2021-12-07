@@ -33,6 +33,7 @@ public class TokenStream implements Iterable<Token> {
       }
     } catch (IOException ex) {
       // Not necessarily a problem, depending on the input source
+      System.err.println(ex);
     }
   }
 

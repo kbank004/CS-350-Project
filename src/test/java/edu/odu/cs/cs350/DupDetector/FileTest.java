@@ -31,7 +31,7 @@ public class FileTest {
     new Token(TokenType.SYMBOL,      6, 1, "}")
   ));
 
-  private final Path getDataPath(String path) {
+  private Path getDataPath(final String path) {
     return dataPath.resolve(path);
   }
 
