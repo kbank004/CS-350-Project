@@ -109,7 +109,7 @@ run {
   //args = ["5", "$dataDir/p.ini", "$dataDir/a.cpp", "$dataDir/b"]
 }
 
-task runWithJar(type: Exec, dependsOn: ['build', 'jar']) {
+task runWithJar(type: Exec, dependsOn: ['assemble', 'jar']) {
   group = "application"
   description = "Run jar with test args"
   def dataDir = "src/test/data"
