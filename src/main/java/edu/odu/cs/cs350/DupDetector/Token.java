@@ -116,12 +116,7 @@ public class Token implements Comparable<Token> {
   @Override // https://www.artima.com/articles/how-to-write-an-equality-method-in-java
   public boolean equals(Object other) {
     if (other instanceof Token) {
-      Token that = (Token) other;
-      return 0 == Comparator.comparing(Token::getKind)
-                            .thenComparing(Token::getLexeme)
-                            //.thenComparing(Token::getLineNumber)
-                            //.thenComparing(Token::getColumnNumber)
-                            .compare(this, that);
+      return 0 == compareTo((Token)other);
     }
     return false;
   }

@@ -10,7 +10,6 @@ package edu.odu.cs.cs350.DupDetector;
 %public
 %class GeneratedScanner
 
-
 %line
 %column
 
@@ -26,18 +25,13 @@ package edu.odu.cs.cs350.DupDetector;
   private Token symbol(TokenType type, String value) {
     return new Token(type, yyline+1, yycolumn+1, value);
   }
-  
-
 
 %}
 
 /* main character classes */
-
 InputChar = [^\r\n]
 LineChar  = \r|\n|\r\n
 SpaceChar = [\ \t]
-
-
 
 /* integer literal */ 
 Zero     = 0
