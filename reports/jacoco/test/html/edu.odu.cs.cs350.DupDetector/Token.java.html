@@ -16,22 +16,22 @@ public class Token implements Comparable&lt;Token&gt; {
   /**
    * What kind of token is this?
    */
-  private TokenType type_;
+  private final TokenType type_;
 
   /**
    * For variables &amp; literals, the original lexical string.
    */
-  private String lexeme_;
+  private final String lexeme_;
   
   /**
    * Where did we find this within the file?
    */
-  private int lineNumber_;
+  private final int lineNumber_;
   
   /**
    * Where did we find this within the file?
    */
-  private int columnNumber_;
+  private final int columnNumber_;
   
 
   /**
@@ -105,12 +105,34 @@ public class Token implements Comparable&lt;Token&gt; {
 <span class="fc" id="L105">    return columnNumber_;</span>
   }
 
+  /**
+   * Added comparison methods to allow for proper comparing of tokens and enable comparing token streams
+   */
   public int compareTo(Token t) {
-<span class="nc" id="L109">    return Comparator.comparing(Token::getKind)</span>
-<span class="nc" id="L110">                     .thenComparing(Token::getLexeme)</span>
+<span class="fc" id="L112">    return Comparator.comparing(Token::getKind)</span>
+<span class="fc" id="L113">                     .thenComparing(Token::getLexeme)</span>
                      //.thenComparing(Token::getLineNumber)
                      //.thenComparing(Token::getColumnNumber)
-<span class="nc" id="L113">                     .compare(this, t);</span>
+<span class="fc" id="L116">                     .compare(this, t);</span>
+  }
+
+  /**
+   * Added comparison methods to allow for proper comparing of tokens and enable comparing token streams
+   */
+  @Override // https://www.artima.com/articles/how-to-write-an-equality-method-in-java
+  public boolean equals(Object other) {
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">    if (other instanceof Token) {</span>
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">      return 0 == compareTo((Token)other);</span>
+    }
+<span class="nc" id="L127">    return false;</span>
+  }
+
+  /**
+   * Added comparison methods to allow for proper comparing of tokens and enable comparing token streams
+   */
+  @Override
+  public int hashCode() {
+<span class="nc" id="L135">    return 41 * (41 + getKind().hashCode()) + getLexeme().hashCode();</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

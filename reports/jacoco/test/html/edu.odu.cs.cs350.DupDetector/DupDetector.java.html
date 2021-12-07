@@ -34,7 +34,7 @@ public class DupDetector {
    * 
    * @param args nSuggestions [propertiesFilePath] path1 [path2...]
    */
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     // Print help message if not enough args
 <span class="nc bnc" id="L39" title="All 2 branches missed.">    if (args.length &lt; 2) {</span>
 <span class="nc" id="L40">      System.err.println(&quot;Usage: java -jar DupDetector.jar nSuggestions [properties filepath] path1 [path2 …]&quot;);</span>
@@ -98,11 +98,11 @@ public class DupDetector {
    * Get maximum number of suggested refactorings to be printed
    * @return max num of suggestions
    */
-  public int getMaxSuggestions() {
+  public final int getMaxSuggestions() {
 <span class="fc" id="L102">    return maxSuggestions;</span>
   }
 
-  private String getProperty(Property property) {
+  private String getProperty(final Property property) {
 <span class="pc bpc" id="L106" title="1 of 4 branches missed.">    switch (property) {</span>
       case CPP_EXTENSIONS:
 <span class="fc bfc" id="L108" title="All 2 branches covered.">        if (properties.isPresent()) {</span>
@@ -131,7 +131,7 @@ public class DupDetector {
   * Returns a list of acceptable file extensions. Default property value: cpp,h
   * @return list of accepted extensions
   */
-  public List&lt;String&gt; getCppExtensions() {
+  public final List&lt;String&gt; getCppExtensions() {
 <span class="fc" id="L135">    return Arrays.asList(getProperty(Property.CPP_EXTENSIONS).split(&quot;,&quot;, 0));</span>
   }
 
@@ -139,7 +139,7 @@ public class DupDetector {
   * Returns the minimum allowed length of a token sequence for it to be printed. Default property value: 8
   * @return min length of token sequence
   */
-  public int getMinSequenceLength() {
+  public final int getMinSequenceLength() {
 <span class="fc" id="L143">    return Integer.parseInt(getProperty(Property.MIN_SEQUENCE_LENGTH));</span>
   }
 
@@ -147,7 +147,7 @@ public class DupDetector {
   * Returns the maximum number of substitutions to be printed. Default property value: 10
   * @return max num of substitutions
   */
-  public int getMaxSubstitutions() {
+  public final int getMaxSubstitutions() {
 <span class="fc" id="L151">    return Integer.parseInt(getProperty(Property.MAX_SUBSTITUTIONS));</span>
   }
 
@@ -155,7 +155,7 @@ public class DupDetector {
   * Returns a List of Files (to eventually be read and parsed)
   * @return list of files 
   */
-  public List&lt;File&gt; getFiles() {
+  public final List&lt;File&gt; getFiles() {
 <span class="nc" id="L159">    return files;</span>
   }
 
@@ -163,15 +163,15 @@ public class DupDetector {
   * Returns a list of File Paths
   * @return list of File Paths
   */
-  public List&lt;Path&gt; getFilePaths() {
+  public final List&lt;Path&gt; getFilePaths() {
 <span class="fc" id="L167">    return files.stream().map(File::getFilePath).collect(Collectors.toList());</span>
   }
 
   /**
-  * Returns a String containing DupDetector's output
-  * @return string of output
-  */
-  public String getOutput() {
+   * Returns a String containing DupDetector's output
+   * @return string of output
+   */
+  public final String getOutput() {
 <span class="nc" id="L175">    StringBuffer buffer = new StringBuffer(&quot;Files scanned:\n&quot;);</span>
 <span class="nc bnc" id="L176" title="All 2 branches missed.">    for (File file : files) {</span>
 <span class="nc" id="L177">      buffer.append(&quot;    &quot; + file.toString() + &quot;\n&quot;);</span>

@@ -4,8 +4,10 @@
 
 package edu.odu.cs.cs350.DupDetector;
 //@SuppressWarnings(&quot;unused&quot;)\
-// Adapted from:
-// https://www.cs.auckland.ac.nz/courses/compsci330s1c/lectures/330ChaptersPDF/Chapt1.pdf
+/* Adapted from:
+ * https://www.cs.auckland.ac.nz/courses/compsci330s1c/lectures/330ChaptersPDF/Chapt1.pdf
+ * Author: GTLugo
+ **/
 
 
 // See https://github.com/jflex-de/jflex/issues/222
@@ -27,42 +29,42 @@ public class GeneratedScanner {
    *                  at the beginning of a line
    * l is of the form l = 2*k, k a non negative integer
    */
-<span class="fc" id="L30">  private static final int ZZ_LEXSTATE[] = {</span>
+<span class="fc" id="L32">  private static final int ZZ_LEXSTATE[] = {</span>
      0, 1
   };
 
   /**
    * Top-level table for translating characters to character classes
    */
-<span class="fc" id="L37">  private static final int [] ZZ_CMAP_TOP = zzUnpackcmap_top();</span>
+<span class="fc" id="L39">  private static final int [] ZZ_CMAP_TOP = zzUnpackcmap_top();</span>
 
   private static final String ZZ_CMAP_TOP_PACKED_0 =
     &quot;\1\0\37\u0100\1\u0200\267\u0100\10\u0300\u1020\u0100&quot;;
 
   private static int [] zzUnpackcmap_top() {
-<span class="fc" id="L43">    int [] result = new int[4352];</span>
-<span class="fc" id="L44">    int offset = 0;</span>
-<span class="fc" id="L45">    offset = zzUnpackcmap_top(ZZ_CMAP_TOP_PACKED_0, offset, result);</span>
-<span class="fc" id="L46">    return result;</span>
+<span class="fc" id="L45">    int [] result = new int[4352];</span>
+<span class="fc" id="L46">    int offset = 0;</span>
+<span class="fc" id="L47">    offset = zzUnpackcmap_top(ZZ_CMAP_TOP_PACKED_0, offset, result);</span>
+<span class="fc" id="L48">    return result;</span>
   }
 
   private static int zzUnpackcmap_top(String packed, int offset, int [] result) {
-<span class="fc" id="L50">    int i = 0;       /* index in packed string  */</span>
-<span class="fc" id="L51">    int j = offset;  /* index in unpacked array */</span>
-<span class="fc" id="L52">    int l = packed.length();</span>
-<span class="fc bfc" id="L53" title="All 2 branches covered.">    while (i &lt; l) {</span>
-<span class="fc" id="L54">      int count = packed.charAt(i++);</span>
-<span class="fc" id="L55">      int value = packed.charAt(i++);</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">      do result[j++] = value; while (--count &gt; 0);</span>
-<span class="fc" id="L57">    }</span>
-<span class="fc" id="L58">    return j;</span>
+<span class="fc" id="L52">    int i = 0;       /* index in packed string  */</span>
+<span class="fc" id="L53">    int j = offset;  /* index in unpacked array */</span>
+<span class="fc" id="L54">    int l = packed.length();</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">    while (i &lt; l) {</span>
+<span class="fc" id="L56">      int count = packed.charAt(i++);</span>
+<span class="fc" id="L57">      int value = packed.charAt(i++);</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">      do result[j++] = value; while (--count &gt; 0);</span>
+<span class="fc" id="L59">    }</span>
+<span class="fc" id="L60">    return j;</span>
   }
 
 
   /**
    * Second-level tables for translating characters to character classes
    */
-<span class="fc" id="L65">  private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();</span>
+<span class="fc" id="L67">  private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();</span>
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     &quot;\11\0\1\1\1\2\2\3\1\4\22\0\1\1\1\5&quot;+
@@ -78,28 +80,28 @@ public class GeneratedScanner {
     &quot;\2\13\6\0\1\3\u01a2\0\2\3\326\0\u0100\3&quot;;
 
   private static int [] zzUnpackcmap_blocks() {
-<span class="fc" id="L81">    int [] result = new int[1024];</span>
-<span class="fc" id="L82">    int offset = 0;</span>
-<span class="fc" id="L83">    offset = zzUnpackcmap_blocks(ZZ_CMAP_BLOCKS_PACKED_0, offset, result);</span>
-<span class="fc" id="L84">    return result;</span>
+<span class="fc" id="L83">    int [] result = new int[1024];</span>
+<span class="fc" id="L84">    int offset = 0;</span>
+<span class="fc" id="L85">    offset = zzUnpackcmap_blocks(ZZ_CMAP_BLOCKS_PACKED_0, offset, result);</span>
+<span class="fc" id="L86">    return result;</span>
   }
 
   private static int zzUnpackcmap_blocks(String packed, int offset, int [] result) {
-<span class="fc" id="L88">    int i = 0;       /* index in packed string  */</span>
-<span class="fc" id="L89">    int j = offset;  /* index in unpacked array */</span>
-<span class="fc" id="L90">    int l = packed.length();</span>
-<span class="fc bfc" id="L91" title="All 2 branches covered.">    while (i &lt; l) {</span>
-<span class="fc" id="L92">      int count = packed.charAt(i++);</span>
-<span class="fc" id="L93">      int value = packed.charAt(i++);</span>
-<span class="fc bfc" id="L94" title="All 2 branches covered.">      do result[j++] = value; while (--count &gt; 0);</span>
-<span class="fc" id="L95">    }</span>
-<span class="fc" id="L96">    return j;</span>
+<span class="fc" id="L90">    int i = 0;       /* index in packed string  */</span>
+<span class="fc" id="L91">    int j = offset;  /* index in unpacked array */</span>
+<span class="fc" id="L92">    int l = packed.length();</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">    while (i &lt; l) {</span>
+<span class="fc" id="L94">      int count = packed.charAt(i++);</span>
+<span class="fc" id="L95">      int value = packed.charAt(i++);</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">      do result[j++] = value; while (--count &gt; 0);</span>
+<span class="fc" id="L97">    }</span>
+<span class="fc" id="L98">    return j;</span>
   }
 
   /**
    * Translates DFA states to action switch labels.
    */
-<span class="fc" id="L102">  private static final int [] ZZ_ACTION = zzUnpackAction();</span>
+<span class="fc" id="L104">  private static final int [] ZZ_ACTION = zzUnpackAction();</span>
 
   private static final String ZZ_ACTION_PACKED_0 =
     &quot;\2\0\1\1\2\2\1\3\1\1\1\4\1\3\1\1&quot;+
@@ -111,29 +113,29 @@ public class GeneratedScanner {
     &quot;\5\4&quot;;
 
   private static int [] zzUnpackAction() {
-<span class="fc" id="L114">    int [] result = new int[324];</span>
-<span class="fc" id="L115">    int offset = 0;</span>
-<span class="fc" id="L116">    offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);</span>
-<span class="fc" id="L117">    return result;</span>
+<span class="fc" id="L116">    int [] result = new int[324];</span>
+<span class="fc" id="L117">    int offset = 0;</span>
+<span class="fc" id="L118">    offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);</span>
+<span class="fc" id="L119">    return result;</span>
   }
 
   private static int zzUnpackAction(String packed, int offset, int [] result) {
-<span class="fc" id="L121">    int i = 0;       /* index in packed string  */</span>
-<span class="fc" id="L122">    int j = offset;  /* index in unpacked array */</span>
-<span class="fc" id="L123">    int l = packed.length();</span>
-<span class="fc bfc" id="L124" title="All 2 branches covered.">    while (i &lt; l) {</span>
-<span class="fc" id="L125">      int count = packed.charAt(i++);</span>
-<span class="fc" id="L126">      int value = packed.charAt(i++);</span>
-<span class="fc bfc" id="L127" title="All 2 branches covered.">      do result[j++] = value; while (--count &gt; 0);</span>
-<span class="fc" id="L128">    }</span>
-<span class="fc" id="L129">    return j;</span>
+<span class="fc" id="L123">    int i = 0;       /* index in packed string  */</span>
+<span class="fc" id="L124">    int j = offset;  /* index in unpacked array */</span>
+<span class="fc" id="L125">    int l = packed.length();</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">    while (i &lt; l) {</span>
+<span class="fc" id="L127">      int count = packed.charAt(i++);</span>
+<span class="fc" id="L128">      int value = packed.charAt(i++);</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">      do result[j++] = value; while (--count &gt; 0);</span>
+<span class="fc" id="L130">    }</span>
+<span class="fc" id="L131">    return j;</span>
   }
 
 
   /**
    * Translates a state to a row index in the transition table
    */
-<span class="fc" id="L136">  private static final int [] ZZ_ROWMAP = zzUnpackRowMap();</span>
+<span class="fc" id="L138">  private static final int [] ZZ_ROWMAP = zzUnpackRowMap();</span>
 
   private static final String ZZ_ROWMAP_PACKED_0 =
     &quot;\0\0\0\77\0\176\0\176\0\275\0\374\0\u013b\0\u017a&quot;+
@@ -179,27 +181,27 @@ public class GeneratedScanner {
     &quot;\0\u4c89\0\u4cc8\0\u4d07\0\u4d46&quot;;
 
   private static int [] zzUnpackRowMap() {
-<span class="fc" id="L182">    int [] result = new int[324];</span>
-<span class="fc" id="L183">    int offset = 0;</span>
-<span class="fc" id="L184">    offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);</span>
-<span class="fc" id="L185">    return result;</span>
+<span class="fc" id="L184">    int [] result = new int[324];</span>
+<span class="fc" id="L185">    int offset = 0;</span>
+<span class="fc" id="L186">    offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);</span>
+<span class="fc" id="L187">    return result;</span>
   }
 
   private static int zzUnpackRowMap(String packed, int offset, int [] result) {
-<span class="fc" id="L189">    int i = 0;  /* index in packed string  */</span>
-<span class="fc" id="L190">    int j = offset;  /* index in unpacked array */</span>
-<span class="fc" id="L191">    int l = packed.length();</span>
-<span class="fc bfc" id="L192" title="All 2 branches covered.">    while (i &lt; l) {</span>
-<span class="fc" id="L193">      int high = packed.charAt(i++) &lt;&lt; 16;</span>
-<span class="fc" id="L194">      result[j++] = high | packed.charAt(i++);</span>
-<span class="fc" id="L195">    }</span>
-<span class="fc" id="L196">    return j;</span>
+<span class="fc" id="L191">    int i = 0;  /* index in packed string  */</span>
+<span class="fc" id="L192">    int j = offset;  /* index in unpacked array */</span>
+<span class="fc" id="L193">    int l = packed.length();</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">    while (i &lt; l) {</span>
+<span class="fc" id="L195">      int high = packed.charAt(i++) &lt;&lt; 16;</span>
+<span class="fc" id="L196">      result[j++] = high | packed.charAt(i++);</span>
+<span class="fc" id="L197">    }</span>
+<span class="fc" id="L198">    return j;</span>
   }
 
   /**
    * The transition table of the DFA
    */
-<span class="fc" id="L202">  private static final int [] ZZ_TRANS = zzUnpackTrans();</span>
+<span class="fc" id="L204">  private static final int [] ZZ_TRANS = zzUnpackTrans();</span>
 
   private static final String ZZ_TRANS_PACKED_0 =
     &quot;\1\3\2\4\1\0\1\5\1\6\1\7\1\3\1\10&quot;+
@@ -610,23 +612,23 @@ public class GeneratedScanner {
     &quot;\10\10\5\0\5\10\1\0\14\10\1\321\15\10\1\0&quot;;
 
   private static int [] zzUnpackTrans() {
-<span class="fc" id="L613">    int [] result = new int[19845];</span>
-<span class="fc" id="L614">    int offset = 0;</span>
-<span class="fc" id="L615">    offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);</span>
-<span class="fc" id="L616">    return result;</span>
+<span class="fc" id="L615">    int [] result = new int[19845];</span>
+<span class="fc" id="L616">    int offset = 0;</span>
+<span class="fc" id="L617">    offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);</span>
+<span class="fc" id="L618">    return result;</span>
   }
 
   private static int zzUnpackTrans(String packed, int offset, int [] result) {
-<span class="fc" id="L620">    int i = 0;       /* index in packed string  */</span>
-<span class="fc" id="L621">    int j = offset;  /* index in unpacked array */</span>
-<span class="fc" id="L622">    int l = packed.length();</span>
-<span class="fc bfc" id="L623" title="All 2 branches covered.">    while (i &lt; l) {</span>
-<span class="fc" id="L624">      int count = packed.charAt(i++);</span>
-<span class="fc" id="L625">      int value = packed.charAt(i++);</span>
-<span class="fc" id="L626">      value--;</span>
-<span class="fc bfc" id="L627" title="All 2 branches covered.">      do result[j++] = value; while (--count &gt; 0);</span>
-<span class="fc" id="L628">    }</span>
-<span class="fc" id="L629">    return j;</span>
+<span class="fc" id="L622">    int i = 0;       /* index in packed string  */</span>
+<span class="fc" id="L623">    int j = offset;  /* index in unpacked array */</span>
+<span class="fc" id="L624">    int l = packed.length();</span>
+<span class="fc bfc" id="L625" title="All 2 branches covered.">    while (i &lt; l) {</span>
+<span class="fc" id="L626">      int count = packed.charAt(i++);</span>
+<span class="fc" id="L627">      int value = packed.charAt(i++);</span>
+<span class="fc" id="L628">      value--;</span>
+<span class="fc bfc" id="L629" title="All 2 branches covered.">      do result[j++] = value; while (--count &gt; 0);</span>
+<span class="fc" id="L630">    }</span>
+<span class="fc" id="L631">    return j;</span>
   }
 
 
@@ -641,7 +643,7 @@ public class GeneratedScanner {
    * Error messages for {@link #ZZ_UNKNOWN_ERROR}, {@link #ZZ_NO_MATCH}, and
    * {@link #ZZ_PUSHBACK_2BIG} respectively.
    */
-<span class="fc" id="L644">  private static final String ZZ_ERROR_MSG[] = {</span>
+<span class="fc" id="L646">  private static final String ZZ_ERROR_MSG[] = {</span>
     &quot;Unknown internal scanner error&quot;,
     &quot;Error: could not match input&quot;,
     &quot;Error: pushback value was too large&quot;
@@ -650,7 +652,7 @@ public class GeneratedScanner {
   /**
    * ZZ_ATTRIBUTE[aState] contains the attributes of state {@code aState}
    */
-<span class="fc" id="L653">  private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();</span>
+<span class="fc" id="L655">  private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();</span>
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     &quot;\2\0\2\11\6\1\1\11\37\1\1\0\1\11\3\0&quot;+
@@ -658,22 +660,22 @@ public class GeneratedScanner {
     &quot;\67\1\1\11\4\0\320\1&quot;;
 
   private static int [] zzUnpackAttribute() {
-<span class="fc" id="L661">    int [] result = new int[324];</span>
-<span class="fc" id="L662">    int offset = 0;</span>
-<span class="fc" id="L663">    offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);</span>
-<span class="fc" id="L664">    return result;</span>
+<span class="fc" id="L663">    int [] result = new int[324];</span>
+<span class="fc" id="L664">    int offset = 0;</span>
+<span class="fc" id="L665">    offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);</span>
+<span class="fc" id="L666">    return result;</span>
   }
 
   private static int zzUnpackAttribute(String packed, int offset, int [] result) {
-<span class="fc" id="L668">    int i = 0;       /* index in packed string  */</span>
-<span class="fc" id="L669">    int j = offset;  /* index in unpacked array */</span>
-<span class="fc" id="L670">    int l = packed.length();</span>
-<span class="fc bfc" id="L671" title="All 2 branches covered.">    while (i &lt; l) {</span>
-<span class="fc" id="L672">      int count = packed.charAt(i++);</span>
-<span class="fc" id="L673">      int value = packed.charAt(i++);</span>
-<span class="fc bfc" id="L674" title="All 2 branches covered.">      do result[j++] = value; while (--count &gt; 0);</span>
-<span class="fc" id="L675">    }</span>
-<span class="fc" id="L676">    return j;</span>
+<span class="fc" id="L670">    int i = 0;       /* index in packed string  */</span>
+<span class="fc" id="L671">    int j = offset;  /* index in unpacked array */</span>
+<span class="fc" id="L672">    int l = packed.length();</span>
+<span class="fc bfc" id="L673" title="All 2 branches covered.">    while (i &lt; l) {</span>
+<span class="fc" id="L674">      int count = packed.charAt(i++);</span>
+<span class="fc" id="L675">      int value = packed.charAt(i++);</span>
+<span class="fc bfc" id="L676" title="All 2 branches covered.">      do result[j++] = value; while (--count &gt; 0);</span>
+<span class="fc" id="L677">    }</span>
+<span class="fc" id="L678">    return j;</span>
   }
 
   /** Input device. */
@@ -683,13 +685,13 @@ public class GeneratedScanner {
   private int zzState;
 
   /** Current lexical state. */
-<span class="fc" id="L686">  private int zzLexicalState = YYINITIAL;</span>
+<span class="fc" id="L688">  private int zzLexicalState = YYINITIAL;</span>
 
   /**
    * This buffer contains the current text to be matched and is the source of the {@link #yytext()}
    * string.
    */
-<span class="fc" id="L692">  private char zzBuffer[] = new char[ZZ_BUFFERSIZE];</span>
+<span class="fc" id="L694">  private char zzBuffer[] = new char[ZZ_BUFFERSIZE];</span>
 
   /** Text position at the last accepting state. */
   private int zzMarkedPos;
@@ -715,7 +717,7 @@ public class GeneratedScanner {
    * &lt;p&gt;When a lead/high surrogate has been read from the input stream into the final
    * {@link #zzBuffer} position, this will have a value of 1; otherwise, it will have a value of 0.
    */
-<span class="fc" id="L718">  private int zzFinalHighSurrogate = 0;</span>
+<span class="fc" id="L720">  private int zzFinalHighSurrogate = 0;</span>
 
   /** Number of newlines encountered up to the start of the matched text. */
   private int yyline;
@@ -728,24 +730,22 @@ public class GeneratedScanner {
   private long yychar;
 
   /** Whether the scanner is currently at the beginning of a line. */
-<span class="fc" id="L731">  private boolean zzAtBOL = true;</span>
+<span class="fc" id="L733">  private boolean zzAtBOL = true;</span>
 
   /** Whether the user-EOF-code has already been executed. */
   @SuppressWarnings(&quot;unused&quot;)
   private boolean zzEOFDone;
 
   /* user code: */
-<span class="fc" id="L738">  StringBuilder string = new StringBuilder();</span>
+<span class="fc" id="L740">  StringBuilder string = new StringBuilder();</span>
   
   private Token symbol(TokenType type) {
-<span class="fc" id="L741">    return new Token(type, yyline+1, yycolumn+1);</span>
+<span class="fc" id="L743">    return new Token(type, yyline+1, yycolumn+1);</span>
   }
 
   private Token symbol(TokenType type, String value) {
-<span class="fc" id="L745">    return new Token(type, yyline+1, yycolumn+1, value);</span>
+<span class="fc" id="L747">    return new Token(type, yyline+1, yycolumn+1, value);</span>
   }
-  
-
 
 
 

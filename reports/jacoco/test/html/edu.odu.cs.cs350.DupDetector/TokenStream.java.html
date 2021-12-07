@@ -19,22 +19,31 @@ public class TokenStream implements Iterable&lt;Token&gt; {
   private List&lt;Token&gt; tokens;
   
   /**
-  * Create a TokenStream from an input source.
-  * @param input input source for this stream
-  */
+   * Create a TokenStream from an input source.
+   * @param input input source for this stream
+   */
 <span class="fc" id="L25">  public TokenStream(final Reader input) {</span>
 <span class="fc" id="L26">    tokens = new LinkedList&lt;Token&gt;();</span>
 <span class="fc" id="L27">    GeneratedScanner scanner = new GeneratedScanner(input);</span>
     try {
 <span class="fc" id="L29">      Token token = scanner.yylex();</span>
 <span class="pc bpc" id="L30" title="1 of 4 branches missed.">      while (token != null &amp;&amp; token.getKind() != TokenType.EOF) {</span>
-<span class="fc" id="L31">          tokens.add (token);</span>
-<span class="fc" id="L32">          token = scanner.yylex();</span>
+<span class="fc" id="L31">        tokens.add (token);</span>
+<span class="fc" id="L32">        token = scanner.yylex();</span>
       }
 <span class="nc" id="L34">    } catch (IOException ex) {</span>
       // Not necessarily a problem, depending on the input source
-<span class="fc" id="L36">    }</span>
-<span class="fc" id="L37">  }</span>
+<span class="nc" id="L36">      System.err.println(ex);</span>
+<span class="fc" id="L37">    }</span>
+<span class="fc" id="L38">  }</span>
+
+  /**
+   * Return the number of tokens in the file
+   * @return number of tokens
+   */
+  public final List&lt;Token&gt; toList() {
+<span class="fc" id="L45">    return tokens;</span>
+  }
 
   /**
    * Return an iterator over the list of tokens.
@@ -43,7 +52,7 @@ public class TokenStream implements Iterable&lt;Token&gt; {
    */
   @Override
   public final Iterator&lt;Token&gt; iterator() {
-<span class="fc" id="L46">    return tokens.iterator();</span>
+<span class="fc" id="L55">    return tokens.iterator();</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
