@@ -16,22 +16,22 @@ public class Token implements Comparable<Token> {
   /**
    * What kind of token is this?
    */
-  private TokenType type_;
+  private final TokenType type_;
 
   /**
    * For variables & literals, the original lexical string.
    */
-  private String lexeme_;
+  private final String lexeme_;
   
   /**
    * Where did we find this within the file?
    */
-  private int lineNumber_;
+  private final int lineNumber_;
   
   /**
    * Where did we find this within the file?
    */
-  private int columnNumber_;
+  private final int columnNumber_;
   
 
   /**
@@ -111,5 +111,23 @@ public class Token implements Comparable<Token> {
                      //.thenComparing(Token::getLineNumber)
                      //.thenComparing(Token::getColumnNumber)
                      .compare(this, t);
+  }
+
+  @Override // https://www.artima.com/articles/how-to-write-an-equality-method-in-java
+  public boolean equals(Object other) {
+    if (other instanceof Token) {
+      Token that = (Token) other;
+      return 0 == Comparator.comparing(Token::getKind)
+                            .thenComparing(Token::getLexeme)
+                            //.thenComparing(Token::getLineNumber)
+                            //.thenComparing(Token::getColumnNumber)
+                            .compare(this, that);
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return (41 * (41 + getKind().hashCode()) + getLexeme().hashCode());
   }
 }

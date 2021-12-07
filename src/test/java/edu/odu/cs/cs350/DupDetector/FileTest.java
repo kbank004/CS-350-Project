@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-//import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -44,22 +44,7 @@ public class FileTest {
   @Test
   public final void testGetTokens() {
     File f = new File(getDataPath("a.cpp"));
-    var tokens = f.getTokens();
-    for (int i = 0; i < tokens.size(); ++i) {
-      // System.out.println( 
-      //   (tokens.get(i).compareTo(expectedTokens.get(i)) == 0 ? "match" : "no match") + " || " +
-      //   tokens.get(i) + " " + tokens.get(i).getLineNumber() + ", " + tokens.get(i).getColumnNumber() + " || " +
-      //   expectedTokens.get(i) + " " + expectedTokens.get(i).getLineNumber() + ", " + expectedTokens.get(i).getColumnNumber()
-      //   );
-      //assertThat(tokens.get(i), is(expectedTokens.get(i)));
-      assertThat(tokens.get(i).getKind(), is(expectedTokens.get(i).getKind()));
-      assertThat(tokens.get(i).getLexeme(), is(expectedTokens.get(i).getLexeme()));
-      assertThat(tokens.get(i).getLineNumber(), is(expectedTokens.get(i).getLineNumber()));
-      assertThat(tokens.get(i).getColumnNumber(), is(expectedTokens.get(i).getColumnNumber()));
-    }
-    // I COULD NOT FOR THE LIFE OF ME GET THESE TO COMPARE NORMALLY. IT KEPT FAILING BECAUSE THEY ARE DIFFERENT OBJECTS IN DIFF CLASSES???
-    //assertIterableEquals(tokens, expectedTokens);
-    //assertThat(tokens, is(expectedTokens));
+    assertIterableEquals(f.getTokens(), expectedTokens);
   }
 
   @Test

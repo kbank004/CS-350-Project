@@ -34,7 +34,7 @@ public class DupDetector {
    * 
    * @param args nSuggestions [propertiesFilePath] path1 [path2...]
    */
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     // Print help message if not enough args
     if (args.length < 2) {
       System.err.println("Usage: java -jar DupDetector.jar nSuggestions [properties filepath] path1 [path2 …]");
@@ -98,11 +98,11 @@ public class DupDetector {
    * Get maximum number of suggested refactorings to be printed
    * @return max num of suggestions
    */
-  public int getMaxSuggestions() {
+  public final int getMaxSuggestions() {
     return maxSuggestions;
   }
 
-  private String getProperty(Property property) {
+  private final String getProperty(Property property) {
     switch (property) {
       case CPP_EXTENSIONS:
         if (properties.isPresent()) {
@@ -131,7 +131,7 @@ public class DupDetector {
   * Returns a list of acceptable file extensions. Default property value: cpp,h
   * @return list of accepted extensions
   */
-  public List<String> getCppExtensions() {
+  public final List<String> getCppExtensions() {
     return Arrays.asList(getProperty(Property.CPP_EXTENSIONS).split(",", 0));
   }
 
@@ -139,7 +139,7 @@ public class DupDetector {
   * Returns the minimum allowed length of a token sequence for it to be printed. Default property value: 8
   * @return min length of token sequence
   */
-  public int getMinSequenceLength() {
+  public final int getMinSequenceLength() {
     return Integer.parseInt(getProperty(Property.MIN_SEQUENCE_LENGTH));
   }
 
@@ -147,7 +147,7 @@ public class DupDetector {
   * Returns the maximum number of substitutions to be printed. Default property value: 10
   * @return max num of substitutions
   */
-  public int getMaxSubstitutions() {
+  public final int getMaxSubstitutions() {
     return Integer.parseInt(getProperty(Property.MAX_SUBSTITUTIONS));
   }
 
@@ -155,7 +155,7 @@ public class DupDetector {
   * Returns a List of Files (to eventually be read and parsed)
   * @return list of files 
   */
-  public List<File> getFiles() {
+  public final List<File> getFiles() {
     return files;
   }
 
@@ -163,15 +163,15 @@ public class DupDetector {
   * Returns a list of File Paths
   * @return list of File Paths
   */
-  public List<Path> getFilePaths() {
+  public final List<Path> getFilePaths() {
     return files.stream().map(File::getFilePath).collect(Collectors.toList());
   }
 
   /**
-  * Returns a String containing DupDetector's output
-  * @return string of output
-  */
-  public String getOutput() {
+   * Returns a String containing DupDetector's output
+   * @return string of output
+   */
+  public final String getOutput() {
     StringBuffer buffer = new StringBuffer("Files scanned:\n");
     for (File file : files) {
       buffer.append("    " + file.toString() + "\n");

@@ -1,7 +1,9 @@
 package edu.odu.cs.cs350.DupDetector;
 //@SuppressWarnings("unused")\
-// Adapted from:
-// https://www.cs.auckland.ac.nz/courses/compsci330s1c/lectures/330ChaptersPDF/Chapt1.pdf
+/* Adapted from:
+ * https://www.cs.auckland.ac.nz/courses/compsci330s1c/lectures/330ChaptersPDF/Chapt1.pdf
+ * Author: GTLugo
+ **/
 
 %%
 
