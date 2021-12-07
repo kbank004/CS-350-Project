@@ -26,7 +26,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-  run 0:
+  run_0:
 
     runs-on: ubuntu-latest
 
@@ -42,7 +42,7 @@ jobs:
       run: chmod +x gradlew
     - name: Run with data directory
       run: ./gradlew run --args="5 src/test/data"
-  run 1:
+  run_1:
 
     runs-on: ubuntu-latest
 
@@ -58,7 +58,7 @@ jobs:
       run: chmod +x gradlew
     - name: Run with p.ini, a.cpp
       run: ./gradlew run --args="5 src/test/data/p.ini src/test/data/a.cpp"
-  run 2:
+  run_2:
 
     runs-on: ubuntu-latest
 
