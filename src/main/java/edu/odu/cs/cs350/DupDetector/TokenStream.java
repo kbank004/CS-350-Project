@@ -17,6 +17,7 @@ public class TokenStream implements Iterable<Token> {
    * The list of tokens obtained from the actual scanner.
    */
   private List<Token> tokens;
+  private File sourceFile;
   
   /**
    * Create a TokenStream from an input source.
@@ -37,12 +38,40 @@ public class TokenStream implements Iterable<Token> {
     }
   }
 
+  public TokenStream(final List<Token> tokens_, final File sourceFile_) {
+    tokens = tokens_;
+    sourceFile = sourceFile_;
+  }
+
   /**
-   * Return the number of tokens in the file
-   * @return number of tokens
+   * Return the list of tokens
+   * @return tokens
    */
   public final List<Token> toList() {
     return tokens;
+  }
+
+  /**
+   * Set source file
+   */
+  public void setSourceFile(final File f) {
+    sourceFile = f;
+  }
+
+  /**
+   * Get source file
+   * @return file
+   */
+  public File getSourceFile() {
+    return sourceFile;
+  }
+
+  /**
+   * Get num tokens
+   * @return number of tokens
+   */
+  public int getNumTokens() {
+    return tokens.size();
   }
 
   /**

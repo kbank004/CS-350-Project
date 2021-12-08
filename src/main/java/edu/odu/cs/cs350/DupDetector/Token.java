@@ -11,7 +11,7 @@ import java.util.Comparator;
  * @author Lugo
  * 
  */
-public class Token implements Comparable<Token> {
+public class Token implements Comparable<Token>, edu.odu.cs.cs350.sharedphrases.Token {
 
   /**
    * What kind of token is this?
@@ -103,6 +103,12 @@ public class Token implements Comparable<Token> {
    */
   public int getColumnNumber() {
     return columnNumber_;
+  }
+
+  @Override
+  public int getTokenKind() {
+    // TODO Auto-generated method stub
+    return getKind().getValue();
   }
 
   /**

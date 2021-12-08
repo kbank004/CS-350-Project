@@ -6,6 +6,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Banks
@@ -13,11 +15,23 @@ import java.nio.file.Path;
 
 public class OpportunityTest {
   @Test
+  public final void testConstructor(){
+    Opportunity op = new Opportunity();
+    assertThat(op.getNumOccurrances(), is(0));
+  }
+  
+  @Test
   // WIP - Incomplete
-  public final void test() {
-    assertThat(true, is(true));
+  public final void testNumOccurrences() {
     File f = new File(Path.of("src/test/data/dupes.cpp"));
-    Opportunity op = new Opportunity(f, 6);
-    op.printPhrases();
+    List<File> fList = new ArrayList<>();
+    fList.add(f);
+    List<Opportunity> ops = Opportunity.findOpportunities(fList, 6);
+    System.out.println(ops.get(0).toString());
+    String str = "Opportunity 24, 12 tokens \\n /src/test/data/dupes.cpp";
+    
+
+
+
   }
 }

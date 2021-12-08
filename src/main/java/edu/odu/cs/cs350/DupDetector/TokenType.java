@@ -21,11 +21,15 @@ public enum TokenType {
   // COMMENT, // ignore
   // PREPROCESSOR, // ignore
   // WHITE_SPACE, // ignore
-  EOF(-1);
+  EOF(8);
 
-  public final int value;
+  private final int value;
 
   private TokenType(int value_) {
     value = value_;
+  }
+
+  public int getValue() {
+      return value;
   }
 }

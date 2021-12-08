@@ -69,13 +69,13 @@ public class DupDetector {
 
   // --------------------- DupDetector --------------------- //
 
-  private final int maxSuggestions;
-  private Optional<Properties> properties = Optional.empty();
-  private List<File> files = new ArrayList<File>();
+  private static int maxSuggestions;
+  private static Optional<Properties> properties = Optional.empty();
+  private static List<File> files = new ArrayList<File>();
 
-  private final String defaultCppExtensions = "cpp,h";
-  private final int defaultMinSequenceLength = 8;
-  private final int defaultMaxSubstitutions = 10;
+  private static final String defaultCppExtensions = "cpp,h";
+  private static final int defaultMinSequenceLength = 8;
+  private static final int defaultMaxSubstitutions = 10;
 
   /**
   * Constructor
@@ -98,11 +98,11 @@ public class DupDetector {
    * Get maximum number of suggested refactorings to be printed
    * @return max num of suggestions
    */
-  public final int getMaxSuggestions() {
+  public static final int getMaxSuggestions() {
     return maxSuggestions;
   }
 
-  private String getProperty(final Property property) {
+  private static String getProperty(final Property property) {
     switch (property) {
       case CPP_EXTENSIONS:
         if (properties.isPresent()) {
@@ -131,7 +131,7 @@ public class DupDetector {
   * Returns a list of acceptable file extensions. Default property value: cpp,h
   * @return list of accepted extensions
   */
-  public final List<String> getCppExtensions() {
+  public static final List<String> getCppExtensions() {
     return Arrays.asList(getProperty(Property.CPP_EXTENSIONS).split(",", 0));
   }
 
@@ -147,7 +147,7 @@ public class DupDetector {
   * Returns the maximum number of substitutions to be printed. Default property value: 10
   * @return max num of substitutions
   */
-  public final int getMaxSubstitutions() {
+  public static final int getMaxSubstitutions() {
     return Integer.parseInt(getProperty(Property.MAX_SUBSTITUTIONS));
   }
 
@@ -172,10 +172,23 @@ public class DupDetector {
    * @return string of output
    */
   public final String getOutput() {
+    List<Opportunity> oppies = Opportunity.findOpportunities(getFiles(), getMinSequenceLength());
+    
     StringBuffer buffer = new StringBuffer("Files scanned:\n");
     for (File file : files) {
       buffer.append("    " + file.toString() + "\n");
     }
+    
+    buffer.append("\n");
+
+    int i = getMaxSuggestions();
+    for (Opportunity opp : oppies) {
+      if (i >= 0) {
+        buffer.append(opp.toString() + "\n\n");
+      }
+      --i;
+    }
+    
     return buffer.toString();
   }
 
@@ -211,7 +224,7 @@ public class DupDetector {
                                //.peek(p -> System.out.println(p))
                                .collect(Collectors.toList());
     } catch (IOException e) {
-      System.err.println(e);
+      e.printStackTrace();
     }
 
     return paths.stream().map(p -> new File(p)).collect(Collectors.toList());
